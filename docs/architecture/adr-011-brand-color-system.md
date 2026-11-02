@@ -40,3 +40,4 @@ The signature landing and workspace hero sections feature the three-stop soft gr
 ## Consequences
 - Clean, cohesive, identifiable visual brand.
 - High accessibility rating and predictable contrast ratios across light and dark elements.
+

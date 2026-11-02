@@ -3,7 +3,6 @@ import {
   checkAdminCap,
   initiateAdminRemoval,
   approveAdminRemoval,
-  MAX_PLATFORM_ADMINS,
   COOLING_OFF_DAYS,
 } from '../../../packages/policy-engine/src/admin-governance.js';
 import { PlatformAdminLifecycle } from '../../../packages/shared-types/src/index.js';

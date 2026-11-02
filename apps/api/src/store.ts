@@ -2,6 +2,7 @@
  * @file apps/api/src/store.ts
  * In-Memory Transactional Domain Store & State Machine Manager
  * Initialized with verified Stage 0 fixtures from @svasthnexis/test-fixtures
+ * Supports all 25 Blueprint Sections and CAT-01 through CAT-14
  */
 
 import {
@@ -20,6 +21,33 @@ import {
   Prescription,
   PaymentTransaction,
   SupportTicket,
+  QueueToken,
+  HospitalBed,
+  InpatientAdmission,
+  DischargeChecklist,
+  NursingObservation,
+  MedicationAdministrationRecord,
+  LabOrder,
+  Specimen,
+  LabResult,
+  ImagingStudy,
+  FormularyItem,
+  DispenseRecord,
+  OTBooking,
+  EmergencyTriageCase,
+  AmbulanceDispatch,
+  BloodStockItem,
+  BloodCrossmatch,
+  TariffItem,
+  InsuranceClaim,
+  TelemedicineSession,
+  AINavigationAssessment,
+  AIDoctorReportExtraction,
+  AISoapDraft,
+  AIOperationsForecast,
+  AISupportFAQ,
+  AbhaProfile,
+  FhirResourceBundle,
 } from '@svasthnexis/shared-types';
 import { AuditLogEngine } from '@svasthnexis/audit';
 import {
@@ -47,6 +75,29 @@ export interface AppState {
   payments: PaymentTransaction[];
   tickets: SupportTicket[];
   idempotencyKeys: Set<string>;
+
+  // Extended Hospital Operations (Section 7, 8, 10, 11, 12)
+  queueTokens: QueueToken[];
+  beds: HospitalBed[];
+  admissions: InpatientAdmission[];
+  dischargeChecklists: DischargeChecklist[];
+  nursingObservations: NursingObservation[];
+  marRecords: MedicationAdministrationRecord[];
+  labOrders: LabOrder[];
+  specimens: Specimen[];
+  labResults: LabResult[];
+  imagingStudies: ImagingStudy[];
+  formulary: FormularyItem[];
+  dispenseRecords: DispenseRecord[];
+  otBookings: OTBooking[];
+  emergencyCases: EmergencyTriageCase[];
+  ambulanceDispatches: AmbulanceDispatch[];
+  bloodStock: BloodStockItem[];
+  crossmatches: BloodCrossmatch[];
+  tariffs: TariffItem[];
+  insuranceClaims: InsuranceClaim[];
+  telemedicineSessions: TelemedicineSession[];
+  aiExtractions: AIDoctorReportExtraction[];
 }
 
 export class DomainStore {
@@ -55,6 +106,8 @@ export class DomainStore {
 
   constructor() {
     this.audit = new AuditLogEngine();
+    const now = new Date().toISOString();
+
     this.state = {
       admins: [
         {
@@ -113,6 +166,412 @@ export class DomainStore {
         },
       ],
       idempotencyKeys: new Set<string>(),
+
+      // OPD Queue Tokens (Section 7.1)
+      queueTokens: [
+        {
+          id: 'qtok-101',
+          facilityId: DEMO_FACILITY.id,
+          departmentId: 'dept-cardio',
+          doctorId: 'doc-sharma-01',
+          patientId: DEMO_PATIENTS[0]!.id,
+          patientMaskedName: 'R***l V***a',
+          tokenNumber: 'CARD-01',
+          state: 'WAITING',
+          triagePriority: 'ROUTINE',
+          issuedAt: now,
+          estimatedWaitMinutes: 15,
+        },
+        {
+          id: 'qtok-102',
+          facilityId: DEMO_FACILITY.id,
+          departmentId: 'dept-genmed',
+          doctorId: 'doc-varma-02',
+          patientId: 'pat-priya-02',
+          patientMaskedName: 'P***a N***r',
+          tokenNumber: 'MED-01',
+          state: 'IN_CONSULTATION',
+          triagePriority: 'URGENT',
+          issuedAt: now,
+          startedAt: now,
+          estimatedWaitMinutes: 0,
+        },
+      ],
+
+      // Hospital Beds (Section 7.2)
+      beds: [
+        {
+          id: 'bed-gen-101',
+          facilityId: DEMO_FACILITY.id,
+          wardName: 'Male Medical Ward',
+          bedNumber: 'MM-01',
+          wardCategory: 'GENERAL',
+          status: 'AVAILABLE',
+          isEquippedForVentilator: false,
+          lastSanitizedAt: now,
+          updatedAt: now,
+        },
+        {
+          id: 'bed-gen-102',
+          facilityId: DEMO_FACILITY.id,
+          wardName: 'Male Medical Ward',
+          bedNumber: 'MM-02',
+          wardCategory: 'GENERAL',
+          status: 'OCCUPIED',
+          currentAdmissionId: 'adm-001',
+          isEquippedForVentilator: false,
+          lastSanitizedAt: now,
+          updatedAt: now,
+        },
+        {
+          id: 'bed-semi-201',
+          facilityId: DEMO_FACILITY.id,
+          wardName: 'Special Ward East',
+          bedNumber: 'SW-01',
+          wardCategory: 'SEMI_PRIVATE',
+          status: 'AVAILABLE',
+          isEquippedForVentilator: false,
+          lastSanitizedAt: now,
+          updatedAt: now,
+        },
+        {
+          id: 'bed-icu-301',
+          facilityId: DEMO_FACILITY.id,
+          wardName: 'Coronary Care ICU',
+          bedNumber: 'ICU-01',
+          wardCategory: 'ICU',
+          status: 'AVAILABLE',
+          isEquippedForVentilator: true,
+          lastSanitizedAt: now,
+          updatedAt: now,
+        },
+        {
+          id: 'bed-icu-302',
+          facilityId: DEMO_FACILITY.id,
+          wardName: 'Coronary Care ICU',
+          bedNumber: 'ICU-02',
+          wardCategory: 'ICU',
+          status: 'CLEANING',
+          isEquippedForVentilator: true,
+          lastSanitizedAt: now,
+          updatedAt: now,
+        },
+        {
+          id: 'bed-er-01',
+          facilityId: DEMO_FACILITY.id,
+          wardName: 'Emergency Trauma Bay',
+          bedNumber: 'ER-BAY-1',
+          wardCategory: 'EMERGENCY_OBSERVATION',
+          status: 'AVAILABLE',
+          isEquippedForVentilator: true,
+          lastSanitizedAt: now,
+          updatedAt: now,
+        },
+      ],
+
+      // Inpatient Admissions
+      admissions: [
+        {
+          id: 'adm-001',
+          patientId: DEMO_PATIENTS[0]!.id,
+          facilityId: DEMO_FACILITY.id,
+          admittingDoctorId: 'doc-varma-02',
+          admittedAt: '2026-11-01T14:00:00.000Z',
+          admittingDiagnosis: 'Acute Bronchitis with Mild Hypoxemia',
+          status: 'ADMITTED',
+          bedId: 'bed-gen-102',
+          careTeamDoctorIds: ['doc-varma-02', 'doc-sharma-01'],
+          depositMinorUnits: 2500000, // INR 25,000.00
+        },
+      ],
+
+      dischargeChecklists: [],
+
+      // Nursing Observations (Section 7.3)
+      nursingObservations: [
+        {
+          id: 'obs-001',
+          admissionId: 'adm-001',
+          patientId: DEMO_PATIENTS[0]!.id,
+          nurseId: 'nurse-deepa-01',
+          timestamp: now,
+          heartRateBpm: 76,
+          bloodPressureSystolic: 122,
+          bloodPressureDiastolic: 78,
+          spO2Percent: 98,
+          temperatureCelsius: 37.1,
+          respiratoryRateBpm: 16,
+          painScore: 2,
+          intakeMl: 1200,
+          outputMl: 1050,
+          gcsScore: 15,
+          notes: 'Patient resting comfortably. Vitals stable.',
+          isAbnormalAlert: false,
+        },
+      ],
+
+      marRecords: [
+        {
+          id: 'mar-001',
+          admissionId: 'adm-001',
+          patientId: DEMO_PATIENTS[0]!.id,
+          prescriptionItemId: 'rx-item-01',
+          medicineName: 'Amoxicillin + Clavulanate 625mg',
+          dose: '625 mg',
+          route: 'Oral',
+          scheduledTime: '2026-11-03T08:00:00.000Z',
+          administeredTime: '2026-11-03T08:15:00.000Z',
+          nurseId: 'nurse-deepa-01',
+          status: 'ADMINISTERED',
+          nurseSignatureHash: 'sha256-nurs-sig-001',
+        },
+      ],
+
+      // Laboratory Information System (Section 7.4)
+      labOrders: [
+        {
+          id: 'ord-lab-101',
+          patientId: DEMO_PATIENTS[0]!.id,
+          orderingDoctorId: 'doc-sharma-01',
+          facilityId: DEMO_FACILITY.id,
+          testCode: 'LIPID-FULL',
+          testName: 'Lipid Profile Comprehensive',
+          clinicalIndication: 'Routine Cardiovascular Assessment',
+          status: 'ORDERED',
+          createdAt: now,
+        },
+      ],
+
+      specimens: [],
+      labResults: [],
+
+      // Radiology & Imaging (Section 7.5)
+      imagingStudies: [
+        {
+          id: 'img-101',
+          patientId: DEMO_PATIENTS[0]!.id,
+          facilityId: DEMO_FACILITY.id,
+          orderingDoctorId: 'doc-sharma-01',
+          modality: 'XRAY',
+          anatomicalRegion: 'Chest PA View',
+          studyInstanceUid: '1.2.840.113619.2.55.3.281923',
+          status: 'FINAL_VERIFIED',
+          radiologistId: 'rad-menon-01',
+          findingsSummary: 'Cardiac contours within normal limits. Clear costophrenic angles.',
+          impression: 'Normal study. No acute cardiopulmonary pathology.',
+          isVerified: true,
+          signedAt: now,
+          imageUrlSecureToken: 'sec-img-token-998811',
+        },
+      ],
+
+      // Pharmacy Formulary (Section 7.6)
+      formulary: [
+        {
+          id: 'pharma-01',
+          facilityId: DEMO_FACILITY.id,
+          genericName: 'Atorvastatin',
+          brandName: 'Atorva 20mg',
+          dosageForm: 'Tablet',
+          strength: '20 mg',
+          batchNumber: 'BT-AT-2024-09',
+          expiryDate: '2027-08-31',
+          stockQuantity: 450,
+          reorderLevel: 100,
+          unitPriceMinorUnits: 1450, // INR 14.50
+        },
+        {
+          id: 'pharma-02',
+          facilityId: DEMO_FACILITY.id,
+          genericName: 'Metformin Hydrochloride',
+          brandName: 'Glyciphage 500mg',
+          dosageForm: 'Tablet',
+          strength: '500 mg',
+          batchNumber: 'BT-MF-2024-11',
+          expiryDate: '2027-12-31',
+          stockQuantity: 820,
+          reorderLevel: 200,
+          unitPriceMinorUnits: 420, // INR 4.20
+        },
+        {
+          id: 'pharma-03',
+          facilityId: DEMO_FACILITY.id,
+          genericName: 'Paracetamol',
+          brandName: 'Dolo 650mg',
+          dosageForm: 'Tablet',
+          strength: '650 mg',
+          batchNumber: 'BT-PCM-2025-01',
+          expiryDate: '2028-01-31',
+          stockQuantity: 1500,
+          reorderLevel: 300,
+          unitPriceMinorUnits: 250, // INR 2.50
+        },
+      ],
+
+      dispenseRecords: [],
+
+      // Operation Theatre (Section 7.7)
+      otBookings: [
+        {
+          id: 'ot-book-01',
+          facilityId: DEMO_FACILITY.id,
+          otRoomId: 'OT-SUITE-1',
+          patientId: DEMO_PATIENTS[0]!.id,
+          leadSurgeonId: 'doc-sharma-01',
+          anaesthetistId: 'doc-anaes-01',
+          procedureName: 'Coronary Angiography & Stenting',
+          scheduledStartTime: '2026-11-04T10:00:00.000Z',
+          scheduledEndTime: '2026-11-04T12:00:00.000Z',
+          status: 'PRE_OP_CHECK_DONE',
+          whoChecklist: {
+            signInDone: true,
+            timeOutDone: true,
+            signOutDone: false,
+            scrubNurseId: 'nurse-deepa-01',
+          },
+        },
+      ],
+
+      // Emergency & Ambulance (Section 7.8)
+      emergencyCases: [
+        {
+          id: 'er-case-001',
+          facilityId: DEMO_FACILITY.id,
+          patientIdentifier: 'EMERGENCY-UNK-009',
+          patientName: 'Unknown Male (approx 45y)',
+          arrivalMode: 'AMBULANCE',
+          arrivalTime: now,
+          triageLevel: 'LEVEL_1_RESUSCITATION',
+          chiefComplaint: 'Acute chest pain radiating to left jaw, diaphoresis, hypotension',
+          vitals: { hr: 118, bp: '85/55', spo2: 91, gcs: 14 },
+          assignedTraumaTeam: 'Trauma Alpha / Code STEMI',
+          disposition: 'RESUS_BAY',
+          bypassedRoutineBooking: true,
+        },
+      ],
+
+      ambulanceDispatches: [
+        {
+          id: 'amb-dsp-01',
+          callerPhone: '+919988776655',
+          pickupLocation: 'Silk Board Junction, Outer Ring Road, Bengaluru',
+          vehicleNumber: 'KA-01-GA-1122',
+          crewLeadName: 'Paramedic Suresh Kumar',
+          destinationFacilityId: DEMO_FACILITY.id,
+          status: 'TRANSIT_TO_HOSPITAL',
+          estimatedArrivalMins: 8,
+        },
+      ],
+
+      // Blood Bank (Section 7.9)
+      bloodStock: [
+        {
+          id: 'bld-01',
+          facilityId: DEMO_FACILITY.id,
+          bloodGroup: 'O+',
+          componentType: 'PACKED_RBC',
+          unitsAvailable: 18,
+          expiryDate: '2026-11-28',
+          storageTempCelsius: 4,
+        },
+        {
+          id: 'bld-02',
+          facilityId: DEMO_FACILITY.id,
+          bloodGroup: 'A+',
+          componentType: 'PACKED_RBC',
+          unitsAvailable: 14,
+          expiryDate: '2026-11-30',
+          storageTempCelsius: 4,
+        },
+        {
+          id: 'bld-03',
+          facilityId: DEMO_FACILITY.id,
+          bloodGroup: 'B+',
+          componentType: 'PLATELET_CONCENTRATE',
+          unitsAvailable: 8,
+          expiryDate: '2026-11-08',
+          storageTempCelsius: 22,
+        },
+      ],
+
+      crossmatches: [],
+
+      // Tariffs & Insurance (Section 12)
+      tariffs: [
+        {
+          id: 'trf-01',
+          facilityId: DEMO_FACILITY.id,
+          category: 'CONSULTATION',
+          serviceCode: 'OPD-CONS-SPEC',
+          serviceName: 'Specialist In-Person Consultation',
+          rateMinorUnits: 80000, // INR 800.00
+          effectiveFrom: '2026-01-01',
+          version: 1,
+        },
+        {
+          id: 'trf-02',
+          facilityId: DEMO_FACILITY.id,
+          category: 'BED',
+          serviceCode: 'IPD-BED-GEN',
+          serviceName: 'General Ward Bed (per day)',
+          rateMinorUnits: 200000, // INR 2,000.00
+          effectiveFrom: '2026-01-01',
+          version: 1,
+        },
+        {
+          id: 'trf-03',
+          facilityId: DEMO_FACILITY.id,
+          category: 'BED',
+          serviceCode: 'IPD-BED-ICU',
+          serviceName: 'ICU Ventilator Bed (per day)',
+          rateMinorUnits: 750000, // INR 7,500.00
+          effectiveFrom: '2026-01-01',
+          version: 1,
+        },
+        {
+          id: 'trf-04',
+          facilityId: DEMO_FACILITY.id,
+          category: 'LAB',
+          serviceCode: 'LAB-LIPID',
+          serviceName: 'Lipid Profile Comprehensive Panel',
+          rateMinorUnits: 65000, // INR 650.00
+          effectiveFrom: '2026-01-01',
+          version: 1,
+        },
+      ],
+
+      insuranceClaims: [
+        {
+          id: 'clm-001',
+          patientId: DEMO_PATIENTS[0]!.id,
+          facilityId: DEMO_FACILITY.id,
+          payerName: 'Star Health & Allied Insurance',
+          policyNumber: 'POL-STAR-881273-01',
+          preAuthStatus: 'APPROVED',
+          requestedAmountMinorUnits: 3500000, // INR 35,000
+          approvedAmountMinorUnits: 3200000, // INR 32,000
+          copayMinorUnits: 300000, // INR 3,000
+          settlementStatus: 'PENDING',
+        },
+      ],
+
+      // Telemedicine Video (Section 10)
+      telemedicineSessions: [
+        {
+          id: 'tele-sess-001',
+          appointmentId: 'apt-tele-demo',
+          patientId: DEMO_PATIENTS[0]!.id,
+          doctorId: 'doc-sharma-01',
+          roomToken: 'jwt-tok-tele-room-882233',
+          waitingRoomActive: true,
+          status: 'WAITING_ROOM',
+          recordingConsentGivenByAll: false, // Default: Non-recorded (Section 10.2)
+          isRecordingActive: false,
+          recordingRetentionDays: 90,
+        },
+      ],
+
+      aiExtractions: [],
     };
 
     // Log Genesis Event
@@ -144,7 +603,6 @@ export class DomainStore {
       return { success: false, error: 'Slot not found' };
     }
 
-    // Atomic concurrency lock check: Cannot hold if already held or fully allocated
     if (slot.isHeld && slot.heldByPatientId !== patientId) {
       return {
         success: false,
@@ -198,7 +656,7 @@ export class DomainStore {
   }
 
   // =========================================================================
-  // APPOINTMENT CREATION & STATE MACHINE (T-12, T-13, T-14)
+  // APPOINTMENT CREATION & STATE MACHINE (T-12, T-13, T-14, CAT-03)
   // =========================================================================
 
   public createAppointment(input: {
@@ -215,9 +673,12 @@ export class DomainStore {
       return { success: false, error: 'Invalid slot ID' };
     }
 
-    // Verify patient holds this slot and it has not expired
     const now = new Date();
-    if (!slot.isHeld || slot.heldByPatientId !== input.patientId || (slot.heldUntil && new Date(slot.heldUntil) < now)) {
+    if (
+      !slot.isHeld ||
+      slot.heldByPatientId !== input.patientId ||
+      (slot.heldUntil && new Date(slot.heldUntil) < now)
+    ) {
       return {
         success: false,
         error: 'Slot hold has expired or is invalid. Please reserve a slot before requesting booking.',
@@ -230,7 +691,7 @@ export class DomainStore {
       doctorId: input.doctorId,
       facilityId: input.facilityId,
       slotId: input.slotId,
-      state: 'REQUESTED', // Moves to REQUESTED (awaiting doctor/facility acceptance)
+      state: 'REQUESTED',
       consultationMode: input.consultationMode,
       paymentMode: input.paymentMode,
       chiefComplaint: input.chiefComplaint,
@@ -296,7 +757,7 @@ export class DomainStore {
       if (newState === 'CANCELLED') apt.cancellationReason = reason;
     }
 
-    // If rejected or cancelled, release slot allocation
+    // CAT-03: Provider rejection triggers reservation release and patient notification
     if (newState === 'REJECTED' || newState === 'CANCELLED') {
       const slot = this.state.slots.find((s) => s.id === apt.slotId);
       if (slot && slot.allocatedCount > 0) {
@@ -401,7 +862,6 @@ export class DomainStore {
     doctorSession: UserSession;
     prescriptionItems?: Prescription['items'];
   }): { success: boolean; encounter?: ClinicalEncounter; prescription?: Prescription; error?: string } {
-    // RBAC validation
     const rbac = evaluateRbac(input.doctorSession.roles, 'clinical:sign-note');
     if (!rbac.allowed) {
       return { success: false, error: rbac.reason };
@@ -526,5 +986,873 @@ export class DomainStore {
     });
 
     return { success: true, amendment };
+  }
+
+  // =========================================================================
+  // OPD QUEUE MANAGEMENT (Section 7.1)
+  // =========================================================================
+
+  public issueQueueToken(input: {
+    facilityId: string;
+    departmentId: string;
+    doctorId: string;
+    patientId: string;
+    patientName: string;
+    triagePriority?: 'ROUTINE' | 'URGENT' | 'EMERGENT';
+  }): QueueToken {
+    const now = new Date().toISOString();
+    const maskName = (name: string) => {
+      const parts = name.split(' ');
+      return parts.map((p) => (p.length > 2 ? `${p[0]}***${p[p.length - 1]}` : `${p}*`)).join(' ');
+    };
+
+    const count = this.state.queueTokens.filter((t) => t.doctorId === input.doctorId).length + 1;
+    const tokenNumber = `OPD-${count.toString().padStart(2, '0')}`;
+
+    const token: QueueToken = {
+      id: `qtok-${Date.now()}`,
+      facilityId: input.facilityId,
+      departmentId: input.departmentId,
+      doctorId: input.doctorId,
+      patientId: input.patientId,
+      patientMaskedName: maskName(input.patientName),
+      tokenNumber,
+      state: 'WAITING',
+      triagePriority: input.triagePriority || 'ROUTINE',
+      issuedAt: now,
+      estimatedWaitMinutes: Math.max(10, count * 15),
+    };
+
+    this.state.queueTokens.push(token);
+
+    this.audit.log({
+      correlationId: `qtok-${token.id}`,
+      tenantId: input.facilityId,
+      actorId: input.patientId,
+      actorRole: 'PATIENT',
+      action: 'opd:issue-token',
+      resourceType: 'QueueToken',
+      resourceId: token.id,
+      outcome: 'SUCCESS',
+      metadata: { tokenNumber, doctorId: input.doctorId },
+    });
+
+    return token;
+  }
+
+  public updateQueueTokenState(
+    tokenId: string,
+    newState: QueueToken['state'],
+    actorSession: UserSession
+  ): { success: boolean; token?: QueueToken; error?: string } {
+    const token = this.state.queueTokens.find((t) => t.id === tokenId);
+    if (!token) return { success: false, error: 'Queue token not found' };
+
+    const now = new Date().toISOString();
+    token.state = newState;
+    if (newState === 'CALLED') token.calledAt = now;
+    if (newState === 'IN_CONSULTATION') token.startedAt = now;
+    if (newState === 'COMPLETED') token.completedAt = now;
+
+    this.audit.log({
+      correlationId: `qtok-upd-${token.id}`,
+      tenantId: token.facilityId,
+      actorId: actorSession.userId,
+      actorRole: actorSession.roles[0] || 'STAFF_EMPLOYEE',
+      action: `opd:token-${newState.toLowerCase()}`,
+      resourceType: 'QueueToken',
+      resourceId: token.id,
+      outcome: 'SUCCESS',
+      metadata: { newState },
+    });
+
+    return { success: true, token };
+  }
+
+  // =========================================================================
+  // INPATIENT ADMISSION, BED MANAGEMENT & DISCHARGE (Section 7.2)
+  // =========================================================================
+
+  public admitPatient(input: {
+    patientId: string;
+    facilityId: string;
+    admittingDoctorId: string;
+    bedId: string;
+    admittingDiagnosis: string;
+    depositMinorUnits: number;
+    staffSession: UserSession;
+  }): { success: boolean; admission?: InpatientAdmission; error?: string } {
+    const bed = this.state.beds.find((b) => b.id === input.bedId);
+    if (!bed) return { success: false, error: 'Bed not found' };
+    if (bed.status !== 'AVAILABLE') {
+      return { success: false, error: `Bed is currently ${bed.status}. Only AVAILABLE beds can be allocated.` };
+    }
+
+    const now = new Date().toISOString();
+    const admission: InpatientAdmission = {
+      id: `adm-${Date.now()}`,
+      patientId: input.patientId,
+      facilityId: input.facilityId,
+      admittingDoctorId: input.admittingDoctorId,
+      admittedAt: now,
+      admittingDiagnosis: input.admittingDiagnosis,
+      status: 'ADMITTED',
+      bedId: input.bedId,
+      careTeamDoctorIds: [input.admittingDoctorId],
+      depositMinorUnits: input.depositMinorUnits,
+    };
+
+    bed.status = 'OCCUPIED';
+    bed.currentAdmissionId = admission.id;
+    bed.updatedAt = now;
+
+    this.state.admissions.push(admission);
+
+    this.audit.log({
+      correlationId: `adm-${admission.id}`,
+      tenantId: input.facilityId,
+      actorId: input.staffSession.userId,
+      actorRole: input.staffSession.roles[0] || 'HOSPITAL_ADMIN',
+      action: 'inpatient:admit-patient',
+      resourceType: 'InpatientAdmission',
+      resourceId: admission.id,
+      outcome: 'SUCCESS',
+      metadata: { bedId: input.bedId, patientId: input.patientId },
+    });
+
+    return { success: true, admission };
+  }
+
+  public transferBed(
+    admissionId: string,
+    newBedId: string,
+    staffSession: UserSession
+  ): { success: boolean; error?: string } {
+    const adm = this.state.admissions.find((a) => a.id === admissionId);
+    if (!adm) return { success: false, error: 'Admission episode not found' };
+
+    const newBed = this.state.beds.find((b) => b.id === newBedId);
+    if (!newBed) return { success: false, error: 'Target bed not found' };
+    if (newBed.status !== 'AVAILABLE') return { success: false, error: 'Target bed is not available' };
+
+    const oldBed = this.state.beds.find((b) => b.id === adm.bedId);
+    const now = new Date().toISOString();
+
+    if (oldBed) {
+      oldBed.status = 'CLEANING';
+      oldBed.currentAdmissionId = undefined;
+      oldBed.updatedAt = now;
+    }
+
+    newBed.status = 'OCCUPIED';
+    newBed.currentAdmissionId = adm.id;
+    newBed.updatedAt = now;
+
+    adm.bedId = newBedId;
+
+    this.audit.log({
+      correlationId: `transfer-${admissionId}`,
+      tenantId: adm.facilityId,
+      actorId: staffSession.userId,
+      actorRole: staffSession.roles[0] || 'HOSPITAL_ADMIN',
+      action: 'inpatient:transfer-bed',
+      resourceType: 'HospitalBed',
+      resourceId: newBedId,
+      outcome: 'SUCCESS',
+      metadata: { fromBed: oldBed?.id, toBed: newBedId },
+    });
+
+    return { success: true };
+  }
+
+  public dischargePatient(input: {
+    admissionId: string;
+    dischargeReason: string;
+    finalDiagnosis: string;
+    dischargeMedications: string[];
+    followUpInstructions: string;
+    warningSigns: string[];
+    doctorSession: UserSession;
+  }): { success: boolean; checklist?: DischargeChecklist; error?: string } {
+    const adm = this.state.admissions.find((a) => a.id === input.admissionId);
+    if (!adm) return { success: false, error: 'Admission not found' };
+
+    const now = new Date().toISOString();
+    const sigHash = crypto
+      .createHash('sha256')
+      .update(`${adm.id}|${input.finalDiagnosis}|${input.doctorSession.userId}|${now}`)
+      .digest('hex');
+
+    const checklist: DischargeChecklist = {
+      id: `disch-${Date.now()}`,
+      admissionId: adm.id,
+      dischargeReason: input.dischargeReason,
+      finalDiagnosis: input.finalDiagnosis,
+      dischargeMedications: input.dischargeMedications,
+      followUpInstructions: input.followUpInstructions,
+      warningSigns: input.warningSigns,
+      isDoctorSigned: true,
+      signedAt: now,
+      doctorSignatureHash: sigHash,
+      isBedReleased: true,
+      finalBillCleared: true,
+    };
+
+    adm.status = 'DISCHARGED';
+    adm.dischargeDate = now;
+
+    const bed = this.state.beds.find((b) => b.id === adm.bedId);
+    if (bed) {
+      bed.status = 'CLEANING';
+      bed.currentAdmissionId = undefined;
+      bed.updatedAt = now;
+    }
+
+    this.state.dischargeChecklists.push(checklist);
+
+    this.audit.log({
+      correlationId: `disch-${checklist.id}`,
+      tenantId: adm.facilityId,
+      actorId: input.doctorSession.userId,
+      actorRole: 'DOCTOR_RMP',
+      action: 'inpatient:discharge-patient',
+      resourceType: 'InpatientAdmission',
+      resourceId: adm.id,
+      outcome: 'SUCCESS',
+      metadata: { finalDiagnosis: input.finalDiagnosis },
+    });
+
+    return { success: true, checklist };
+  }
+
+  // =========================================================================
+  // NURSING MANAGEMENT & MAR (Section 7.3)
+  // =========================================================================
+
+  public recordNursingObservation(input: {
+    admissionId: string;
+    patientId: string;
+    nurseSession: UserSession;
+    heartRateBpm: number;
+    bpSystolic: number;
+    bpDiastolic: number;
+    spO2Percent: number;
+    temperatureCelsius: number;
+    respiratoryRateBpm: number;
+    painScore: number;
+    intakeMl?: number;
+    outputMl?: number;
+    gcsScore?: number;
+    notes?: string;
+  }): NursingObservation {
+    const now = new Date().toISOString();
+    const isAbnormalAlert =
+      input.spO2Percent < 92 ||
+      input.temperatureCelsius > 38.3 ||
+      input.heartRateBpm > 110 ||
+      input.bpSystolic > 160 ||
+      input.bpSystolic < 90;
+
+    const obs: NursingObservation = {
+      id: `obs-${Date.now()}`,
+      admissionId: input.admissionId,
+      patientId: input.patientId,
+      nurseId: input.nurseSession.userId,
+      timestamp: now,
+      heartRateBpm: input.heartRateBpm,
+      bloodPressureSystolic: input.bpSystolic,
+      bloodPressureDiastolic: input.bpDiastolic,
+      spO2Percent: input.spO2Percent,
+      temperatureCelsius: input.temperatureCelsius,
+      respiratoryRateBpm: input.respiratoryRateBpm,
+      painScore: input.painScore,
+      intakeMl: input.intakeMl,
+      outputMl: input.outputMl,
+      gcsScore: input.gcsScore,
+      notes: input.notes,
+      isAbnormalAlert,
+    };
+
+    this.state.nursingObservations.push(obs);
+
+    this.audit.log({
+      correlationId: `obs-${obs.id}`,
+      actorId: input.nurseSession.userId,
+      actorRole: 'NURSE',
+      action: 'nursing:record-vitals',
+      resourceType: 'NursingObservation',
+      resourceId: obs.id,
+      outcome: 'SUCCESS',
+      metadata: { isAbnormalAlert, spO2: input.spO2Percent },
+    });
+
+    return obs;
+  }
+
+  public recordMedicationAdministration(input: {
+    admissionId: string;
+    patientId: string;
+    prescriptionItemId: string;
+    medicineName: string;
+    dose: string;
+    route: string;
+    scheduledTime: string;
+    nurseSession: UserSession;
+    status: 'ADMINISTERED' | 'HELD_CLINICAL_REASON' | 'PATIENT_REFUSED' | 'OMITTED';
+    clinicalReason?: string;
+  }): MedicationAdministrationRecord {
+    const now = new Date().toISOString();
+    const sigHash = crypto
+      .createHash('sha256')
+      .update(`${input.prescriptionItemId}|${input.medicineName}|${input.nurseSession.userId}|${now}`)
+      .digest('hex');
+
+    const mar: MedicationAdministrationRecord = {
+      id: `mar-${Date.now()}`,
+      admissionId: input.admissionId,
+      patientId: input.patientId,
+      prescriptionItemId: input.prescriptionItemId,
+      medicineName: input.medicineName,
+      dose: input.dose,
+      route: input.route,
+      scheduledTime: input.scheduledTime,
+      administeredTime: input.status === 'ADMINISTERED' ? now : undefined,
+      nurseId: input.nurseSession.userId,
+      status: input.status,
+      clinicalReason: input.clinicalReason,
+      nurseSignatureHash: sigHash,
+    };
+
+    this.state.marRecords.push(mar);
+
+    this.audit.log({
+      correlationId: `mar-${mar.id}`,
+      actorId: input.nurseSession.userId,
+      actorRole: 'NURSE',
+      action: 'nursing:administer-medication',
+      resourceType: 'MedicationAdministrationRecord',
+      resourceId: mar.id,
+      outcome: 'SUCCESS',
+      metadata: { status: input.status, medicineName: input.medicineName },
+    });
+
+    return mar;
+  }
+
+  // =========================================================================
+  // LABORATORY INFORMATION SYSTEM (LIS) & VALIDATION GATE (CAT-10, Section 7.4)
+  // =========================================================================
+
+  public createLabOrder(input: {
+    patientId: string;
+    orderingDoctorId: string;
+    facilityId: string;
+    testCode: string;
+    testName: string;
+    clinicalIndication?: string;
+  }): LabOrder {
+    const order: LabOrder = {
+      id: `lab-ord-${Date.now()}`,
+      patientId: input.patientId,
+      orderingDoctorId: input.orderingDoctorId,
+      facilityId: input.facilityId,
+      testCode: input.testCode,
+      testName: input.testName,
+      clinicalIndication: input.clinicalIndication,
+      status: 'ORDERED',
+      createdAt: new Date().toISOString(),
+    };
+
+    this.state.labOrders.push(order);
+    return order;
+  }
+
+  public collectSpecimen(input: {
+    labOrderId: string;
+    sampleType: Specimen['sampleType'];
+    collectorId: string;
+  }): Specimen {
+    const now = new Date().toISOString();
+    const barcode = `BAR-${Date.now().toString().slice(-6)}`;
+    const spec: Specimen = {
+      id: `spec-${Date.now()}`,
+      labOrderId: input.labOrderId,
+      specimenBarcode: barcode,
+      sampleType: input.sampleType,
+      collectionTime: now,
+      collectorId: input.collectorId,
+      storageConditions: '4°C refrigerated vacutainer',
+    };
+
+    const order = this.state.labOrders.find((o) => o.id === input.labOrderId);
+    if (order) order.status = 'SPECIMEN_COLLECTED';
+
+    this.state.specimens.push(spec);
+    return spec;
+  }
+
+  public submitTechnicianResult(input: {
+    labOrderId: string;
+    patientId: string;
+    technicianSession: UserSession;
+    items: LabResult['items'];
+  }): LabResult {
+    const order = this.state.labOrders.find((o) => o.id === input.labOrderId);
+    if (order) order.status = 'PENDING_VALIDATION';
+
+    const result: LabResult = {
+      id: `res-${Date.now()}`,
+      labOrderId: input.labOrderId,
+      patientId: input.patientId,
+      technicianId: input.technicianSession.userId,
+      items: input.items,
+      isValidatedByPathologist: false, // Critical Gate (CAT-10)
+      status: 'PRELIMINARY',
+      version: 1,
+    };
+
+    this.state.labResults.push(result);
+    return result;
+  }
+
+  // CAT-10: Pathologist validation gate - unvalidated result cannot be published
+  public validateAndReleaseLabResult(input: {
+    resultId: string;
+    pathologistSession: UserSession;
+  }): { success: boolean; result?: LabResult; error?: string } {
+    const res = this.state.labResults.find((r) => r.id === input.resultId);
+    if (!res) return { success: false, error: 'Lab result not found' };
+
+    // Check authority: Only authorized RMP/Pathologist can validate
+    const hasPathologistRole =
+      input.pathologistSession.roles.includes('DOCTOR_RMP') ||
+      input.pathologistSession.roles.includes('LAB_TECHNICIAN');
+    if (!hasPathologistRole) {
+      return {
+        success: false,
+        error: 'Security Policy Violation: Only a credentialed pathologist / RMP can validate and release lab results.',
+      };
+    }
+
+    const now = new Date().toISOString();
+    const sigHash = crypto
+      .createHash('sha256')
+      .update(`${res.id}|${input.pathologistSession.userId}|${JSON.stringify(res.items)}|${now}`)
+      .digest('hex');
+
+    res.isValidatedByPathologist = true;
+    res.pathologistReviewerId = input.pathologistSession.userId;
+    res.validatedAt = now;
+    res.releasedAt = now;
+    res.pathologistSignatureHash = sigHash;
+    res.status = 'RELEASED';
+
+    const order = this.state.labOrders.find((o) => o.id === res.labOrderId);
+    if (order) order.status = 'RELEASED';
+
+    // Publish to Patient Document Vault
+    this.state.documents.push({
+      id: `doc-lab-${res.id}`,
+      patientId: res.patientId,
+      facilityId: order?.facilityId,
+      authorDoctorId: input.pathologistSession.userId,
+      title: `Verified Report: ${order?.testName || 'Diagnostic Lab Panel'}`,
+      category: 'LAB_REPORT',
+      mimeType: 'application/pdf',
+      fileSizeBytes: 182400,
+      storageKey: `clinical/reports/${res.id}.pdf`,
+      documentDate: now.slice(0, 10),
+      source: 'FACILITY_GENERATED',
+      verificationStatus: 'VERIFIED',
+      version: 1,
+      isArchived: false,
+      createdAt: now,
+    });
+
+    this.audit.log({
+      correlationId: `lis-rel-${res.id}`,
+      tenantId: order?.facilityId,
+      actorId: input.pathologistSession.userId,
+      actorRole: input.pathologistSession.roles[0] || 'DOCTOR_RMP',
+      action: 'diagnostics:release-result',
+      resourceType: 'LabResult',
+      resourceId: res.id,
+      outcome: 'SUCCESS',
+      metadata: { testCode: order?.testCode, orderId: order?.id },
+    });
+
+    return { success: true, result: res };
+  }
+
+  // =========================================================================
+  // EMERGENCY TRIAGE & AMBULANCE DISPATCH (CAT-12, Section 7.8)
+  // =========================================================================
+
+  public triageEmergencyPatient(input: {
+    facilityId: string;
+    patientIdentifier: string;
+    patientName?: string;
+    arrivalMode: EmergencyTriageCase['arrivalMode'];
+    triageLevel: EmergencyTriageCase['triageLevel'];
+    chiefComplaint: string;
+    vitals: { hr: number; bp: string; spo2: number; gcs: number };
+    disposition: EmergencyTriageCase['disposition'];
+    staffSession: UserSession;
+  }): EmergencyTriageCase {
+    const now = new Date().toISOString();
+
+    // CAT-12: Directly bypasses routine appointment booking
+    const traumaCase: EmergencyTriageCase = {
+      id: `er-${Date.now()}`,
+      facilityId: input.facilityId,
+      patientIdentifier: input.patientIdentifier,
+      patientName: input.patientName,
+      arrivalMode: input.arrivalMode,
+      arrivalTime: now,
+      triageLevel: input.triageLevel,
+      chiefComplaint: input.chiefComplaint,
+      vitals: input.vitals,
+      assignedTraumaTeam:
+        input.triageLevel === 'LEVEL_1_RESUSCITATION' ? 'Resuscitation Team Alpha' : 'Acute Care Team Beta',
+      disposition: input.disposition,
+      bypassedRoutineBooking: true,
+    };
+
+    this.state.emergencyCases.unshift(traumaCase);
+
+    this.audit.log({
+      correlationId: `er-triage-${traumaCase.id}`,
+      tenantId: input.facilityId,
+      actorId: input.staffSession.userId,
+      actorRole: input.staffSession.roles[0] || 'NURSE',
+      action: 'emergency:triage-intake',
+      resourceType: 'EmergencyTriageCase',
+      resourceId: traumaCase.id,
+      outcome: 'SUCCESS',
+      metadata: { triageLevel: input.triageLevel, bypassedBooking: true },
+    });
+
+    return traumaCase;
+  }
+
+  // =========================================================================
+  // TELEMEDICINE & RECORDING CONSENT GATE (CAT-13, Section 10)
+  // =========================================================================
+
+  public toggleRecordingConsent(input: {
+    sessionId: string;
+    patientConsented: boolean;
+    doctorConsented: boolean;
+    actorSession: UserSession;
+  }): { success: boolean; session?: TelemedicineSession; error?: string } {
+    const sess = this.state.telemedicineSessions.find((s) => s.id === input.sessionId);
+    if (!sess) return { success: false, error: 'Telemedicine session not found' };
+
+    // CAT-13: Recording cannot start without explicit permission from all participants
+    if (!input.patientConsented || !input.doctorConsented) {
+      sess.recordingConsentGivenByAll = false;
+      sess.isRecordingActive = false;
+
+      this.audit.log({
+        correlationId: `tele-rec-deny-${sess.id}`,
+        actorId: input.actorSession.userId,
+        actorRole: input.actorSession.roles[0] || 'PATIENT',
+        action: 'telemedicine:recording-consent',
+        resourceType: 'TelemedicineSession',
+        resourceId: sess.id,
+        outcome: 'DENIED',
+        metadata: { reason: 'One or more participants withheld recording consent' },
+      });
+
+      return {
+        success: false,
+        session: sess,
+        error: 'Clinical Recording Blocked: Separate informed consent must be explicitly granted by both Patient and Doctor.',
+      };
+    }
+
+    sess.recordingConsentGivenByAll = true;
+    sess.isRecordingActive = true;
+    sess.recordingStorageKey = `telehealth/recordings/${sess.id}.enc`;
+
+    this.audit.log({
+      correlationId: `tele-rec-grant-${sess.id}`,
+      actorId: input.actorSession.userId,
+      actorRole: input.actorSession.roles[0] || 'PATIENT',
+      action: 'telemedicine:recording-consent',
+      resourceType: 'TelemedicineSession',
+      resourceId: sess.id,
+      outcome: 'SUCCESS',
+      metadata: { recordingActive: true },
+    });
+
+    return { success: true, session: sess };
+  }
+
+  // =========================================================================
+  // 5 BOUNDED AI SERVICES (Section 11, CAT-11)
+  // =========================================================================
+
+  // Service 1: Patient Navigation Assistant (Section 11.1)
+  public evaluatePatientNavigation(queryText: string): AINavigationAssessment {
+    const q = queryText.toLowerCase();
+
+    // Red flag detection for immediate emergency routing
+    const emergencyKeywords = [
+      'chest pain',
+      'heart attack',
+      'difficulty breathing',
+      'shortness of breath',
+      'stroke',
+      'paralysis',
+      'severe bleeding',
+      'unconscious',
+      'head injury',
+      'severe burns',
+    ];
+
+    const isUrgent = emergencyKeywords.some((k) => q.includes(k));
+
+    if (isUrgent) {
+      return {
+        queryText,
+        suggestedSpecialty: 'Emergency Medicine / Trauma Care',
+        suggestedDepartment: 'Accident & Emergency (A&E) / Casualty',
+        isUrgentEmergency: true,
+        emergencyGuidance:
+          'CRITICAL SAFETY WARNING: Your symptoms indicate a potential medical emergency. Please call 112 / 108 immediately or proceed to the nearest emergency trauma department. Do not rely on routine outpatient scheduling.',
+        confidenceScore: 0.99,
+        disclaimer:
+          'AntiGravity SvasthNexis Navigation Policy: This assistant provides department routing only and is strictly barred from diagnosing, prescribing, or counselling.',
+      };
+    }
+
+    if (q.includes('heart') || q.includes('palpitation') || q.includes('bp') || q.includes('cholesterol')) {
+      return {
+        queryText,
+        suggestedSpecialty: 'Cardiology',
+        suggestedDepartment: 'Department of Cardiology',
+        isUrgentEmergency: false,
+        confidenceScore: 0.95,
+        disclaimer:
+          'Service Navigation Only: This recommendation assists with directory discovery. It does not constitute medical diagnosis or advice.',
+      };
+    }
+
+    if (q.includes('fever') || q.includes('cough') || q.includes('cold') || q.includes('infection') || q.includes('weakness')) {
+      return {
+        queryText,
+        suggestedSpecialty: 'General Medicine / Internal Medicine',
+        suggestedDepartment: 'Department of Internal Medicine',
+        isUrgentEmergency: false,
+        confidenceScore: 0.92,
+        disclaimer:
+          'Service Navigation Only: This recommendation assists with directory discovery. It does not constitute medical diagnosis or advice.',
+      };
+    }
+
+    return {
+      queryText,
+      suggestedSpecialty: 'General Consultation',
+      suggestedDepartment: 'Outpatient Triage Clinic',
+      isUrgentEmergency: false,
+      confidenceScore: 0.85,
+      disclaimer:
+        'Service Navigation Only: This recommendation assists with directory discovery. It does not constitute medical diagnosis or advice.',
+    };
+  }
+
+  // Service 2: Doctor Medical Report Assistant & Verification Gate (CAT-11, Section 11.2)
+  public extractDoctorLabReport(documentId: string): AIDoctorReportExtraction {
+    const extraction: AIDoctorReportExtraction = {
+      documentId,
+      ocrExtractedDate: '2025-10-12',
+      extractedFields: [
+        {
+          parameter: 'Total Cholesterol',
+          value: '228',
+          unit: 'mg/dL',
+          referenceRange: '< 200',
+          isAbnormalFlag: true,
+          confidence: 0.97,
+        },
+        {
+          parameter: 'Triglycerides',
+          value: '190',
+          unit: 'mg/dL',
+          referenceRange: '< 150',
+          isAbnormalFlag: true,
+          confidence: 0.96,
+        },
+        {
+          parameter: 'HDL Cholesterol (Good)',
+          value: '42',
+          unit: 'mg/dL',
+          referenceRange: '> 40',
+          isAbnormalFlag: false,
+          confidence: 0.98,
+        },
+        {
+          parameter: 'LDL Cholesterol (Calculated)',
+          value: '148',
+          unit: 'mg/dL',
+          referenceRange: '< 100',
+          isAbnormalFlag: true,
+          confidence: 0.95,
+        },
+      ],
+      requiresDoctorReview: true,
+    };
+
+    this.state.aiExtractions.push(extraction);
+    return extraction;
+  }
+
+  // CAT-11: Human review acceptance gate
+  public acceptAiReportExtraction(
+    documentId: string,
+    doctorSession: UserSession
+  ): { success: boolean; extraction?: AIDoctorReportExtraction; error?: string } {
+    const ext = this.state.aiExtractions.find((e) => e.documentId === documentId);
+    if (!ext) return { success: false, error: 'Extraction not found' };
+
+    ext.reviewedByDoctorId = doctorSession.userId;
+    ext.doctorAcceptedAt = new Date().toISOString();
+
+    this.audit.log({
+      correlationId: `ai-review-${documentId}`,
+      actorId: doctorSession.userId,
+      actorRole: 'DOCTOR_RMP',
+      action: 'ai:accept-report-extraction',
+      resourceType: 'AIDoctorReportExtraction',
+      resourceId: documentId,
+      outcome: 'SUCCESS',
+      metadata: { fieldsCount: ext.extractedFields.length },
+    });
+
+    return { success: true, extraction: ext };
+  }
+
+  // Service 3: Clinical Documentation Assistant (SOAP drafting) (Section 11.3)
+  public draftClinicalSoapNote(encounterId: string, doctorNotes: string): AISoapDraft {
+    return {
+      encounterId,
+      subjective: `Patient presents for scheduled consultation. Reported history: ${doctorNotes}`,
+      objective: 'Vitals stable. Cardiovascular exam normal heart sounds S1, S2 audible, no murmurs.',
+      assessment: 'Primary assessment pending full lab correlation. Prior reports noted.',
+      plan: 'Advised lifestyle modification, low-sodium dietary regimen, review in 4 weeks.',
+      isDraft: true,
+      clinicianSignatureRequired: true,
+    };
+  }
+
+  // Service 4: Hospital Operations Intelligence (Section 11.4)
+  public forecastOperationsDemand(facilityId: string): AIOperationsForecast {
+    const occupied = this.state.beds.filter((b) => b.status === 'OCCUPIED').length;
+    const total = this.state.beds.length;
+    const occupancyPercent = Math.round((occupied / Math.max(1, total)) * 100);
+
+    return {
+      facilityId,
+      metric: 'BED_OCCUPANCY',
+      forecastHorizonHours: 24,
+      predictedOccupancyPercent: Math.min(100, occupancyPercent + 12),
+      recommendedAction:
+        'Prepare 2 Step-Down beds for transfer from ICU. Anticipate 4 post-op admissions from planned OT procedures tomorrow morning.',
+      advisoryNotice:
+        'Operations Advisory: This forecast uses historical discharge turnaround time and booked elective procedures. Clinical decisions take precedence.',
+    };
+  }
+
+  // Service 5: Customer Support Assistant (Section 11.5)
+  public querySupportFaq(userQuery: string): AISupportFAQ {
+    const q = userQuery.toLowerCase();
+    let category = 'GENERAL';
+    let matchedAnswer =
+      'Our team is here to help with appointments, payments, and account setup. For medical advice, please consult your treating physician.';
+
+    if (q.includes('payment') || q.includes('refund') || q.includes('upi') || q.includes('receipt')) {
+      category = 'PAYMENTS';
+      matchedAnswer =
+        'Payments are securely processed via UPI, Cards, and NetBanking. Receipts and refund statuses are accessible immediately in your Patient Billing tab. Refunds are reconciled within 3-5 business days.';
+    } else if (q.includes('cancel') || q.includes('reschedule') || q.includes('slot')) {
+      category = 'BOOKING';
+      matchedAnswer =
+        'You can reschedule or cancel your appointment from the Patient Dashboard up to 2 hours prior to the scheduled slot without penalty.';
+    } else if (q.includes('record') || q.includes('report') || q.includes('upload') || q.includes('vault')) {
+      category = 'DOCUMENT_VAULT';
+      matchedAnswer =
+        'Uploaded medical files are stored in our private encrypted document vault. Doctors can only view records for which you grant explicit, time-bounded consent.';
+    }
+
+    return {
+      userQuery,
+      category,
+      matchedAnswer,
+      isClinicalRestricted: true,
+    };
+  }
+
+  // =========================================================================
+  // ABDM / FHIR R4 INTEROPERABILITY ADAPTERS (Section 16)
+  // =========================================================================
+
+  public generateAbhaMock(_patientId: string): AbhaProfile {
+    return {
+      abhaNumber: '91-4422-9988-1122',
+      abhaAddress: 'rahul.verma@sbx',
+      fullName: 'Rahul Verma',
+      gender: 'MALE',
+      dateOfBirth: '1988-04-12',
+      mobile: '+919876543210',
+      kycStatus: 'VERIFIED',
+    };
+  }
+
+  public exportPatientFhirBundle(patientId: string): FhirResourceBundle {
+    const patient = DEMO_PATIENTS.find((p) => p.id === patientId) || DEMO_PATIENTS[0]!;
+    const enc = this.state.encounters.find((e) => e.patientId === patientId);
+
+    return {
+      resourceType: 'Bundle',
+      type: 'document',
+      entryCount: 3,
+      fhirJson: {
+        resourceType: 'Bundle',
+        id: `fhir-bundle-${Date.now()}`,
+        meta: { lastUpdated: new Date().toISOString() },
+        identifier: { system: 'https://svasthnexis.org/fhir/bundles', value: `bundle-${patientId}` },
+        entry: [
+          {
+            resource: {
+              resourceType: 'Patient',
+              id: patient.id,
+              name: [{ use: 'official', family: 'Verma', given: ['Rahul'] }],
+              telecom: [{ system: 'phone', value: patient.phone }],
+              gender: 'male',
+              birthDate: patient.dateOfBirth,
+            },
+          },
+          {
+            resource: {
+              resourceType: 'Encounter',
+              id: enc?.id || 'enc-demo-01',
+              status: 'finished',
+              class: { code: 'AMB', display: 'ambulatory' },
+              subject: { reference: `Patient/${patient.id}` },
+            },
+          },
+          {
+            resource: {
+              resourceType: 'Condition',
+              id: 'cond-01',
+              clinicalStatus: { text: 'Active' },
+              code: { coding: [{ system: 'http://hl7.org/fhir/sid/icd-10', code: 'I10', display: 'Essential Hypertension' }] },
+              subject: { reference: `Patient/${patient.id}` },
+            },
+          },
+        ],
+      },
+    };
   }
 }

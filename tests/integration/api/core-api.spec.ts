@@ -29,7 +29,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
   it('GET /health/readiness returns 200 READY', async () => {
     const res = await fetch(`${baseUrl}/health/readiness`);
     expect(res.status).toBe(200);
-    const body = await res.json();
+    const body = (await res.json()) as any;
     expect(body.status).toBe('READY');
   });
 
@@ -44,7 +44,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(holdRes1.status).toBe(200);
-    const holdBody1 = await holdRes1.json();
+    const holdBody1 = (await holdRes1.json()) as any;
     expect(holdBody1.success).toBe(true);
 
     // Second hold on same slot by another patient gets 409 Conflict
@@ -57,7 +57,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(holdRes2.status).toBe(409);
-    const holdBody2 = await holdRes2.json();
+    const holdBody2 = (await holdRes2.json()) as any;
     expect(holdBody2.success).toBe(false);
     expect(holdBody2.error).toContain('Concurrency conflict');
   });
@@ -78,7 +78,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(aptRes.status).toBe(201);
-    const aptBody = await aptRes.json();
+    const aptBody = (await aptRes.json()) as any;
     expect(aptBody.appointment.state).toBe('REQUESTED');
     const aptId = aptBody.appointment.id;
 
@@ -93,7 +93,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(acceptRes.status).toBe(200);
-    const acceptBody = await acceptRes.json();
+    const acceptBody = (await acceptRes.json()) as any;
     expect(acceptBody.appointment.state).toBe('ACCEPTED');
 
     // Payment webhook received
@@ -108,7 +108,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(payRes1.status).toBe(200);
-    const payBody1 = await payRes1.json();
+    const payBody1 = (await payRes1.json()) as any;
     expect(payBody1.isDuplicate).toBe(false);
     expect(payBody1.transaction.state).toBe('CAPTURED');
 
@@ -124,7 +124,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(payRes2.status).toBe(200);
-    const payBody2 = await payRes2.json();
+    const payBody2 = (await payRes2.json()) as any;
     expect(payBody2.isDuplicate).toBe(true); // Must recognize duplicate without re-creating transaction
   });
 
@@ -150,7 +150,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(signRes.status).toBe(201);
-    const signBody = await signRes.json();
+    const signBody = (await signRes.json()) as any;
     expect(signBody.encounter.isSigned).toBe(true);
     expect(signBody.encounter.doctorSignatureHash).toBeDefined();
     expect(signBody.prescription.isSigned).toBe(true);
@@ -168,7 +168,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
       }),
     });
     expect(amendRes.status).toBe(200);
-    const amendBody = await amendRes.json();
+    const amendBody = (await amendRes.json()) as any;
     expect(amendBody.amendment.amendmentReason).toContain('aspirin intolerance');
     expect(amendBody.amendment.signatureHash).toBeDefined();
 
@@ -181,7 +181,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
   it('enforces RBAC blocking Customer Care from patient clinical charts (CAT-07)', async () => {
     const res = await fetch(`${baseUrl}/api/v1/clinical/chart?role=CUSTOMER_CARE`);
     expect(res.status).toBe(403);
-    const body = await res.json();
+    const body = (await res.json()) as any;
     expect(body.success).toBe(false);
     expect(body.error).toContain("explicitly denied for role 'CUSTOMER_CARE'");
   });
@@ -189,7 +189,7 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
   it('maintains tamper-evident SHA-256 chain across all actions', async () => {
     const res = await fetch(`${baseUrl}/api/v1/audit`);
     expect(res.status).toBe(200);
-    const body = await res.json();
+    const body = (await res.json()) as any;
     expect(body.integrity.isValid).toBe(true);
     expect(body.count).toBeGreaterThan(5);
   });

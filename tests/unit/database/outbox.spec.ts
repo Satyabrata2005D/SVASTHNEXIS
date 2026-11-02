@@ -16,8 +16,8 @@ describe('Transactional Outbox Manager (ADR-007, BP Sec 18)', () => {
 
     expect(eventId).toBeDefined();
     expect(mockQuery).toHaveBeenCalledTimes(1);
-    const querySql = mockQuery.mock.calls[0][0];
-    const queryParams = mockQuery.mock.calls[0][1];
+    const querySql = mockQuery.mock.calls[0]![0];
+    const queryParams = mockQuery.mock.calls[0]![1];
 
     expect(querySql).toContain('INSERT INTO outbox_events');
     expect(queryParams[1]).toBe('Appointment');
@@ -64,7 +64,7 @@ describe('Transactional Outbox Manager (ADR-007, BP Sec 18)', () => {
     await outbox.markPublished('evt-001');
 
     expect(mockQuery).toHaveBeenCalledTimes(1);
-    const sql = mockQuery.mock.calls[0][0];
+    const sql = mockQuery.mock.calls[0]![0];
     expect(sql).toContain("SET status = 'PUBLISHED'");
   });
 
@@ -76,7 +76,7 @@ describe('Transactional Outbox Manager (ADR-007, BP Sec 18)', () => {
     await outbox.markFailed('evt-001', 'Connection timeout to notification provider');
 
     expect(mockQuery).toHaveBeenCalledTimes(1);
-    const sql = mockQuery.mock.calls[0][0];
+    const sql = mockQuery.mock.calls[0]![0];
     expect(sql).toContain('retry_count = retry_count + 1');
     expect(sql).toContain("status = CASE WHEN retry_count + 1 >= 5 THEN 'FAILED' ELSE 'PENDING' END");
   });
