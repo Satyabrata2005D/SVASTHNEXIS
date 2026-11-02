@@ -109,7 +109,7 @@
 | **FND-03** | Architecture Decision Records (ADRs) | `docs/architecture/` (ADR-001 to ADR-010) | IMPLEMENTED | 10 comprehensive ADRs covering modular monolith, tenancy, auth, consent, storage, outbox, etc. |
 | **FND-04** | Threat & Safety Model | `docs/architecture/threat-model.md`, `docs/risk/clinical-safety-case.md` | IMPLEMENTED | STRIDE analysis, clinical hazard scenarios, mitigation matrix. |
 | **FND-05** | Repository Monorepo Scaffold | Root `package.json`, workspaces (`apps/`, `packages/`, `services/`, `infra/`, `docs/`) | IMPLEMENTED | Modular layout ready with strict TypeScript and package boundaries. |
-| **FND-06** | Environment + CI & Fixtures Baseline | `.env.example`, Docker compose, CI workflow, test seed scripts | IMPLEMENTED | Reproducible config, non-secret env template, and local infrastructure setup. |
+| **FND-06** | Environment + CI & Fixtures Baseline | `.env.example`, Docker compose, CI workflow, test seed scripts, DB migrations | IMPLEMENTED | Reproducible config, non-secret env template, migrations (001, 002, 003), and transactional outbox. |
 | **FND-07** | Design System Tokens & Accessible Shell | `packages/design-system/` | IN PROGRESS | Tokens, color palette, WCAG 2.1 AA accessible theme variables. |
 | **FND-08** | Telemetry & Observability Baseline | `packages/observability/` | IN PROGRESS | Correlation ID propagation, structured logger, audit event emitter. |
 | **FND-09** | Clinical / Legal Dependency Register | `docs/risk/dependency-register.md` | IMPLEMENTED | Explicit register of uninvented external legal/clinical/partner dependencies. |
