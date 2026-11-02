@@ -51,3 +51,4 @@ CREATE POLICY tenant_isolation_lab_orders ON lab_orders
         facility_id = NULLIF(current_setting('app.current_tenant_id', true), '')
         OR patient_id = NULLIF(current_setting('app.current_user_id', true), '')
     );
+

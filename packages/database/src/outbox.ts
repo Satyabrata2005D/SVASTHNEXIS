@@ -107,3 +107,4 @@ export class TransactionalOutboxManager {
     await this.clientOrPool.query(sql, [eventId, errorMessage]);
   }
 }
+

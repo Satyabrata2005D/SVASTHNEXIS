@@ -32,8 +32,11 @@ export function createApp(store: DomainStore) {
   app.get('/health/readiness', (_req: Request, res: Response) => {
     res.json({
       status: 'READY',
-      database: 'CONNECTED_STORE',
-      storage: 'LOCAL_MINIO_CONFIGURED',
+      demoStatus: 'READY_FOR_DEMO',
+      environment: 'DEMO_ONLY',
+      persistence: 'IN_MEMORY_DEMO_STORE',
+      database: 'MIGRATIONS_READY',
+      objectStorage: 'LOCAL_MINIO_CONFIGURED',
       timestamp: new Date().toISOString(),
     });
   });

@@ -82,3 +82,4 @@ CREATE TRIGGER trg_platform_admin_cap
     BEFORE INSERT OR UPDATE ON platform_admins
     FOR EACH ROW
     EXECUTE FUNCTION enforce_platform_admin_ceiling();
+

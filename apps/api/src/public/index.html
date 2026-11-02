@@ -1,581 +1,634 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SvasthNexis - Unified Healthcare Management Ecosystem</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#102c3a" />
+  <meta name="description" content="SvasthNexis — a connected healthcare operations and patient-care ecosystem." />
+  <title>SvasthNexis — Healthcare, connected with care</title>
   <style>
     :root {
-      --navy-900: #06101e;
-      --navy-700: #0b1d30;
-      --navy-500: #102a43;
-      --teal-700: #005a5a;
-      --teal-500: #008080;
-      --teal-50: #e6fffa;
+      --ink: #142b36;
+      --ink-2: #38515b;
+      --muted: #7b8d94;
+      --muted-2: #9aabb0;
+      --teal: #0b8f83;
+      --teal-dark: #08766f;
+      --teal-soft: #e7f5f2;
+      --mint: #bde9dc;
+      --navy: #102c3a;
+      --navy-2: #173b49;
       --surface: #ffffff;
-      --bg: #f8fafc;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --emergency-red: #d32f2f;
-      --success-green: #2e7d32;
-      --amber: #ed6c02;
+      --canvas: #f4f8f7;
+      --line: #e5eeeb;
+      --line-2: #d9e5e1;
+      --green: #16846e;
+      --green-bg: #e8f6f1;
+      --amber: #a86b18;
+      --amber-bg: #fff5e5;
+      --red: #c54d52;
+      --red-bg: #fff0ef;
+      --blue: #4e77aa;
+      --blue-bg: #edf3fb;
+      --shadow: 0 12px 36px rgba(19, 54, 62, .06);
+      --shadow-sm: 0 4px 14px rgba(19, 54, 62, .045);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --sidebar: 254px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
-    header { background: var(--navy-900); color: white; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--teal-500); }
-    .brand { display: flex; align-items: center; gap: 0.75rem; }
-    .brand h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; }
-    .brand .badge { background: var(--teal-500); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase; }
-    .entry-nav { display: flex; gap: 0.5rem; }
-    .entry-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.85rem; border-radius: 6px; cursor: pointer; font-size: 0.825rem; font-weight: 600; transition: all 0.2s; }
-    .entry-btn:hover, .entry-btn.active { background: var(--teal-500); border-color: var(--teal-500); }
-    
-    .workspace-banner { background: var(--teal-50); border-bottom: 1px solid var(--border); padding: 0.6rem 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; }
-    .workspace-info { font-weight: 600; color: var(--teal-700); display: flex; align-items: center; gap: 0.5rem; }
-    .persona-selector { display: flex; gap: 0.35rem; align-items: center; }
-    .persona-btn { padding: 0.25rem 0.65rem; border: 1px solid var(--border); background: white; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
-    .persona-btn.active { background: var(--navy-700); color: white; border-color: var(--navy-700); }
-
-    main { max-width: 1280px; margin: 1.5rem auto; padding: 0 1rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--navy-900); display: flex; justify-content: space-between; align-items: center; }
-    .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
-
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.875rem; cursor: pointer; border: none; transition: 0.15s; }
-    .btn-primary { background: var(--teal-500); color: white; }
-    .btn-primary:hover { background: var(--teal-700); }
-    .btn-secondary { background: var(--navy-700); color: white; }
-    .btn-secondary:hover { background: var(--navy-900); }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-    .btn-outline:hover { background: var(--bg); }
-    .btn-emergency { background: var(--emergency-red); color: white; font-weight: 700; }
-    .btn-sm { padding: 0.3rem 0.65rem; font-size: 0.775rem; }
-
-    .tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.725rem; font-weight: 600; }
-    .tag-verified { background: #dcfce7; color: #166534; }
-    .tag-pending { background: #fef3c7; color: #92400e; }
-    .tag-red { background: #fee2e2; color: #991b1b; }
-    .tag-blue { background: #e0f2fe; color: #075985; }
-
-    .log-terminal { background: #0b1120; color: #38bdf8; font-family: ui-monospace, monospace; font-size: 0.75rem; padding: 0.75rem; border-radius: 6px; max-height: 220px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
-    
-    .timeline-item { border-left: 2px solid var(--teal-500); padding-left: 1rem; margin-bottom: 1rem; position: relative; }
-    .timeline-item::before { content: ""; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--teal-500); }
-    .timeline-title { font-weight: 700; font-size: 0.875rem; }
-    .timeline-meta { font-size: 0.75rem; color: var(--text-muted); }
-
-    .emergency-banner { background: #fef2f2; border: 1px solid #fecaca; border-left: 4px solid var(--emergency-red); padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; }
-    .emergency-text { font-size: 0.85rem; color: #991b1b; }
-
-    table { width: 100%; border-collapse: collapse; font-size: 0.825rem; }
-    th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
-    th { background: #f1f5f9; font-weight: 600; color: var(--text-muted); }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); font-family: Inter, 'Segoe UI', system-ui, sans-serif; font-size: 14px; line-height: 1.55; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .app-shell { min-height: 100vh; }
+    .sidebar { width: var(--sidebar); position: fixed; z-index: 30; inset: 0 auto 0 0; display: flex; flex-direction: column; padding: 24px 16px 16px; background: var(--navy); color: #d5e4e2; }
+    .brand-lockup { display: flex; align-items: center; gap: 11px; padding: 2px 10px 27px; }
+    .brand-mark { width: 39px; height: 39px; display: grid; place-items: center; border-radius: 13px; color: #fff; background: linear-gradient(145deg, #22b59e, #087b76); box-shadow: 0 8px 18px rgba(9, 157, 139, .24); }
+    .brand-name { font-family: Inter, 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.15; font-weight: 800; letter-spacing: -.04em; color: white; }
+    .brand-caption { color: #8eb0b1; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; margin-top: 4px; }
+    .side-label { padding: 12px 12px 8px; color: #72939b; font-size: 9px; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
+    .workspace-switcher { display: flex; gap: 10px; align-items: center; padding: 11px 12px; margin: 0 4px 12px; border: 1px solid rgba(255,255,255,.12); border-radius: 13px; background: rgba(255,255,255,.06); color: white; width: calc(100% - 8px); text-align: left; }
+    .workspace-switcher .switch-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 10px; background: rgba(44, 190, 164, .17); color: #6ce0c3; }
+    .workspace-switcher strong { display: block; font-size: 11px; font-weight: 700; }
+    .workspace-switcher small { display: block; color: #8eb0b1; font-size: 10px; margin-top: 2px; }
+    .workspace-switcher .chevron { margin-left: auto; color: #8eb0b1; }
+    .side-nav { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; padding: 0 4px; }
+    .nav-item { display: flex; align-items: center; gap: 12px; border: 0; background: transparent; color: #a9c0c2; width: 100%; text-align: left; padding: 10px 12px; min-height: 42px; border-radius: 11px; font-size: 12px; font-weight: 600; transition: .18s ease; }
+    .nav-item svg { flex: 0 0 17px; opacity: .85; }
+    .nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+    .nav-item.active { color: #fff; background: linear-gradient(90deg, rgba(25,171,148,.25), rgba(25,171,148,.09)); box-shadow: inset 3px 0 #41cdb1; }
+    .nav-count { margin-left: auto; min-width: 20px; padding: 1px 6px; text-align: center; border-radius: 20px; background: rgba(255,255,255,.1); color: #b9d4d1; font-size: 10px; }
+    .sidebar-spacer { flex: 1; min-height: 20px; }
+    .side-help { margin: 12px 4px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 13px; background: rgba(255,255,255,.045); }
+    .side-help-top { display: flex; align-items: center; gap: 7px; color: #94c5bc; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .side-help p { margin: 8px 0 10px; color: #a9c0c2; font-size: 11px; line-height: 1.5; }
+    .side-help button { border: 0; padding: 7px 10px; color: #e2fffa; background: rgba(44,190,164,.17); border-radius: 8px; font-size: 10px; font-weight: 700; }
+    .side-user { display: flex; align-items: center; gap: 10px; padding: 13px 8px 2px; border-top: 1px solid rgba(255,255,255,.1); }
+    .avatar { width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; flex: 0 0 auto; font-weight: 800; font-size: 11px; color: #155f59; background: #c9eee3; }
+    .side-user strong { display: block; color: white; font-size: 11px; }
+    .side-user small { display: block; color: #85a5aa; font-size: 10px; }
+    .side-user .more { margin-left: auto; color: #87a6aa; }
+    .main-shell { min-height: 100vh; margin-left: var(--sidebar); }
+    .topbar { height: 74px; background: rgba(255,255,255,.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 0 34px; position: sticky; top: 0; z-index: 20; }
+    .top-left { display: flex; align-items: center; gap: 13px; min-width: 190px; }
+    .mobile-menu { display: none; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: white; color: var(--ink); }
+    .crumb { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .top-title { font-family: Inter, 'Segoe UI', system-ui, sans-serif; font-size: 16px; letter-spacing: -.035em; font-weight: 800; color: var(--ink); line-height: 1.25; }
+    .top-search { display: flex; align-items: center; gap: 10px; width: min(360px, 32vw); height: 40px; padding: 0 13px; border: 1px solid var(--line); border-radius: 11px; color: #8ba0a4; background: #f9fbfa; }
+    .top-search input { width: 100%; border: 0; outline: 0; background: transparent; font-size: 11px; color: var(--ink); }
+    .top-search input::placeholder { color: #9aabad; }
+    .top-actions { display: flex; align-items: center; gap: 12px; }
+    .icon-btn { display: grid; place-items: center; width: 37px; height: 37px; border-radius: 11px; border: 1px solid var(--line); background: white; color: #678087; position: relative; }
+    .icon-btn .dot { position: absolute; right: 8px; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #ea8d66; border: 1px solid white; }
+    .top-divider { height: 27px; width: 1px; background: var(--line); }
+    .profile-top { display: flex; align-items: center; gap: 9px; background: transparent; border: 0; text-align: left; padding: 0; }
+    .profile-top .avatar { width: 35px; height: 35px; border-radius: 50%; background: #e5e9f8; color: #58659a; }
+    .profile-top strong { display: block; font-size: 11px; color: var(--ink); }
+    .profile-top small { display: block; color: var(--muted); font-size: 10px; }
+    .page-frame { max-width: 1600px; padding: 25px 34px 50px; margin: 0 auto; }
+    .demo-ribbon { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 13px; border-radius: 11px; background: #fff8e9; border: 1px solid #f4e4bd; color: #91631d; font-size: 10px; margin-bottom: 22px; }
+    .demo-ribbon .demo-left { display: flex; align-items: center; gap: 8px; }
+    .demo-ribbon strong { font-weight: 800; }
+    .demo-ribbon .demo-right { color: #a17b3f; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
+    .page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin: 2px 0 22px; }
+    .eyebrow { display: flex; align-items: center; gap: 8px; color: var(--teal); font-size: 9px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 7px; }
+    .eyebrow:before { content: ''; width: 17px; height: 2px; border-radius: 5px; background: var(--teal); }
+    h1,h2,h3,h4,p { margin-top: 0; }
+    .page-heading h1 { font-family: Inter, 'Segoe UI', system-ui, sans-serif; font-size: clamp(22px,2.2vw,30px); letter-spacing: -.055em; line-height: 1.2; margin: 0; font-weight: 800; }
+    .page-heading p { color: var(--muted); font-size: 11px; margin: 6px 0 0; }
+    .heading-actions { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 10px; padding: 10px 14px; font-size: 11px; font-weight: 700; transition: .18s ease; white-space: nowrap; }
+    .btn-primary { color: white; background: linear-gradient(135deg,#119b8b,#08796f); box-shadow: 0 6px 14px rgba(9,143,129,.16); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 9px 18px rgba(9,143,129,.23); }
+    .btn-dark { color: white; background: var(--navy); }
+    .btn-dark:hover { background: #1d4655; }
+    .btn-light { color: var(--ink-2); border: 1px solid var(--line-2); background: white; }
+    .btn-light:hover { border-color: #afd7cd; background: #f9fdfb; }
+    .btn-danger { color: #a63e43; background: #fff0ef; border: 1px solid #f4d7d5; }
+    .btn-sm { padding: 7px 10px; font-size: 10px; border-radius: 8px; }
+    .btn:disabled { opacity: .42; cursor: not-allowed; transform: none; box-shadow: none; }
+    .metric-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 13px; margin-bottom: 18px; }
+    .metric-card { background: white; border: 1px solid var(--line); border-radius: 15px; padding: 16px 17px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+    .metric-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .metric-label { color: var(--muted); font-size: 10px; font-weight: 600; }
+    .metric-icon { width: 31px; height: 31px; display: grid; place-items: center; color: var(--teal); background: var(--teal-soft); border-radius: 10px; }
+    .metric-value { margin: 10px 0 2px; font-family: Inter, 'Segoe UI', system-ui, sans-serif; font-weight: 800; letter-spacing: -.05em; font-size: 25px; line-height: 1.1; }
+    .metric-foot { color: var(--muted); font-size: 9px; }
+    .positive { color: var(--green); font-weight: 700; }
+    .content-grid { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(280px,.88fr); gap: 16px; align-items: start; }
+    .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 19px; box-shadow: var(--shadow-sm); min-width: 0; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 15px; }
+    .card-header h2 { font-family: Inter, 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 800; letter-spacing: -.025em; margin: 0; }
+    .card-header p { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
+    .text-link { color: var(--teal); font-size: 10px; font-weight: 800; background: none; border: 0; padding: 0; }
+    .pill { display: inline-flex; align-items: center; gap: 5px; border-radius: 30px; padding: 4px 8px; font-size: 9px; line-height: 1.2; font-weight: 800; white-space: nowrap; }
+    .pill:before { content:''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .pill-green { color: #187d68; background: var(--green-bg); }
+    .pill-amber { color: #9b671b; background: var(--amber-bg); }
+    .pill-red { color: #b64c50; background: var(--red-bg); }
+    .pill-blue { color: #5478a6; background: var(--blue-bg); }
+    .pill-neutral { color: #71858b; background: #f0f4f3; }
+    .hero { display: grid; grid-template-columns: 1.4fr .8fr; min-height: 198px; overflow: hidden; border-radius: 21px; margin-bottom: 17px; color: white; background: radial-gradient(circle at 80% 20%, rgba(87,211,184,.22), transparent 30%), linear-gradient(120deg,#123443 0%,#174e56 55%,#0d796f 100%); position: relative; box-shadow: 0 15px 35px rgba(13,68,74,.13); }
+    .hero:after { content:''; position:absolute; width: 320px;height:320px;border:1px solid rgba(255,255,255,.08);border-radius:50%;right:70px;top:-170px; box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 58px rgba(255,255,255,.02); }
+    .hero-content { padding: 25px 28px; position: relative; z-index: 1; }
+    .hero-kicker { display: inline-flex; align-items: center; gap: 7px; color: #9fe4d6; font-size: 9px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .hero h2 { font-family: Inter, 'Segoe UI', system-ui, sans-serif; font-size: clamp(20px,2.4vw,28px); letter-spacing: -.06em; line-height: 1.15; margin: 11px 0 8px; max-width: 450px; }
+    .hero p { max-width: 430px; color: #c2dedb; font-size: 11px; line-height: 1.6; margin: 0 0 17px; }
+    .hero .btn { background: #c9f1e7; color: #15574f; box-shadow: none; }
+    .hero-art { display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; min-width: 0; }
+    .hero-art svg { width: min(100%,250px); height: auto; filter: drop-shadow(0 12px 16px rgba(0,0,0,.13)); }
+    .notice { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 13px; border: 1px solid #f1d8d5; background: #fff8f6; margin-bottom: 17px; }
+    .notice-content { display: flex; align-items: center; gap: 10px; }
+    .notice-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #ffebe8; color: #bf5451; flex: 0 0 auto; }
+    .notice strong { display: block; color: #98413f; font-size: 10px; }
+    .notice p { margin: 2px 0 0; color: #a66b67; font-size: 9px; }
+    .notice .btn { color: #a43f42; background: white; border: 1px solid #f0d4d1; }
+    .provider-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .search-field { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 10px; background: #fbfdfc; padding: 8px 10px; color: #94a5a7; flex: 1; }
+    .search-field input { width: 100%; background: transparent; border: 0; outline: 0; color: var(--ink); font-size: 10px; }
+    .filter-select { border: 1px solid var(--line); border-radius: 10px; background: white; padding: 8px 10px; color: var(--ink-2); outline: 0; font-size: 10px; }
+    .provider-list { display: flex; flex-direction: column; gap: 10px; }
+    .provider-row { display: grid; grid-template-columns: 44px minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 12px; border: 1px solid #edf2f0; border-radius: 13px; transition: .16s; }
+    .provider-row:hover { border-color: #c8e3db; background: #fcfefd; }
+    .doctor-avatar { width: 43px; height: 43px; border-radius: 14px; display: grid; place-items: center; color: #216960; background: linear-gradient(135deg,#e1f5ed,#d5e8ee); font-family: Inter, 'Segoe UI', system-ui; font-size: 11px; font-weight: 800; }
+    .provider-name { font-size: 11px; font-weight: 800; color: var(--ink); display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .provider-meta { font-size: 9px; color: var(--muted); margin-top: 3px; }
+    .provider-meta span { color: #526e75; }
+    .provider-actions { text-align: right; min-width: 105px; }
+    .fee { font-family: Inter, 'Segoe UI', system-ui; font-size: 13px; font-weight: 800; letter-spacing: -.03em; }
+    .fee small { color: var(--muted); font-family: Inter, 'Segoe UI', system-ui; font-size: 8px; font-weight: 500; }
+    .slot-actions { display: flex; gap: 5px; justify-content: flex-end; flex-wrap: wrap; margin-top: 7px; }
+    .slot-btn { border: 1px solid #cfe6df; background: #f6fcf9; color: #227d6c; border-radius: 7px; padding: 5px 7px; font-size: 8px; font-weight: 800; }
+    .slot-btn:hover { background: #e7f6f0; }
+    .slot-btn:disabled { color: #9caeaa; border-color: #e6ece9; background: #f5f7f6; cursor: not-allowed; }
+    .appointment-feature { border: 1px solid #dcece6; border-radius: 14px; padding: 14px; background: linear-gradient(135deg,#f8fcfa,#f1f8f5); }
+    .appointment-date { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+    .date-tile { width: 44px; height: 48px; display: grid; place-items: center; align-content: center; gap: 0; background: white; border: 1px solid #dcece6; border-radius: 11px; color: #247b6c; }
+    .date-tile strong { font-family: Inter, 'Segoe UI', system-ui; font-size: 18px; line-height: 1; }
+    .date-tile small { font-size: 8px; font-weight: 800; text-transform: uppercase; }
+    .appointment-date h3 { margin: 0; font-size: 11px; font-weight: 800; }
+    .appointment-date p { margin: 3px 0 0; color: var(--muted); font-size: 9px; }
+    .appointment-progress { display: flex; align-items: center; gap: 4px; margin: 11px 0; }
+    .progress-step { height: 4px; flex: 1; border-radius: 4px; background: #dfeae5; }
+    .progress-step.done { background: #3ab79a; }
+    .progress-labels { display: flex; justify-content: space-between; color: #879b9e; font-size: 8px; }
+    .appointment-item { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-bottom: 1px solid #edf2f0; padding: 11px 0; }
+    .appointment-item:last-child { border: 0; padding-bottom: 0; }
+    .appointment-item:first-child { padding-top: 0; }
+    .appointment-item strong { display: block; font-size: 10px; }
+    .appointment-item small { display: block; color: var(--muted); font-size: 9px; margin-top: 2px; }
+    .record-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eff3f1; }
+    .record-item:last-child { border: 0; padding-bottom: 0; }
+    .record-icon { width: 34px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: #5b82ad; background: #eef4fb; }
+    .record-item strong { display: block; font-size: 10px; }
+    .record-item small { color: var(--muted); font-size: 8px; }
+    .record-item .record-status { margin-left: auto; }
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-row { display: grid; grid-template-columns: 28px minmax(0,1fr) auto; gap: 10px; position: relative; padding: 0 0 15px; }
+    .timeline-row:not(:last-child):before { content:''; position:absolute; left:13px; top:28px; bottom:-1px; width:1px; background:#dce9e4; }
+    .timeline-dot { width: 27px; height: 27px; border-radius: 9px; display: grid; place-items: center; background: #e8f5f0; color: #26836f; z-index: 1; }
+    .timeline-row strong { display: block; font-size: 10px; }
+    .timeline-row p { margin: 2px 0 0; color: var(--muted); font-size: 9px; }
+    .timeline-row time { color: #93a4a7; font-size: 8px; white-space: nowrap; }
+    .quick-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+    .quick-action { display: flex; align-items: center; gap: 9px; padding: 10px; border: 1px solid var(--line); border-radius: 11px; background: #fff; text-align: left; color: var(--ink); }
+    .quick-action:hover { background: #f8fcfa; border-color: #c5e2d9; }
+    .quick-action .qa-icon { width: 29px; height: 29px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 9px; background: var(--teal-soft); color: var(--teal); }
+    .quick-action strong { display: block; font-size: 9px; }
+    .quick-action small { display: block; color: var(--muted); font-size: 8px; margin-top: 2px; }
+    .empty { padding: 24px 14px; text-align: center; color: var(--muted); border: 1px dashed #dce8e3; border-radius: 12px; font-size: 10px; }
+    .empty strong { display: block; color: var(--ink-2); font-size: 11px; margin-bottom: 3px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; min-width: 520px; }
+    th { padding: 11px 13px; background: #f7faf8; color: #809399; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--line); }
+    td { padding: 12px 13px; color: #536a72; font-size: 9px; border-bottom: 1px solid #edf2f0; vertical-align: middle; }
+    tr:last-child td { border-bottom: 0; }
+    td strong { color: var(--ink); font-size: 10px; }
+    .hero-stat { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13); }
+    .hero-stat strong { font-family:Inter,'Segoe UI',system-ui;font-size:18px; }
+    .hero-stat small { display:block;font-size:8px;color:#b7d8d4; }
+    .chart { height: 155px; width: 100%; }
+    .chart svg { width: 100%; height: 100%; overflow: visible; }
+    .chart-legend { display:flex;gap:12px;color:var(--muted);font-size:8px;margin-top:4px; }
+    .legend-dot { width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px;background:#1a9b89; }
+    .legend-dot.alt { background:#a9d8ca; }
+    .resource-list { display:flex;flex-direction:column;gap:12px; }
+    .resource-row { display:grid;grid-template-columns:95px 1fr 45px;gap:10px;align-items:center; }
+    .resource-row strong { font-size:9px; }
+    .resource-row small { color:var(--muted);font-size:8px; }
+    .bar { height:7px;border-radius:20px;background:#edf3f0;overflow:hidden; }
+    .bar span { display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#1aa48f,#83d4b8); }
+    .bar.amber span { background:linear-gradient(90deg,#e7aa55,#f5d28c); }
+    .bar.red span { background:linear-gradient(90deg,#d97870,#f2b1a8); }
+    .right-value { font-family:Inter,'Segoe UI',system-ui;font-size:10px;font-weight:800;text-align:right; }
+    .log-view { background:#102a36;color:#b6d5d0;border-radius:12px;padding:14px;font-family:ui-monospace,monospace;font-size:9px;max-height:270px;overflow:auto;white-space:pre-wrap;line-height:1.7; }
+    .log-view .log-green { color:#6bd6ad; }
+    .two-col { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px; }
+    .three-col { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px; }
+    .mini-stat { border:1px solid var(--line);border-radius:13px;padding:13px;background:#fbfdfc; }
+    .mini-stat span { display:block;color:var(--muted);font-size:9px; }
+    .mini-stat strong { display:block;font-family:Inter,'Segoe UI',system-ui;font-size:20px;letter-spacing:-.04em;margin:5px 0 0; }
+    .module-tile { border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;align-items:flex-start;gap:10px;min-height:84px; }
+    .module-tile .module-icon { width:31px;height:31px;border-radius:10px;display:grid;place-items:center;background:#edf6f2;color:#258977;flex:0 0 auto; }
+    .module-tile strong { display:block;font-size:10px; }
+    .module-tile p { margin:3px 0 0;color:var(--muted);font-size:8px;line-height:1.45; }
+    .status-line { display:flex;align-items:center;gap:8px;color:#6d8589;font-size:9px; }
+    .status-pulse { width:7px;height:7px;border-radius:50%;background:#2bb08e;box-shadow:0 0 0 4px rgba(43,176,142,.12); }
+    .modal-backdrop { position:fixed;inset:0;background:rgba(10,35,45,.5);z-index:80;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px); }
+    .modal-backdrop.open { display:flex; }
+    .modal { width:min(100%,520px);background:white;border-radius:20px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.2);animation:rise .2s ease; }
+    @keyframes rise { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+    .modal-head { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px; }
+    .modal-head h2 { font-family:Inter,'Segoe UI',system-ui;font-size:17px;letter-spacing:-.04em;margin:0; }
+    .modal-head p { color:var(--muted);font-size:10px;margin:4px 0 0; }
+    .modal-close { width:30px;height:30px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--muted); }
+    .field { display:flex;flex-direction:column;gap:6px;margin-bottom:12px; }
+    .field label { color:#657d82;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase; }
+    .field input,.field textarea,.field select { width:100%;border:1px solid var(--line-2);border-radius:10px;padding:10px 11px;outline:0;color:var(--ink);background:#fcfefd;font-size:10px; }
+    .field textarea { min-height:105px;resize:vertical; }
+    .field input:focus,.field textarea:focus,.field select:focus { border-color:#69bca9;box-shadow:0 0 0 3px rgba(22,153,133,.1); }
+    .modal-actions { display:flex;justify-content:flex-end;gap:8px;margin-top:16px; }
+    .toast-stack { position:fixed;right:23px;bottom:22px;z-index:100;display:flex;flex-direction:column;gap:8px; }
+    .toast { display:flex;align-items:center;gap:9px;min-width:230px;max-width:360px;background:#12323d;color:#e5f5f1;border-radius:12px;padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.16);font-size:10px;animation:rise .2s ease; }
+    .toast.success { border-left:3px solid #48c8a0; }
+    .toast.error { border-left:3px solid #ec807b; }
+    .toast svg { color:#6bd6b1;flex:0 0 auto; }
+    .loading { display:flex;align-items:center;gap:9px;color:var(--muted);font-size:10px;padding:24px; }
+    .spinner { width:15px;height:15px;border:2px solid #dcece6;border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .footer-note { color:#99aaa9;font-size:8px;text-align:right;margin-top:18px; }
+    .mobile-overlay { display:none; }
+    @media (max-width: 1180px) {
+      :root { --sidebar: 225px; }
+      .page-frame { padding:22px 24px 40px; }
+      .topbar { padding:0 24px; }
+      .metric-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .content-grid { grid-template-columns:minmax(0,1.3fr) minmax(260px,.9fr); }
+    }
+    @media (max-width: 900px) {
+      .sidebar { transform:translateX(-100%);transition:transform .22s ease; }
+      .sidebar.open { transform:translateX(0); }
+      .mobile-overlay.open { display:block;position:fixed;inset:0;background:rgba(12,35,44,.4);z-index:25; }
+      .main-shell { margin-left:0; }
+      .mobile-menu { display:grid; }
+      .top-left { min-width:0; }
+      .content-grid { grid-template-columns:1fr; }
+      .top-search { width:min(340px,38vw); }
+    }
+    @media (max-width: 640px) {
+      .topbar { height:64px;padding:0 14px;gap:9px; }
+      .top-title { font-size:13px; }
+      .crumb { font-size:8px; }
+      .top-search { width:35px;padding:0;justify-content:center;border:0;background:transparent; }
+      .top-search input { display:none; }
+      .top-search svg { flex:0 0 auto; }
+      .top-actions { gap:7px; }
+      .profile-top .profile-meta,.profile-top .profile-chevron,.top-divider { display:none; }
+      .profile-top .avatar { width:32px;height:32px; }
+      .icon-btn { width:33px;height:33px; }
+      .page-frame { padding:16px 13px 35px; }
+      .demo-ribbon { align-items:flex-start;padding:9px 10px;font-size:9px; }
+      .demo-ribbon .demo-right { display:none; }
+      .page-heading { align-items:flex-start;flex-direction:column;margin-bottom:17px;gap:13px; }
+      .page-heading h1 { font-size:24px; }
+      .heading-actions { width:100%; }
+      .heading-actions .btn { flex:1; }
+      .hero { grid-template-columns:1fr;min-height:0; }
+      .hero-content { padding:22px; }
+      .hero-art { display:none; }
+      .metric-grid { gap:9px; }
+      .metric-card { padding:13px; }
+      .metric-value { font-size:22px; }
+      .metric-label { font-size:9px; }
+      .card { padding:15px;border-radius:15px; }
+      .provider-row { grid-template-columns:40px minmax(0,1fr); }
+      .provider-actions { grid-column:2;display:flex;align-items:center;justify-content:space-between;text-align:left;min-width:0; }
+      .slot-actions { justify-content:flex-start;margin:0; }
+      .provider-toolbar { flex-wrap:wrap; }
+      .provider-toolbar .filter-select { flex:0 0 100%; }
+      .two-col,.three-col { grid-template-columns:1fr; }
+      .notice { align-items:flex-start; }
+      .notice .btn { display:none; }
+      .toast-stack { left:12px;right:12px;bottom:12px; }
+      .toast { max-width:none; }
+    }
   </style>
 </head>
 <body>
+<div class="app-shell">
+  <div class="mobile-overlay" id="mobile-overlay" onclick="toggleSidebar(false)"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-lockup">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3.2v17.6M3.2 12h17.6" stroke="white" stroke-width="3.4" stroke-linecap="round"/><path d="M17.6 4.7v4.1h4.1M6.4 19.3v-4.1H2.3" stroke="#b7fff0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div><div class="brand-name">SvasthNexis</div><div class="brand-caption">Healthcare ecosystem</div></div>
+    </div>
+    <div class="side-label">Workspace</div>
+    <button class="workspace-switcher" onclick="openWorkspaceMenu()">
+      <span class="switch-icon" id="workspace-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg></span>
+      <span><strong id="workspace-switch-title">Patient & Family</strong><small id="workspace-switch-sub">Personal health space</small></span>
+      <span class="chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 10 5 5 5-5"/></svg></span>
+    </button>
+    <div class="side-label" id="nav-section-label">Patient workspace</div>
+    <nav class="side-nav" id="side-nav"></nav>
+    <div class="sidebar-spacer"></div>
+    <div class="side-help">
+      <div class="side-help-top"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg> Care support</div>
+      <p>Questions about access, appointments or platform use? Our support team can help.</p>
+      <button onclick="switchWorkspace('CUSTOMER_CARE')">Open support workspace ↗</button>
+    </div>
+    <div class="side-user">
+      <div class="avatar" id="side-avatar">RV</div>
+      <div><strong id="side-user-name">Rahul Verma</strong><small id="side-user-role">Patient account</small></div>
+      <span class="more"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></span>
+    </div>
+  </aside>
 
-  <header>
-    <div class="brand">
-      <h1>SvasthNexis</h1>
-      <span class="badge">Unified Healthcare Ecosystem</span>
+  <main class="main-shell">
+    <header class="topbar">
+      <div class="top-left">
+        <button class="mobile-menu" aria-label="Open navigation" onclick="toggleSidebar()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <div><div class="crumb" id="top-crumb">Patient portal / Overview</div><div class="top-title" id="top-title">Good morning, Rahul</div></div>
+      </div>
+      <label class="top-search" aria-label="Search workspace"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg><input id="global-search" type="search" placeholder="Search doctors, records, appointments…" oninput="handleGlobalSearch(this.value)" /></label>
+      <div class="top-actions">
+        <div class="status-line"><span class="status-pulse"></span><span>Demo environment</span></div>
+        <button class="icon-btn" title="Notifications" onclick="showToast('You are all caught up.','success')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i class="dot"></i></button>
+        <div class="top-divider"></div>
+        <button class="profile-top" onclick="openWorkspaceMenu()"><span class="avatar" id="top-avatar">RV</span><span class="profile-meta"><strong id="top-user-name">Rahul Verma</strong><small id="top-user-role">Patient</small></span><svg class="profile-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8da0a4" stroke-width="2"><path d="m7 10 5 5 5-5"/></svg></button>
+      </div>
+    </header>
+    <div class="page-frame">
+      <div class="demo-ribbon"><div class="demo-left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg><span><strong>Prototype / demo data:</strong> Names, facilities and clinical examples are fictional. Do not use this environment for real patient care.</span></div><span class="demo-right">Sandbox mode · not production</span></div>
+      <div id="app-root"><div class="loading"><span class="spinner"></span> Loading healthcare workspace…</div></div>
+      <div class="footer-note">SVASTHNEXIS · CONNECTED CARE, WITH CONTROLLED ACCESS · DEMONSTRATION ENVIRONMENT</div>
     </div>
-    <div class="entry-nav">
-      <button class="entry-btn active" onclick="switchWorkspace('PATIENT')">1. Patient Portal</button>
-      <button class="entry-btn" onclick="switchWorkspace('DOCTOR')">2. Doctor Workspace</button>
-      <button class="entry-btn" onclick="switchWorkspace('HOSPITAL')">3. Hospital Portal</button>
-      <button class="entry-btn" onclick="switchWorkspace('STAFF_HUB')">4. Staff Hub</button>
-      <button class="entry-btn" onclick="switchWorkspace('CUSTOMER_CARE')">5. Customer Care</button>
-      <button class="entry-btn" onclick="switchWorkspace('PLATFORM_ADMIN')">6. Platform Admin</button>
-    </div>
-  </header>
-
-  <div class="workspace-banner">
-    <div class="workspace-info" id="ws-info">
-      <span>Active Persona:</span>
-      <strong id="ws-title">Patient & Family Health Portal (Rahul Verma)</strong>
-    </div>
-    <div class="persona-selector">
-      <span style="font-size: 0.75rem; color: var(--text-muted); margin-right: 0.5rem;">Mode:</span>
-      <button class="persona-btn active" id="btn-env-pilot">Pilot Facility (City Care)</button>
-      <button class="persona-btn" id="btn-env-audit">Tamper-Evident Audit</button>
-    </div>
-  </div>
-
-  <main id="app-root">
-    <!-- Dynamic Workspace Containers rendered by JS -->
   </main>
+</div>
 
-  <script>
-    let currentWorkspace = 'PATIENT';
-    let appState = null;
+<div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this)closeModal()"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-head"><div><h2 id="modal-title">Action</h2><p id="modal-subtitle">Complete the requested action.</p></div><button class="modal-close" onclick="closeModal()" aria-label="Close dialog">✕</button></div><div id="modal-content"></div><div class="modal-actions" id="modal-actions"></div></section></div>
+<div class="toast-stack" id="toast-stack" aria-live="polite"></div>
 
-    async function fetchState() {
-      try {
-        const res = await fetch('/api/v1/state');
-        appState = await res.json();
-        renderWorkspace();
-      } catch (err) {
-        console.error('Error fetching state:', err);
-      }
-    }
+<script>
+  const PATIENT_ID = 'pat-verma-01';
+  const WORKSPACES = {
+    PATIENT: { label:'Patient & Family', sub:'Personal health space', crumb:'Patient portal', title:'Good morning, Rahul', user:'Rahul Verma', role:'Patient account', initials:'RV', nav:[['overview','Overview','home'],['discover','Find care','search'],['appointments','Appointments','calendar'],['records','Health records','file'],['sharing','Consent & access','shield'],['support','Support','help']] },
+    DOCTOR: { label:'Doctor workspace', sub:'Clinical practice', crumb:'Doctor workspace', title:'Your clinical workspace', user:'Dr. Ananya Sharma', role:'Registered practitioner · demo', initials:'AS', nav:[['overview','Overview','home'],['inbox','Appointment inbox','inbox'],['encounters','Clinical encounters','clipboard'],['prescriptions','Prescriptions','pill'],['insights','Practice insights','chart']] },
+    HOSPITAL: { label:'Hospital operations', sub:'City Care · demo facility', crumb:'Facility portal', title:'Hospital operations overview', user:'City Care Authority', role:'Facility administrator · demo', initials:'CC', nav:[['overview','Overview','home'],['flow','OPD & patient flow','activity'],['resources','Beds & resources','grid'],['team','Care teams','users'],['finance','Finance overview','wallet']] },
+    STAFF_HUB: { label:'Employee hub', sub:'Verification & operations', crumb:'Staff portal', title:'Operations command centre', user:'Operations Team', role:'Employee hub · demo', initials:'OP', nav:[['overview','Overview','home'],['verification','Verification queue','badge'],['incidents','Security operations','shield'],['audit','Audit activity','history'],['operations','Service operations','settings']] },
+    CUSTOMER_CARE: { label:'Customer care', sub:'Support & case triage', crumb:'Support workspace', title:'Customer care desk', user:'Support Agent', role:'Customer care · restricted access', initials:'CA', nav:[['overview','Overview','home'],['tickets','Ticket queue','inbox'],['access','Access boundary','lock']] },
+    PLATFORM_ADMIN: { label:'Platform administration', sub:'Governance & oversight', crumb:'Platform admin', title:'Platform command centre', user:'Platform Administrator', role:'Privileged governance · demo', initials:'PA', nav:[['overview','Overview','home'],['admins','Admin lifecycle','users'],['audit','Audit integrity','history'],['health','Platform health','activity']] }
+  };
+  const ICONS = {
+    home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>', search:'<circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/>', calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>', file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/>', shield:'<path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/>', help:'<circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.6 1.3c-1 1.2-2.2 1.5-2.2 3.2M12 17.3h.01"/>', inbox:'<path d="M4 4h16v16H4z"/><path d="M4 13h4l2 3h4l2-3h4"/>', clipboard:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M8 10h8M8 14h8"/>', pill:'<path d="m10 14 4-4M7 17a4 4 0 0 1-5.7-5.7l5.6-5.6a4 4 0 0 1 5.7 5.7zM17 7a4 4 0 0 1 5.7 5.7l-5.6 5.6a4 4 0 0 1-5.7-5.7z"/>', chart:'<path d="M3 3v18h18M7 14l4-4 3 3 6-7"/>', activity:'<path d="M3 12h4l3-8 4 16 3-8h4"/>', grid:'<rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/>', users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>', wallet:'<rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 9h18M16 15h.01"/>', badge:'<circle cx="12" cy="8" r="6"/><path d="m8.2 13-1 8 4.8-2.8 4.8 2.8-1-8"/>', history:'<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>', settings:'<circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.7-1.4-2.4 1.4-1.1a8 8 0 0 1 0-2l-1.4-1.1 1.4-2.4 1.7.7a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.7 1.4 2.4-1.4 1.1a8 8 0 0 1 0 2Z"/>', plus:'<path d="M12 5v14M5 12h14"/>', arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>', check:'<path d="m5 12 4 4L19 6"/>', clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', pin:'<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>', video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3z"/>', lock:'<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/>', close:'<path d="m6 6 12 12M18 6 6 18"/>'
+  };
+  let currentWorkspace = 'PATIENT';
+  let appState = null;
+  let auditState = null;
+  let activeNav = 'overview';
+  let loading = false;
 
-    function switchWorkspace(ws) {
-      currentWorkspace = ws;
-      document.querySelectorAll('.entry-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+  function icon(name, size=16) { return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ICONS.activity}</svg>`; }
+  function esc(value) { return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function money(minor=0) { return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(minor/100); }
+  function dateLabel(value, opts={weekday:'short',day:'numeric',month:'short'}) { const d=new Date(value); return Number.isNaN(d.getTime())?'—':d.toLocaleDateString('en-IN',opts); }
+  function timeLabel(value) { const d=new Date(value); return Number.isNaN(d.getTime())?'—':d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}); }
+  function initials(name='') { return name.split(' ').filter(Boolean).slice(-2).map(x=>x[0]).join('').toUpperCase() || 'SN'; }
+  function facility() { return appState?.facilities?.[0] || {}; }
+  function auditIsValid() { return Boolean(auditState?.integrity?.isValid ?? (auditState?.integrity === true)); }
+  function doctorName(id) { return appState?.doctors?.find(d=>d.id===id)?.fullName || id || 'Provider'; }
+  function slotForAppointment(a) { return appState?.slots?.find(s=>s.id===a.slotId); }
+  function statusClass(value) { const v=String(value||'').toUpperCase(); if(['CONFIRMED','ACTIVE','VERIFIED','CAPTURED','COMPLETED','RELEASED'].includes(v)) return 'pill-green'; if(['REQUESTED','ACCEPTED','PAYMENT_PENDING','PENDING','TRIAGED','UNDER_REVIEW','COOLING_OFF'].includes(v)) return 'pill-amber'; if(['REJECTED','CANCELLED','FAILED','DENIED','SUSPENDED'].includes(v)) return 'pill-red'; if(['IN_PROGRESS','CHECKED_IN','AMENDED'].includes(v)) return 'pill-blue'; return 'pill-neutral'; }
+  function statusPill(value) { return `<span class="pill ${statusClass(value)}">${esc(String(value||'UNKNOWN').replaceAll('_',' '))}</span>`; }
+  function setWorkspaceChrome() {
+    const w = WORKSPACES[currentWorkspace];
+    document.getElementById('workspace-switch-title').textContent = w.label;
+    document.getElementById('workspace-switch-sub').textContent = w.sub;
+    document.getElementById('nav-section-label').textContent = w.crumb;
+    document.getElementById('side-user-name').textContent = w.user;
+    document.getElementById('side-user-role').textContent = w.role;
+    document.getElementById('side-avatar').textContent = w.initials;
+    document.getElementById('top-avatar').textContent = w.initials;
+    document.getElementById('top-user-name').textContent = w.user;
+    document.getElementById('top-user-role').textContent = w.role;
+    document.getElementById('top-crumb').textContent = w.crumb + ' / ' + (w.nav.find(n=>n[0]===activeNav)?.[1] || 'Overview');
+    document.getElementById('top-title').textContent = w.title;
+    document.getElementById('side-nav').innerHTML = w.nav.map(([id,label,ico])=>`<button class="nav-item ${activeNav===id?'active':''}" onclick="navigateTo('${id}')">${icon(ico,16)}<span>${label}</span>${id==='inbox' && currentWorkspace==='DOCTOR' && (appState?.appointments||[]).filter(a=>a.state==='REQUESTED').length ? `<span class="nav-count">${appState.appointments.filter(a=>a.state==='REQUESTED').length}</span>`:''}</button>`).join('');
+  }
+  async function fetchState(silent=false) {
+    try {
+      const [stateRes,auditRes] = await Promise.all([fetch('/api/v1/state'),fetch('/api/v1/audit')]);
+      if (!stateRes.ok) throw new Error('Unable to load platform state');
+      appState = await stateRes.json();
+      auditState = auditRes.ok ? await auditRes.json() : null;
       renderWorkspace();
+    } catch (error) {
+      if (!silent) showToast(error.message || 'Could not connect to the demo API.', 'error');
+      document.getElementById('app-root').innerHTML = `<div class="card empty"><strong>Workspace unavailable</strong>Start the local API server and reload this page.</div>`;
     }
+  }
+  function navigateTo(id) {
+    activeNav = id; setWorkspaceChrome();
+    const target = document.getElementById(id);
+    if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    else showToast('This view is included in the workspace overview below.', 'success');
+    toggleSidebar(false);
+  }
+  function switchWorkspace(ws) {
+    if (!WORKSPACES[ws]) return;
+    currentWorkspace = ws; activeNav = 'overview'; setWorkspaceChrome(); renderWorkspace(); toggleSidebar(false);
+    document.getElementById('global-search').value = '';
+  }
+  function toggleSidebar(force) {
+    const side=document.getElementById('sidebar'),overlay=document.getElementById('mobile-overlay');
+    const open=typeof force==='boolean'?force:!side.classList.contains('open');
+    side.classList.toggle('open',open);overlay.classList.toggle('open',open);
+  }
+  function openWorkspaceMenu() {
+    const names=Object.entries(WORKSPACES).map(([k,v])=>`<button class="quick-action" style="width:100%;margin-bottom:8px" onclick="switchWorkspace('${k}');closeModal()"><span class="qa-icon">${icon(k==='PATIENT'?'home':k==='DOCTOR'?'clipboard':k==='HOSPITAL'?'grid':k==='PLATFORM_ADMIN'?'settings':'users')}</span><span><strong>${v.label}</strong><small>${v.sub}</small></span></button>`).join('');
+    openModal('Switch workspace','Choose a demo persona to explore the separate role-based workspaces.',names,'<button class="btn btn-light" onclick="closeModal()">Close</button>');
+  }
+  function renderWorkspace() {
+    if (!appState) return;
+    setWorkspaceChrome();
+    const root=document.getElementById('app-root');
+    if(currentWorkspace==='PATIENT') root.innerHTML=renderPatient();
+    if(currentWorkspace==='DOCTOR') root.innerHTML=renderDoctor();
+    if(currentWorkspace==='HOSPITAL') root.innerHTML=renderHospital();
+    if(currentWorkspace==='STAFF_HUB') root.innerHTML=renderStaff();
+    if(currentWorkspace==='CUSTOMER_CARE') root.innerHTML=renderCare();
+    if(currentWorkspace==='PLATFORM_ADMIN') root.innerHTML=renderAdmin();
+  }
+  function pageHeading(eyebrow,title,desc,actions='') { return `<div class="page-heading" id="overview"><div><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>${desc}</p></div><div class="heading-actions">${actions}</div></div>`; }
+  function metric(label,value,foot,ico,delta='') { return `<article class="metric-card"><div class="metric-top"><span class="metric-label">${label}</span><span class="metric-icon">${icon(ico,15)}</span></div><div class="metric-value">${value}</div><div class="metric-foot">${delta?`<span class="positive">${delta}</span> · `:''}${foot}</div></article>`; }
+  function cardHeader(title,desc,action='') { return `<div class="card-header"><div><h2>${title}</h2><p>${desc}</p></div>${action}</div>`; }
+  function heroArt() { return `<svg viewBox="0 0 280 190" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="29" y="20" width="190" height="137" rx="17" fill="#F5FFFB" fill-opacity=".13" stroke="#C7F8E8" stroke-opacity=".5"/><rect x="43" y="35" width="162" height="105" rx="10" fill="#F4FFFB"/><rect x="54" y="47" width="65" height="34" rx="7" fill="#DFF4EC"/><path d="M63 65h9l5-9 8 17 6-10h18" stroke="#169D88" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="128" y="47" width="65" height="7" rx="3.5" fill="#D6E6E2"/><rect x="128" y="60" width="52" height="5" rx="2.5" fill="#E8F0ED"/><rect x="128" y="71" width="60" height="5" rx="2.5" fill="#E8F0ED"/><rect x="54" y="91" width="139" height="36" rx="7" fill="#F0F7F4"/><path d="M64 111h9l6-10 8 18 6-10h17" stroke="#169D88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="226" cy="119" r="31" fill="#C8F4E6"/><path d="M226 101v36m-18-18h36" stroke="#168F7E" stroke-width="7" stroke-linecap="round"/><circle cx="47" cy="151" r="17" fill="#E3F7EE"/><path d="M47 141v20m-10-10h20" stroke="#168F7E" stroke-width="4" stroke-linecap="round"/><path d="M111 158h63" stroke="#B5E9D8" stroke-width="5" stroke-linecap="round"/><path d="M121 171h42" stroke="#B5E9D8" stroke-width="4" stroke-linecap="round"/></svg>`; }
 
-    function renderWorkspace() {
-      if (!appState) return;
-      const root = document.getElementById('app-root');
-      const wsTitle = document.getElementById('ws-title');
+  function renderPatient() {
+    const doctors=appState.doctors||[],slots=appState.slots||[],appts=(appState.appointments||[]).filter(a=>a.patientId===PATIENT_ID),docs=(appState.documents||[]).filter(d=>d.patientId===PATIENT_ID),consents=(appState.consents||[]).filter(c=>c.dataSubjectId===PATIENT_ID),payments=(appState.payments||[]).filter(p=>p.patientId===PATIENT_ID);
+    const upcoming=appts.filter(a=>!['COMPLETED','REJECTED','CANCELLED','NO_SHOW'].includes(a.state));
+    const facilityName=facility().tradeName||'Partner facility';
+    const providers=doctors.map(d=>{const aff=(appState.affiliations||[]).find(a=>a.doctorId===d.id);const ds=slots.filter(s=>s.doctorId===d.id && s.allocatedCount<s.capacity && (!s.isHeld || s.heldByPatientId===PATIENT_ID));return {d,aff,slots:ds};});
+    const apptRows=upcoming.length?upcoming.map(a=>{const s=slotForAppointment(a);return `<div class="appointment-item"><div><strong>${esc(doctorName(a.doctorId))}</strong><small>${s?dateLabel(s.startTime)+' · '+timeLabel(s.startTime):'Time to be confirmed'} · ${a.consultationMode==='TELECONSULTATION'?'Online consultation':'In-person visit'}</small></div><div style="display:flex;align-items:center;gap:8px">${statusPill(a.state)}<button class="btn btn-light btn-sm" onclick="showToast('Appointment ${esc(a.id)} is shown in this demo environment.','success')">Details</button></div></div>`}).join(''):`<div class="empty"><strong>No upcoming visits</strong>Choose a verified provider to request your first appointment.</div>`;
+    const providerRows=providers.map(({d,aff,slots:ds})=>`<div class="provider-row" data-provider="${esc((d.fullName+' '+d.primarySpecialty).toLowerCase())}"><div class="doctor-avatar">${initials(d.fullName)}</div><div><div class="provider-name">${esc(d.fullName)} <span class="pill pill-green">Verified</span></div><div class="provider-meta"><span>${esc(d.primarySpecialty)}</span> · ${esc((d.qualificationDegrees||[]).join(', '))}</div><div class="provider-meta">${d.yearsExperience||0} years experience · ${(d.languagesSpoken||[]).slice(0,3).map(esc).join(' / ')}</div></div><div class="provider-actions"><div class="fee">${money(aff?.consultationFeeMinorUnits||0)} <small>/ visit</small></div><div class="slot-actions">${ds.map(s=>`<button class="slot-btn" onclick="handleHoldSlot('${s.id}')" ${s.isHeld?'disabled':''}>${timeLabel(s.startTime)} · ${s.mode==='TELECONSULTATION'?'Video':'Clinic'}</button>`).join('')||'<span style="font-size:8px;color:#9aabaa">No demo slots</span>'}</div></div></div>`).join('');
+    const timeline=[...docs.map(d=>({date:d.documentDate,title:d.title,detail:'Patient-uploaded health document',ico:'file'})),...appts.map(a=>({date:a.createdAt,title:'Appointment request',detail:doctorName(a.doctorId)+' · '+a.state.replaceAll('_',' '),ico:'calendar'})),...(appState.encounters||[]).filter(e=>e.patientId===PATIENT_ID).map(e=>({date:e.encounterDate,title:'Clinical encounter',detail:'Signed clinician note',ico:'clipboard'}))].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,4);
+    return `${pageHeading('Your care, in one place','Your health journey, connected.','Keep track of your care, manage your records and connect with verified providers.',`<button class="btn btn-light" onclick="showToast('Your care summary is ready in this demo.','success')">${icon('file',14)} Health summary</button><button class="btn btn-primary" onclick="navigateTo('discover')">${icon('plus',14)} Book an appointment</button>`)}
+      <section class="hero"><div class="hero-content"><div class="hero-kicker">${icon('activity',13)} Your personal health space</div><h2>Care that moves with you.</h2><p>Discover trusted care, keep your medical information together and share it only when you choose. Your health journey stays connected across visits.</p><button class="btn" onclick="navigateTo('discover')">Explore verified providers ${icon('arrow',14)}</button></div><div class="hero-art">${heroArt()}</div></section>
+      <section class="notice"><div class="notice-content"><span class="notice-icon">${icon('activity',17)}</span><div><strong>Need emergency medical attention?</strong><p>Do not use routine booking for urgent symptoms. Contact local emergency services or go to the nearest emergency department.</p></div></div><button class="btn btn-sm" onclick="showEmergencyInfo()">Emergency guidance ${icon('arrow',12)}</button></section>
+      <div class="metric-grid">${metric('Upcoming appointments',upcoming.length,'Across your care journey','calendar')}${metric('Health documents',docs.length,'In your personal vault','file')}${metric('Active sharing grants',consents.filter(c=>c.status==='ACTIVE').length,'Time-limited record access','shield')}${metric('Payments recorded',payments.length,'Sandbox transactions','wallet')}</div>
+      <div class="content-grid"><div class="stack">
+        <section class="card" id="discover">${cardHeader('Find your care team','Verified doctors with transparent fees and available demo slots.',`<span class="pill pill-green">${doctors.length} verified profiles</span>`)}<div class="provider-toolbar"><label class="search-field">${icon('search',14)}<input id="provider-search" placeholder="Search by doctor or speciality" oninput="filterProviders(this.value)" /></label><select class="filter-select" onchange="filterSpecialty(this.value)"><option value="all">All specialities</option>${[...new Set(doctors.map(d=>d.primarySpecialty))].map(s=>`<option>${esc(s)}</option>`).join('')}</select></div><div class="provider-list" id="provider-list">${providerRows}</div><div style="margin-top:13px;color:#93a5a5;font-size:8px">Availability and fees shown here are sample records; confirm current details directly with the facility before relying on them.</div></section>
+        <section class="card" id="appointments">${cardHeader('Your appointments','Bookings, provider decisions and visit status.',`<button class="text-link" onclick="showToast('All appointment records are shown here.','success')">View history ↗</button>`)}${apptRows}</section>
+        <section class="card" id="records">${cardHeader('Health timeline','A chronological view of your records across connected care.',`<button class="text-link" onclick="showToast('Timeline export is a planned integration.','success')">Export timeline ↗</button>`)}<div class="timeline">${timeline.length?timeline.map(t=>`<div class="timeline-row"><span class="timeline-dot">${icon(t.ico,13)}</span><div><strong>${esc(t.title)}</strong><p>${esc(t.detail)}</p></div><time>${dateLabel(t.date,{day:'numeric',month:'short'})}</time></div>`).join(''):'<div class="empty"><strong>Your timeline will appear here</strong>Appointments and records will be brought together as they are created.</div>'}</div></section>
+      </div><div class="stack">
+        <section class="card">${cardHeader('Next steps','A quick view of the actions that matter now.')}${upcoming.length?`<div class="appointment-feature"><div class="appointment-date"><div class="date-tile"><strong>${slotForAppointment(upcoming[0])?new Date(slotForAppointment(upcoming[0]).startTime).getDate():'—'}</strong><small>${slotForAppointment(upcoming[0])?new Date(slotForAppointment(upcoming[0]).startTime).toLocaleDateString('en-IN',{month:'short'}):'TBD'}</small></div><div><h3>${esc(doctorName(upcoming[0].doctorId))}</h3><p>${slotForAppointment(upcoming[0])?dateLabel(slotForAppointment(upcoming[0]).startTime)+' · '+timeLabel(slotForAppointment(upcoming[0]).startTime):'Awaiting schedule'} · ${esc(facilityName)}</p></div></div><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:9px;color:var(--muted)">Booking status</span>${statusPill(upcoming[0].state)}</div><div class="appointment-progress"><span class="progress-step done"></span><span class="progress-step ${['ACCEPTED','PAYMENT_PENDING','CONFIRMED','CHECKED_IN','IN_PROGRESS','COMPLETED'].includes(upcoming[0].state)?'done':''}"></span><span class="progress-step ${['CONFIRMED','CHECKED_IN','IN_PROGRESS','COMPLETED'].includes(upcoming[0].state)?'done':''}"></span><span class="progress-step ${['COMPLETED'].includes(upcoming[0].state)?'done':''}"></span></div><div class="progress-labels"><span>Requested</span><span>Accepted</span><span>Confirmed</span><span>Visit</span></div></div>`:`<div class="empty"><strong>No next appointment</strong>Your next visit will appear here after you book.</div>`}</section>
+        <section class="card" id="sharing">${cardHeader('Consent & record access','You stay in control of what is shared and for how long.',`<span class="pill pill-green">Patient-controlled</span>`)}${consents.length?consents.slice().reverse().slice(0,3).map(c=>`<div class="appointment-item"><div><strong>${esc(c.recipientId)}</strong><small>${esc((c.scopeCategories||[]).join(', '))} · Expires ${dateLabel(c.validUntil,{day:'numeric',month:'short'})}</small></div>${statusPill(c.status)}</div>`).join(''):'<div class="empty" style="margin-bottom:11px"><strong>No active sharing grants</strong>Grant access only for a specific purpose and duration.</div>'}<button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="handleGrantConsent()">${icon('shield',13)} Share selected records · 24 hours</button></section>
+        <section class="card" id="documents">${cardHeader('Your health documents','Original files remain distinct from extracted information.')}${docs.length?docs.map(d=>`<div class="record-item"><span class="record-icon">${icon('file',16)}</span><div><strong>${esc(d.title)}</strong><small>${esc(d.category.replaceAll('_',' '))} · ${dateLabel(d.documentDate,{day:'numeric',month:'short',year:'numeric'})}</small></div><span class="record-status">${statusPill(d.verificationStatus)}</span></div>`).join(''):'<div class="empty">No documents found.</div>'}<button class="btn btn-light" style="width:100%;margin-top:12px" onclick="showToast('Secure upload requires configured object storage and malware scanning.','success')">${icon('plus',13)} Add a health document</button></section>
+        <section class="card" id="support">${cardHeader('Need help with your care?','Get non-clinical help with bookings, records and account access.')}<div class="module-tile"><span class="module-icon">${icon('help',15)}</span><div><strong>Patient support</strong><p>Contact the service team for booking questions, document upload issues or account assistance. Clinical questions should go to your treating professional.</p></div></div><button class="btn btn-light" style="width:100%;margin-top:12px" onclick="switchWorkspace('CUSTOMER_CARE')">Open support desk ${icon('arrow',13)}</button></section>
+        <section class="card">${cardHeader('Quick actions','Common tasks in one place.')}<div class="quick-grid"><button class="quick-action" onclick="navigateTo('discover')"><span class="qa-icon">${icon('search',14)}</span><span><strong>Find a doctor</strong><small>Explore providers</small></span></button><button class="quick-action" onclick="navigateTo('records')"><span class="qa-icon">${icon('file',14)}</span><span><strong>My records</strong><small>Review documents</small></span></button><button class="quick-action" onclick="handleGrantConsent()"><span class="qa-icon">${icon('shield',14)}</span><span><strong>Share records</strong><small>Scoped access</small></span></button><button class="quick-action" onclick="switchWorkspace('CUSTOMER_CARE')"><span class="qa-icon">${icon('help',14)}</span><span><strong>Get support</strong><small>Raise a request</small></span></button></div></section>
+      </div></div>`;
+  }
+  function renderDoctor() {
+    const appts=appState.appointments||[],encounters=appState.encounters||[],rxs=appState.prescriptions||[],pending=appts.filter(a=>a.state==='REQUESTED'),today=appts.filter(a=>{const s=slotForAppointment(a);return s&&new Date(s.startTime).toDateString()===new Date().toDateString()});
+    const rows=appts.slice().reverse().map(a=>{const s=slotForAppointment(a);return `<tr><td><strong>${esc(a.id.slice(0,13))}</strong><div style="font-size:8px;color:#91a3a6">${dateLabel(a.createdAt,{day:'numeric',month:'short'})}</div></td><td>${esc(a.patientId)}</td><td>${s?dateLabel(s.startTime)+' · '+timeLabel(s.startTime):'Schedule pending'}</td><td>${statusPill(a.state)}</td><td>${a.state==='REQUESTED'?`<button class="btn btn-primary btn-sm" onclick="handleProviderAction('${a.id}','ACCEPTED')">Accept</button> <button class="btn btn-light btn-sm" onclick="handleProviderAction('${a.id}','REJECTED')">Decline</button>`:a.state==='CONFIRMED'?`<button class="btn btn-dark btn-sm" onclick="openEncounterModal('${a.id}')">Start visit</button>`:'—'}</td></tr>`}).join('');
+    return `${pageHeading('Clinical practice','Good morning, Dr. Sharma','Your schedule, care requests and clinical documentation in a single secure workspace.',`<button class="btn btn-light" onclick="showToast('Availability templates are part of the scheduling roadmap.','success')">${icon('calendar',14)} Manage availability</button><button class="btn btn-primary" onclick="navigateTo('inbox')">Review requests ${icon('arrow',13)}</button>`)}
+      <div class="hero"><div class="hero-content"><div class="hero-kicker">${icon('clipboard',13)} Practitioner workspace</div><h2>Thoughtful care starts with clear context.</h2><p>Review patient requests, access only records shared for a valid care purpose, and keep clinical notes traceable and signed.</p><div style="display:flex;gap:18px;flex-wrap:wrap"><div class="hero-stat"><strong>${pending.length}</strong><span><small>New requests</small></span></div><div class="hero-stat"><strong>${encounters.length}</strong><span><small>Signed encounters</small></span></div></div></div><div class="hero-art">${heroArt()}</div></div>
+      <div class="metric-grid">${metric('Requests awaiting review',pending.length,'Provider action required','inbox')}${metric('Today’s appointments',today.length,'From available demo schedule','calendar')}${metric('Signed encounters',encounters.length,'Immutable originals','clipboard')}${metric('Prescriptions issued',rxs.length,'Signed clinical outputs','pill')}</div>
+      <div class="content-grid"><div class="stack"><section class="card" id="inbox">${cardHeader('Appointment inbox','Accept, decline or open a confirmed visit.',`<span class="pill pill-amber">${pending.length} require review</span>`)}<div class="table-wrap"><table><thead><tr><th>Reference</th><th>Patient</th><th>Requested slot</th><th>Status</th><th>Action</th></tr></thead><tbody>${rows||'<tr><td colspan="5">No appointment requests yet.</td></tr>'}</tbody></table></div></section>
+      <section class="card" id="encounters">${cardHeader('Clinical encounters','Signed notes preserve author, time and amendment history.')}${encounters.length?encounters.slice().reverse().map(e=>`<div class="appointment-item"><div><strong>${esc(e.id)} · ${esc(e.patientId)}</strong><small>${dateLabel(e.encounterDate,{day:'numeric',month:'short',year:'numeric'})} · ${esc(e.clinicalNotes).slice(0,100)}${e.clinicalNotes.length>100?'…':''}</small></div><div style="display:flex;gap:6px;align-items:center">${statusPill(e.status)}<button class="btn btn-light btn-sm" onclick="openAmendModal('${e.id}')">Amend</button></div></div>`).join(''):'<div class="empty"><strong>No signed encounters</strong>Start a confirmed visit to create a signed clinical note.</div>'}</section>
+      <section class="card" id="prescriptions">${cardHeader('Prescription register','Prescriptions issued from completed encounters.')}${rxs.length?rxs.map(p=>`<div class="record-item"><span class="record-icon">${icon('pill',16)}</span><div><strong>${esc(p.id)} · ${esc(p.items?.length||0)} item(s)</strong><small>${(p.items||[]).map(i=>esc(i.medicineName)+' '+esc(i.strength)).join(' · ')}</small></div><span class="record-status">${statusPill('SIGNED')}</span></div>`).join(''):'<div class="empty">No prescriptions have been issued.</div>'}</section></div>
+      <div class="stack"><section class="card">${cardHeader('Clinical safety reminders','Controls that support safe documentation.')}<div class="module-tile"><span class="module-icon">${icon('shield',16)}</span><div><strong>Purpose-bound record access</strong><p>Open records only with a valid relationship, declared purpose and applicable patient permission.</p></div></div><div class="module-tile" style="margin-top:9px"><span class="module-icon">${icon('file',16)}</span><div><strong>Originals are preserved</strong><p>Signed notes are not silently overwritten. Amendments remain linked to the original.</p></div></div><div class="module-tile" style="margin-top:9px"><span class="module-icon">${icon('check',16)}</span><div><strong>Human clinical accountability</strong><p>AI-assisted content remains draft-only and requires professional review and signature.</p></div></div></section>
+      <section class="card" id="insights">${cardHeader('Practice snapshot','Illustrative operational signals from the current demo dataset.')}<div class="three-col"><div class="mini-stat"><span>Accepted</span><strong>${appts.filter(a=>['ACCEPTED','CONFIRMED','COMPLETED'].includes(a.state)).length}</strong></div><div class="mini-stat"><span>Declined</span><strong>${appts.filter(a=>a.state==='REJECTED').length}</strong></div><div class="mini-stat"><span>Completed</span><strong>${appts.filter(a=>a.state==='COMPLETED').length}</strong></div></div><div style="margin-top:13px" class="notice" ><div class="notice-content"><span class="notice-icon">${icon('activity',16)}</span><div><strong>AI report assistant · draft-only concept</strong><p>Document extraction is not connected in this demo. Do not use generated or extracted text as a clinical finding without review.</p></div></div></div></section>
+      <section class="card">${cardHeader('Facility affiliation','Your verified identity and facility approval are separate checks.')}<div class="appointment-item"><div><strong>${esc(facility().tradeName||'City Care General Hospital')}</strong><small>Department of Cardiology · active affiliation</small></div>${statusPill('ACTIVE')}</div><div style="font-size:9px;color:var(--muted);margin-top:10px">Professional registration: KMC-77412 · Karnataka Medical Council</div></section></div></div>`;
+  }
+  function renderHospital() {
+    const fac=facility(),appts=appState.appointments||[],doctors=appState.doctors||[],active=appts.filter(a=>!['CANCELLED','REJECTED','COMPLETED','NO_SHOW'].includes(a.state));
+    const statuses=[['Waiting','11',62,''],['In consultation','04',28,''],['Completed','38',82,''],['No-show','02',12,'red']];
+    return `${pageHeading('Facility operations',esc(fac.tradeName||'City Care General Hospital'),'Manage the facility, team, appointments and operational readiness.',`<button class="btn btn-light" onclick="showToast('Facility profile editor is planned for the next delivery increment.','success')">${icon('settings',14)} Facility settings</button><button class="btn btn-primary" onclick="showToast('New staff invitation requires configured identity management.','success')">${icon('plus',14)} Invite staff</button>`)}
+      <div class="hero"><div class="hero-content"><div class="hero-kicker">${icon('grid',13)} Facility command overview</div><h2>Operational clarity for better care delivery.</h2><p>${esc(fac.address?.locality||'Facility location')} · ${esc(fac.address?.city||'')} · ${esc(fac.operatingHours||'Hours not configured')}.</p><div style="display:flex;gap:16px;flex-wrap:wrap"><div class="hero-stat"><strong>${active.length}</strong><span><small>Active bookings</small></span></div><div class="hero-stat"><strong>${doctors.length}</strong><span><small>Verified doctors</small></span></div></div></div><div class="hero-art">${heroArt()}</div></div>
+      <div class="metric-grid">${metric('Appointments in system',appts.length,'All states','calendar')}${metric('Active care requests',active.length,'Require facility workflow','activity')}${metric('Verified practitioners',doctors.length,'Linked in demo facility','users')}${metric('Facility verification',esc(fac.verificationStatus||'Pending'),'Last verified '+dateLabel(fac.lastVerifiedAt,{day:'numeric',month:'short'}),'badge')}</div>
+      <div class="content-grid"><div class="stack"><section class="card" id="flow">${cardHeader('OPD & patient flow','Current queue snapshot · illustrative values, not live capacity.',`<span class="pill pill-blue">Simulated operational data</span>`)}<div class="two-col"><div><div class="resource-list">${statuses.map(([name,val,pct,color])=>`<div class="resource-row"><div><strong>${name}</strong><br/><small>Today</small></div><div class="bar ${color}"><span style="width:${pct}%"></span></div><div class="right-value">${val}</div></div>`).join('')}</div></div><div class="mini-stat" style="background:#f7fbf9"><span>Average wait time</span><strong>18 min</strong><small style="color:var(--muted);font-size:8px">Sample value · not sourced from hospital systems</small><div style="margin-top:10px" class="bar"><span style="width:57%"></span></div></div></div><div style="margin-top:17px" class="table-wrap"><table><thead><tr><th>Appointment</th><th>Patient ref</th><th>Doctor</th><th>Status</th><th>Action</th></tr></thead><tbody>${appts.map(a=>`<tr><td><strong>${esc(a.id.slice(0,14))}</strong></td><td>${esc(a.patientId)}</td><td>${esc(doctorName(a.doctorId))}</td><td>${statusPill(a.state)}</td><td>${a.state==='REQUESTED'?`<button class="btn btn-primary btn-sm" onclick="handleProviderAction('${a.id}','ACCEPTED')">Accept</button>`:'—'}</td></tr>`).join('')||'<tr><td colspan="5">No appointment activity yet.</td></tr>'}</tbody></table></div></section>
+      <section class="card" id="resources">${cardHeader('Facility resources','Target-state resource model. Values below are illustrative until connected to an authorized live source.')}<div class="three-col"><div class="module-tile"><span class="module-icon">${icon('grid',15)}</span><div><strong>General beds</strong><p>72 total · 54 occupied · 18 available</p></div></div><div class="module-tile"><span class="module-icon">${icon('activity',15)}</span><div><strong>ICU</strong><p>12 staffed · 9 occupied · 3 available</p></div></div><div class="module-tile"><span class="module-icon">${icon('settings',15)}</span><div><strong>Operation theatres</strong><p>4 rooms · 1 scheduled · 1 maintenance</p></div></div></div></section></div>
+      <div class="stack"><section class="card" id="team">${cardHeader('Care team directory','Verified practitioners linked to this facility.')}${doctors.map(d=>`<div class="record-item"><div class="doctor-avatar" style="width:35px;height:35px">${initials(d.fullName)}</div><div><strong>${esc(d.fullName)}</strong><small>${esc(d.primarySpecialty)} · ${d.yearsExperience} yrs experience</small></div><span class="record-status">${statusPill(d.verificationStatus)}</span></div>`).join('')}</section>
+      <section class="card" id="finance">${cardHeader('Finance & reconciliation','Payment events currently captured by the sandbox ledger.')}<div class="three-col"><div class="mini-stat"><span>Transactions</span><strong>${(appState.payments||[]).length}</strong></div><div class="mini-stat"><span>Captured</span><strong>${(appState.payments||[]).filter(p=>p.state==='CAPTURED').length}</strong></div><div class="mini-stat"><span>Failed</span><strong>${(appState.payments||[]).filter(p=>p.state==='FAILED').length}</strong></div></div><p style="font-size:8px;color:var(--muted);margin:12px 0 0">No real payment gateway is connected. Do not treat sandbox transactions as collected funds.</p></section>
+      <section class="card">${cardHeader('Facility profile','Verified facility identity and public details.')}<div class="appointment-item"><div><strong>${esc(fac.legalName||'Facility legal entity')}</strong><small>${esc(fac.registrationNumber||'Registration not supplied')}</small></div>${statusPill(fac.verificationStatus)}</div><div style="font-size:9px;color:var(--muted);margin-top:9px">${esc(fac.address?.line1||'')} · ${esc(fac.address?.city||'')} · ${esc(fac.address?.postalCode||'')}</div><div style="font-size:9px;color:var(--muted);margin-top:4px">Last verified: ${dateLabel(fac.lastVerifiedAt,{day:'numeric',month:'long',year:'numeric'})}</div></section></div></div>`;
+  }
+  function renderStaff() {
+    const doctors=appState.doctors||[],aud=auditState?.events||[];
+    return `${pageHeading('Employee hub','Operations command centre','Coordinate verification, service operations, security and escalations.',`<button class="btn btn-light" onclick="fetchState()">${icon('history',14)} Refresh activity</button><button class="btn btn-primary" onclick="navigateTo('verification')">Open verification queue ${icon('arrow',13)}</button>`)}
+      <div class="metric-grid">${metric('Verification records',doctors.length,'Demo doctor profiles','badge')}${metric('Support tickets',(appState.tickets||[]).length,'Across assigned queues','inbox')}${metric('Audit events',auditState?.count||0,'Recorded in demo process','history')}${metric('Audit chain',auditIsValid()?'Valid':'Check','Current in-memory chain status','shield')}</div>
+      <div class="content-grid"><div class="stack"><section class="card" id="verification">${cardHeader('Professional verification queue','Credential evidence must be checked with authoritative issuing bodies.',`<span class="pill pill-green">${doctors.filter(d=>d.verificationStatus==='VERIFIED').length} verified</span>`)}<div class="table-wrap"><table><thead><tr><th>Practitioner</th><th>Registration</th><th>Speciality</th><th>Verification</th><th>Evidence review</th></tr></thead><tbody>${doctors.map(d=>`<tr><td><strong>${esc(d.fullName)}</strong></td><td>${esc(d.registrationNumber)}</td><td>${esc(d.primarySpecialty)}</td><td>${statusPill(d.verificationStatus)}</td><td><button class="btn btn-light btn-sm" onclick="showToast('Demo record only. Authoritative credential verification is not connected.','success')">Review record</button></td></tr>`).join('')}</tbody></table></div></section>
+      <section class="card" id="audit">${cardHeader('Recent audit activity','Sensitive actions are captured separately from application debug logs.',`<button class="text-link" onclick="switchWorkspace('PLATFORM_ADMIN')">Open audit explorer ↗</button>`)}${renderAuditTable(aud.slice(-6).reverse())}</section></div>
+      <div class="stack"><section class="card" id="incidents">${cardHeader('Security operations','Signals to monitor across identity, records, APIs and infrastructure.')}<div class="module-tile"><span class="module-icon">${icon('shield',15)}</span><div><strong>Access monitoring</strong><p>Detect abnormal logins, privilege changes and bulk record access.</p></div></div><div class="module-tile" style="margin-top:9px"><span class="module-icon">${icon('file',15)}</span><div><strong>Data protection</strong><p>Track suspicious document exports, malware uploads and unauthorized access.</p></div></div><div class="module-tile" style="margin-top:9px"><span class="module-icon">${icon('activity',15)}</span><div><strong>Incident response</strong><p>Assign incident ownership, preserve evidence and follow the approved response plan.</p></div></div><button class="btn btn-light" style="width:100%;margin-top:14px" onclick="showToast('This is a tabletop simulation only; no CERT-In report is submitted.','success')">Run tabletop exercise</button></section>
+      <section class="card" id="operations">${cardHeader('Operations queues','Specialist teams and ownership boundaries.')}<div class="appointment-item"><div><strong>Payment operations</strong><small>Failures, refunds and settlement reconciliation</small></div><span class="pill pill-blue">Finance</span></div><div class="appointment-item"><div><strong>Records operations</strong><small>Document release and access complaints</small></div><span class="pill pill-blue">Records</span></div><div class="appointment-item"><div><strong>Technical operations</strong><small>API and integration incidents</small></div><span class="pill pill-blue">Platform</span></div></section></div></div>`;
+  }
+  function renderCare() {
+    const tickets=appState.tickets||[];
+    return `${pageHeading('First-line service','Customer care desk','Resolve account, booking and payment questions while preserving strict clinical-data boundaries.',`<button class="btn btn-light" onclick="fetchState()">${icon('history',14)} Refresh queue</button><button class="btn btn-primary" onclick="showToast('Ticket creation requires a configured support workflow.','success')">${icon('plus',14)} New ticket</button>`)}
+      <div class="metric-grid">${metric('Open tickets',tickets.filter(t=>!['CLOSED','RESOLVED'].includes(t.status)).length,'Assigned and awaiting action','inbox')}${metric('Critical cases',tickets.filter(t=>t.severity==='CRITICAL').length,'Escalate by defined policy','activity')}${metric('Awaiting user',tickets.filter(t=>t.status==='AWAITING_USER').length,'Pending customer response','clock')}${metric('Clinical chart access','Blocked','Customer Care is non-clinical','lock')}</div>
+      <div class="content-grid"><div class="stack"><section class="card" id="tickets">${cardHeader('Support ticket queue','Track owner, severity, status and service-level deadline.')}${tickets.length?`<div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Category</th><th>Severity</th><th>Status</th><th>Queue / SLA</th></tr></thead><tbody>${tickets.map(t=>`<tr><td><strong>${esc(t.id)}</strong><div style="font-size:8px;color:#8b9ea1">${esc(t.title)}</div></td><td>${esc(t.category)}</td><td>${statusPill(t.severity)}</td><td>${statusPill(t.status)}</td><td>${esc(t.assignedQueue)}<div style="font-size:8px;color:#8b9ea1">Due ${dateLabel(t.slaDueAt,{day:'numeric',month:'short'})} · ${timeLabel(t.slaDueAt)}</div></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">The queue is empty.</div>'}</section>
+      <section class="card" id="access">${cardHeader('Clinical access boundary test','Prove that an ordinary support session cannot read a patient chart.',`<span class="pill pill-red">Explicit deny expected</span>`)}<div class="module-tile"><span class="module-icon" style="background:#fff0ef;color:#bd5b57">${icon('lock',16)}</span><div><strong>Customer Care is not a clinical role</strong><p>Agents can view limited account, booking and payment status. Full clinical charts and medical advice remain outside this workspace.</p></div></div><button class="btn btn-primary" style="margin-top:14px" onclick="testCustomerCareDenial()">${icon('shield',13)} Attempt restricted chart access</button><div id="cc-test-output" style="margin-top:12px"></div></section></div>
+      <div class="stack"><section class="card">${cardHeader('Support handling principles','A consistent and safe service experience.')}<div class="timeline"><div class="timeline-row"><span class="timeline-dot">1</span><div><strong>Verify requester context</strong><p>Confirm identity and related appointment or transaction reference.</p></div></div><div class="timeline-row"><span class="timeline-dot">2</span><div><strong>Resolve within scope</strong><p>Provide non-clinical navigation and account support.</p></div></div><div class="timeline-row"><span class="timeline-dot">3</span><div><strong>Escalate specialist cases</strong><p>Clinical, security, finance and verification matters use assigned queues.</p></div></div></div></section>
+      <section class="card">${cardHeader('Restricted information','Never request passwords, OTPs, UPI PINs or full payment credentials.')}<div class="notice" style="margin:0"><div class="notice-content"><span class="notice-icon">${icon('shield',16)}</span><div><strong>Minimum necessary access</strong><p>Internal notes remain separate from user-visible replies. Escalations must contain only permitted evidence.</p></div></div></div></section></div></div>`;
+  }
+  function renderAuditTable(events) {
+    return events.length?`<div class="table-wrap"><table><thead><tr><th>Action</th><th>Actor</th><th>Resource</th><th>Outcome</th></tr></thead><tbody>${events.map(e=>`<tr><td><strong>${esc(e.action)}</strong><div style="font-size:8px;color:#8b9ea1">${esc(e.timestamp||e.createdAt||'')}</div></td><td>${esc(e.actorId)}</td><td>${esc(e.resourceType)} · ${esc(e.resourceId)}</td><td>${statusPill(e.outcome)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No audit events have been recorded.</div>';
+  }
+  function renderAdmin() {
+    const admins=appState.admins||[],active=admins.filter(a=>a.status==='ACTIVE').length,aud=auditState?.events||[];
+    return `${pageHeading('Platform governance','Platform command centre','Manage platform-level governance, privileged identities and audit visibility.',`<button class="btn btn-light" onclick="fetchState()">${icon('history',14)} Refresh system state</button><button class="btn btn-primary" onclick="showToast('Admin appointment requires independent approval and configured identity controls.','success')">${icon('plus',14)} Request admin appointment</button>`)}
+      <div class="metric-grid">${metric('Active administrators',active,'Policy ceiling: 5','users')}${metric('Available admin capacity',Math.max(0,5-active),'Governed appointments only','badge')}${metric('Audit events',auditState?.count||0,'Current in-memory stream','history')}${metric('Audit integrity',auditIsValid()?'Verified':'Attention','Current chain check','shield')}</div>
+      <div class="content-grid"><div class="stack"><section class="card" id="admins">${cardHeader('Administrator lifecycle','Removal starts a seven-day cooling-off request; audit evidence is retained.',`<span class="pill pill-green">${active} / 5 active</span>`)}<div class="table-wrap"><table><thead><tr><th>Admin ID</th><th>User ID</th><th>Status</th><th>Appointed</th><th>Governance action</th></tr></thead><tbody>${admins.map(a=>`<tr><td><strong>${esc(a.adminId)}</strong></td><td>${esc(a.userId)}</td><td>${statusPill(a.status)}</td><td>${dateLabel(a.appointedAt,{day:'numeric',month:'short',year:'numeric'})}</td><td>${a.status==='ACTIVE'?`<button class="btn btn-light btn-sm" onclick="handleInitiateAdminRemoval('${a.adminId}')">Request 7-day removal</button>`:'<span style="font-size:8px;color:#a77b3d">Cooling-off / review</span>'}</td></tr>`).join('')}</tbody></table></div><p style="font-size:8px;color:var(--muted);margin:12px 0 0">High-impact actions require separation of duties and independent approval. This demo endpoint is not an authenticated production admin control.</p></section>
+      <section class="card" id="audit">${cardHeader('Tamper-evident audit stream','Review sensitive actions and the integrity status of the in-memory hash chain.',`<span class="pill ${auditIsValid()?'pill-green':'pill-red'}">${auditIsValid()?'Integrity check passed':'Integrity check failed'}</span>`)}${renderAuditTable(aud.slice().reverse().slice(0,10))}</section></div>
+      <div class="stack"><section class="card" id="health">${cardHeader('Platform service posture','Current local demo process health; not an independent production SLO monitor.')}<div class="resource-list"><div class="resource-row"><div><strong>API service</strong><br/><small>Local process</small></div><div class="bar"><span style="width:100%"></span></div><div class="right-value" style="color:var(--green)">UP</div></div><div class="resource-row"><div><strong>Audit stream</strong><br/><small>Integrity check</small></div><div class="bar"><span style="width:${auditIsValid()?100:0}%"></span></div><div class="right-value" style="color:${auditIsValid()?'var(--green)':'var(--red)'}">${auditIsValid()?'OK':'CHECK'}</div></div><div class="resource-row"><div><strong>Data store</strong><br/><small>In-memory demo store</small></div><div class="bar amber"><span style="width:48%"></span></div><div class="right-value">DEMO</div></div></div><div class="notice" style="margin:15px 0 0"><div class="notice-content"><span class="notice-icon">${icon('activity',16)}</span><div><strong>Production hardening required</strong><p>Real authentication, persistent database, secrets management, monitoring and tested disaster recovery are not established by this prototype.</p></div></div></div></section>
+      <section class="card">${cardHeader('Governance guardrails','Authority is separated across platform, facility, clinician and patient.')}<div class="appointment-item"><div><strong>Platform administrator</strong><small>Platform settings, partner and user lifecycle</small></div><span class="pill pill-blue">Platform</span></div><div class="appointment-item"><div><strong>Hospital authority</strong><small>Facility rosters, resources and operations</small></div><span class="pill pill-blue">Tenant</span></div><div class="appointment-item"><div><strong>Doctor / RMP</strong><small>Clinical judgement and signed records</small></div><span class="pill pill-blue">Clinical</span></div><div class="appointment-item"><div><strong>Patient</strong><small>Personal record sharing and consent</small></div><span class="pill pill-blue">Individual</span></div></section></div></div>`;
+  }
 
-      if (currentWorkspace === 'PATIENT') {
-        wsTitle.innerText = 'Patient & Family Health Portal (User: Rahul Verma)';
-        root.innerHTML = renderPatientPortal();
-      } else if (currentWorkspace === 'DOCTOR') {
-        wsTitle.innerText = 'Doctor Clinical Workspace (RMP: Dr. Ananya Sharma, DM Cardiology)';
-        root.innerHTML = renderDoctorWorkspace();
-      } else if (currentWorkspace === 'HOSPITAL') {
-        wsTitle.innerText = 'Hospital & Facility Operations (City Care General Hospital)';
-        root.innerHTML = renderHospitalPortal();
-      } else if (currentWorkspace === 'STAFF_HUB') {
-        wsTitle.innerText = 'Staff Portal / Employee Hub (Verification & Security Ops)';
-        root.innerHTML = renderStaffHub();
-      } else if (currentWorkspace === 'CUSTOMER_CARE') {
-        wsTitle.innerText = 'Customer Care & Triage (Non-Clinical Restricted View)';
-        root.innerHTML = renderCustomerCare();
-      } else if (currentWorkspace === 'PLATFORM_ADMIN') {
-        wsTitle.innerText = 'Platform Admin Console (Max 5 Admins, 7-Day Cooling Off)';
-        root.innerHTML = renderPlatformAdmin();
-      }
+  function filterProviders(query) {
+    const q=String(query||'').toLowerCase();document.querySelectorAll('[data-provider]').forEach(row=>row.style.display=row.dataset.provider.includes(q)?'grid':'none');
+  }
+  function filterSpecialty(value) {
+    document.querySelectorAll('[data-provider]').forEach(row=>row.style.display=value==='all'||row.dataset.provider.includes(value.toLowerCase())?'grid':'none');
+  }
+  function handleGlobalSearch(query) {
+    const q=String(query||'').trim().toLowerCase();
+    if(currentWorkspace==='PATIENT') {
+      const input=document.getElementById('provider-search');
+      if(input){input.value=query;filterProviders(query);}
+      return;
     }
-
-    function renderPatientPortal() {
-      const doctors = appState.doctors || [];
-      const slots = appState.slots || [];
-      const appointments = appState.appointments || [];
-      const documents = appState.documents || [];
-
-      return `
-        <div class="emergency-banner">
-          <div class="emergency-text">
-            <strong>Emergency Route:</strong> Experiencing acute chest pain, breathlessness, or stroke symptoms?
-            Emergency care bypasses routine booking immediately.
-          </div>
-          <button class="btn btn-emergency btn-sm" onclick="alert('Calling National Emergency 112 / Direct Ambulance Dispatch...')">Call Emergency (112)</button>
-        </div>
-
-        <div class="grid">
-          <!-- Step 1: Provider Discovery & Atomic Slot Hold -->
-          <div class="card">
-            <h3>Find Verified Doctor & Reserve Slot <span class="tag tag-verified">Dual Search</span></h3>
-            <p class="card-subtitle">Location opt-in with postal code fallback (Bengaluru - 560034)</p>
-            <div style="margin-bottom: 1rem;">
-              <label style="font-size:0.75rem; font-weight:600;">Available Doctors & Slots:</label>
-              ${doctors.map(d => {
-                const docSlots = slots.filter(s => s.doctorId === d.id);
-                return `
-                  <div style="border: 1px solid var(--border); padding: 0.75rem; border-radius: 6px; margin-top: 0.5rem;">
-                    <div style="font-weight: 700;">${d.fullName} <span class="tag tag-verified">${d.primarySpecialty}</span></div>
-                    <div style="font-size:0.75rem; color: var(--text-muted);">${d.qualificationDegrees.join(', ')} • ${d.yearsExperience} yrs exp</div>
-                    <div style="margin-top: 0.5rem; display: flex; gap: 0.4rem; flex-wrap: wrap;">
-                      ${docSlots.map(s => `
-                        <button class="btn btn-outline btn-sm" onclick="handleHoldSlot('${s.id}')" ${s.isHeld ? 'disabled' : ''}>
-                          ${new Date(s.startTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} (${s.mode}) ${s.isHeld ? '[HELD]' : 'Hold Slot'}
-                        </button>
-                      `).join('')}
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-
-          <!-- Step 2: Active Booking & Payment Simulation -->
-          <div class="card">
-            <h3>Appointments & Status Machine <span class="tag tag-blue">State Machine</span></h3>
-            <p class="card-subtitle">Atomic Slot Hold -> Provider Review -> Payment -> Confirmed</p>
-            ${appointments.length === 0 ? '<p style="font-size:0.8rem; color:var(--text-muted);">No active bookings. Hold a slot to initiate booking.</p>' : ''}
-            ${appointments.map(a => `
-              <div style="border: 1px solid var(--border); padding: 0.75rem; border-radius: 6px; margin-bottom: 0.75rem;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <strong>${a.id}</strong>
-                  <span class="tag ${a.state === 'CONFIRMED' ? 'tag-verified' : a.state === 'REQUESTED' ? 'tag-pending' : 'tag-blue'}">${a.state}</span>
-                </div>
-                <div style="font-size:0.8rem; margin: 0.4rem 0;">Doctor: ${a.doctorId} • Mode: ${a.consultationMode}</div>
-                ${a.state === 'ACCEPTED' ? `
-                  <div style="margin-top: 0.5rem; background: #ecfdf5; padding: 0.5rem; border-radius: 4px;">
-                    <div style="font-size: 0.75rem; color: #065f46; font-weight:600;">Provider Accepted! Payment Due: INR 800.00</div>
-                    <button class="btn btn-primary btn-sm" style="margin-top:0.3rem;" onclick="handlePaymentSimulation('${a.id}')">Pay via UPI / Card (Sandbox Gateway)</button>
-                  </div>
-                ` : ''}
-              </div>
-            `).join('')}
-          </div>
-
-          <!-- Step 3: Patient Document Vault & Scoped Consent -->
-          <div class="card">
-            <h3>Document Vault & Consent Centre <span class="tag tag-verified">Scoped Sharing</span></h3>
-            <p class="card-subtitle">Patient retains ownership; records are shared only with explicit purpose & time limit</p>
-            <div style="margin-bottom: 0.75rem;">
-              <button class="btn btn-secondary btn-sm" onclick="handleGrantConsent()">+ Grant Scoped Consent to Dr. Sharma (24h)</button>
-            </div>
-            <div>
-              <label style="font-size:0.75rem; font-weight:600;">Stored Medical Documents:</label>
-              ${documents.map(d => `
-                <div style="border: 1px solid var(--border); padding: 0.5rem; border-radius: 4px; margin-top: 0.4rem; font-size: 0.8rem;">
-                  <strong>${d.title}</strong> (${d.category})
-                  <div style="font-size: 0.7rem; color: var(--text-muted);">Source: ${d.source} • Date: ${d.documentDate} • Vault Status: Encrypted</div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderDoctorWorkspace() {
-      const appointments = appState.appointments || [];
-      const encounters = appState.encounters || [];
-      const prescriptions = appState.prescriptions || [];
-
-      return `
-        <div class="grid">
-          <div class="card">
-            <h3>Clinical Appointment Inbox <span class="tag tag-pending">Provider Review</span></h3>
-            <p class="card-subtitle">Review incoming booking requests with patient chief complaint</p>
-            ${appointments.length === 0 ? '<p style="font-size:0.8rem; color:var(--text-muted);">Inbox empty.</p>' : ''}
-            ${appointments.map(a => `
-              <div style="border:1px solid var(--border); padding: 0.75rem; border-radius:6px; margin-bottom: 0.5rem;">
-                <div style="display:flex; justify-content:space-between;">
-                  <strong>${a.id} (Patient: ${a.patientId})</strong>
-                  <span class="tag tag-blue">${a.state}</span>
-                </div>
-                <div style="font-size:0.75rem; color:var(--text-muted); margin: 0.3rem 0;">Complaint: Routine hypertension follow-up</div>
-                ${a.state === 'REQUESTED' ? `
-                  <div style="display:flex; gap: 0.4rem; margin-top:0.5rem;">
-                    <button class="btn btn-primary btn-sm" onclick="handleProviderAction('${a.id}', 'ACCEPTED')">Accept Appointment</button>
-                    <button class="btn btn-outline btn-sm" onclick="handleProviderAction('${a.id}', 'REJECTED')">Decline</button>
-                  </div>
-                ` : a.state === 'CONFIRMED' ? `
-                  <button class="btn btn-secondary btn-sm" style="margin-top:0.4rem;" onclick="handleStartEncounter('${a.id}')">Start Consultation & Clinical Note</button>
-                ` : ''}
-              </div>
-            `).join('')}
-          </div>
-
-          <div class="card">
-            <h3>Clinical Encounter & Prescription <span class="tag tag-verified">Signed & Immutable</span></h3>
-            <p class="card-subtitle">Digital signature sealed; corrections must link as amendments (CAT-09)</p>
-            ${encounters.map(e => `
-              <div style="border: 1px solid var(--border); padding: 0.75rem; border-radius: 6px; margin-bottom: 0.75rem;">
-                <div style="display:flex; justify-content:space-between;">
-                  <strong>${e.id}</strong>
-                  <span class="tag tag-verified">${e.status}</span>
-                </div>
-                <div style="font-size:0.75rem; margin-top:0.3rem;"><strong>SOAP Note:</strong> ${e.clinicalNotes}</div>
-                <div style="font-size:0.7rem; color:var(--text-muted); font-family: monospace;">Sig Hash: ${e.doctorSignatureHash.slice(0, 24)}...</div>
-                <button class="btn btn-outline btn-sm" style="margin-top:0.4rem;" onclick="handleAmendEncounter('${e.id}')">Add Signed Amendment</button>
-              </div>
-            `).join('')}
-            ${prescriptions.map(p => `
-              <div style="background:#f0fdf4; border: 1px solid #bbf7d0; padding: 0.5rem; border-radius: 4px; font-size:0.75rem;">
-                <strong>Signed Prescription: ${p.id}</strong>
-                <div>${p.items.map(i => `${i.medicineName} (${i.strength}) - ${i.frequency} x ${i.durationDays}d`).join(', ')}</div>
-              </div>
-            `).join('')}
-          </div>
-
-          <div class="card">
-            <h3>AI Doctor Assistant (Non-Authoritative) <span class="tag tag-blue">Draft Only</span></h3>
-            <p class="card-subtitle">OCR extraction side-by-side with original document; clinician approval mandatory</p>
-            <div style="border: 1px dashed var(--border); padding: 0.75rem; border-radius:6px; font-size:0.8rem;">
-              <strong>Extracted Lab Report: Lipid Profile</strong>
-              <div style="font-size:0.75rem; color:var(--text-muted); margin: 0.3rem 0;">• Serum Cholesterol: 210 mg/dL [Source Ref: 150-200] (High)</div>
-              <div style="font-size:0.75rem; color:var(--text-muted);">• HDL: 45 mg/dL [Source Ref: 40-60] (Normal)</div>
-              <div style="margin-top:0.5rem;">
-                <span class="tag tag-pending">Review Required</span>
-                <button class="btn btn-outline btn-sm" onclick="alert('Clinician verified extraction with source scan. Accepted into encounter.')">Verify & Accept</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderHospitalPortal() {
-      const fac = appState.facilities[0] || {};
-      return `
-        <div class="grid">
-          <div class="card">
-            <h3>Facility Profile & Governance <span class="tag tag-verified">Verified</span></h3>
-            <p class="card-subtitle">${fac.legalName}</p>
-            <div style="font-size: 0.825rem;">
-              <div><strong>Registration:</strong> ${fac.registrationNumber}</div>
-              <div><strong>Authority:</strong> ${fac.issuingAuthority}</div>
-              <div><strong>Address:</strong> ${fac.address?.locality}, ${fac.address?.city}</div>
-              <div><strong>Status:</strong> ${fac.verificationStatus} (Verified: ${new Date(fac.lastVerifiedAt).toLocaleDateString()})</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Live Capacity & Freshness <span class="tag tag-blue">Live Operational</span></h3>
-            <p class="card-subtitle">Separate static count from dynamic availability (Blueprint Sec 06)</p>
-            <table>
-              <tr><th>Ward / Resource</th><th>Capacity</th><th>Available</th><th>Status</th></tr>
-              <tr><td>General Medical Ward</td><td>40</td><td>12</td><td><span class="tag tag-verified">Available</span></td></tr>
-              <tr><td>Cardiology ICU</td><td>10</td><td>2</td><td><span class="tag tag-verified">Available</span></td></tr>
-              <tr><td>Operation Theatre 1</td><td>1</td><td>0</td><td><span class="tag tag-pending">In Procedure</span></td></tr>
-            </table>
-          </div>
-
-          <div class="card">
-            <h3>Service Tariffs <span class="tag tag-verified">Versioned</span></h3>
-            <p class="card-subtitle">Effective Dates & Inclusions Defined</p>
-            <table>
-              <tr><th>Service / Consultation</th><th>Tariff</th><th>Effective Date</th></tr>
-              <tr><td>Cardiology OPD Consultation</td><td>INR 800.00</td><td>01-Jan-2026</td></tr>
-              <tr><td>General Medicine OPD</td><td>INR 600.00</td><td>01-Jan-2026</td></tr>
-              <tr><td>Lipid Profile Complete</td><td>INR 450.00</td><td>01-Jan-2026</td></tr>
-            </table>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderStaffHub() {
-      return `
-        <div class="grid">
-          <div class="card">
-            <h3>Doctor & Facility Verification Queue <span class="tag tag-pending">Pending Check</span></h3>
-            <p class="card-subtitle">Staff checks medical council registration and degree evidence</p>
-            <table>
-              <tr><th>Applicant</th><th>Council / Reg</th><th>Status</th><th>Action</th></tr>
-              <tr><td>Dr. Rajesh Varma</td><td>KMC-55821</td><td><span class="tag tag-verified">VERIFIED</span></td><td><button class="btn btn-outline btn-sm">Audit Details</button></td></tr>
-              <tr><td>Dr. Ananya Sharma</td><td>KMC-77412</td><td><span class="tag tag-verified">VERIFIED</span></td><td><button class="btn btn-outline btn-sm">Audit Details</button></td></tr>
-            </table>
-          </div>
-
-          <div class="card">
-            <h3>Security Operations Centre (SOC) <span class="tag tag-verified">Active</span></h3>
-            <p class="card-subtitle">CERT-In 6-hour reporting compliance & threat monitoring</p>
-            <div style="font-size:0.8rem; margin-bottom: 0.5rem;">
-              <div>• Active Trust Boundaries: <strong>Edge WAF + RLS Isolated</strong></div>
-              <div>• Suspicious Login Spikes: <strong>0</strong></div>
-              <div>• Cross-Tenant Access Attempts: <strong>0 (Protected by RLS)</strong></div>
-            </div>
-            <button class="btn btn-outline btn-sm" onclick="alert('Triggering simulated tabletop drill for incident response runbook.')">Simulate CERT-In Incident Triage</button>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderCustomerCare() {
-      const tickets = appState.tickets || [];
-      return `
-        <div class="grid">
-          <div class="card">
-            <h3>Support & Ticket Triage <span class="tag tag-blue">Customer Care</span></h3>
-            <p class="card-subtitle">First-line triage for booking and payment issues. Clinical chart access is strictly blocked.</p>
-            ${tickets.map(t => `
-              <div style="border:1px solid var(--border); padding: 0.75rem; border-radius:6px; margin-bottom: 0.5rem;">
-                <div style="display:flex; justify-content:space-between;">
-                  <strong>${t.id}: ${t.title}</strong>
-                  <span class="tag tag-pending">${t.status}</span>
-                </div>
-                <div style="font-size:0.8rem; margin: 0.3rem 0;">${t.description}</div>
-                <div style="font-size:0.725rem; color:var(--text-muted);">Queue: ${t.assignedQueue} • SLA Due: ${new Date(t.slaDueAt).toLocaleString()}</div>
-              </div>
-            `).join('')}
-          </div>
-
-          <div class="card">
-            <h3>RBAC Clinical Access Boundary Test <span class="tag tag-red">Explicit Deny</span></h3>
-            <p class="card-subtitle">Verify Customer Care cannot access patient clinical charts (CAT-07)</p>
-            <button class="btn btn-outline btn-sm" onclick="testCustomerCareDenial()">Attempt Clinical Chart Access as Customer Care</button>
-            <div id="cc-test-output" style="margin-top:0.5rem; font-size:0.8rem; color: var(--emergency-red); font-weight:600;"></div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderPlatformAdmin() {
-      const admins = appState.admins || [];
-      return `
-        <div class="grid">
-          <div class="card">
-            <h3>Platform Administrator Lifecycle (T-01) <span class="tag tag-verified">${admins.length} / 5 Active</span></h3>
-            <p class="card-subtitle">Maximum 5 platform admins. Removal enforces 7-day cooling-off window.</p>
-            <table>
-              <tr><th>Admin ID</th><th>User ID</th><th>Status</th><th>Appointed</th><th>Action</th></tr>
-              ${admins.map(adm => `
-                <tr>
-                  <td>${adm.adminId}</td>
-                  <td>${adm.userId}</td>
-                  <td><span class="tag ${adm.status === 'ACTIVE' ? 'tag-verified' : 'tag-pending'}">${adm.status}</span></td>
-                  <td>${new Date(adm.appointedAt).toLocaleDateString()}</td>
-                  <td>
-                    ${adm.status === 'ACTIVE' ? `
-                      <button class="btn btn-outline btn-sm" onclick="handleInitiateAdminRemoval('${adm.adminId}')">Request 7-Day Removal</button>
-                    ` : `<span style="font-size:0.75rem; color:var(--amber);">Cooling Off (7d)</span>`}
-                  </td>
-                </tr>
-              `).join('')}
-            </table>
-          </div>
-
-          <div class="card">
-            <h3>Tamper-Evident SHA-256 Audit Stream <span class="tag tag-verified">Cryptographically Verified</span></h3>
-            <p class="card-subtitle">Every sensitive action, consent check, and financial transaction</p>
-            <div class="log-terminal" id="audit-log-terminal">Loading audit chain...</div>
-          </div>
-        </div>
-      `;
-    }
-
-    // Actions
-    async function handleHoldSlot(slotId) {
-      const res = await fetch('/api/v1/slots/hold', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slotId, patientId: 'pat-verma-01' })
-      });
-      const data = await res.json();
-      if (!data.success) {
-        alert(data.error);
-      } else {
-        // Automatically request appointment
-        await fetch('/api/v1/appointments', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            patientId: 'pat-verma-01',
-            doctorId: data.slot.doctorId,
-            facilityId: data.slot.facilityId,
-            slotId: data.slot.id,
-            consultationMode: data.slot.mode,
-            paymentMode: 'ONLINE',
-            chiefComplaint: 'Routine hypertension follow-up'
-          })
-        });
-        await fetchState();
-      }
-    }
-
-    async function handleProviderAction(appointmentId, action) {
-      await fetch('/api/v1/appointments/' + appointmentId + '/transition', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ newState: action, role: 'DOCTOR_RMP', userId: 'doc-sharma-01' })
-      });
-      await fetchState();
-    }
-
-    async function handlePaymentSimulation(appointmentId) {
-      await fetch('/api/v1/webhooks/payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          eventId: 'sim-pay-' + Date.now(),
-          appointmentId,
-          amountMinorUnits: 80000,
-          paymentMode: 'ONLINE',
-          gatewayProvider: 'SANDBOX',
-          status: 'SUCCESS'
-        })
-      });
-      await fetchState();
-    }
-
-    async function handleGrantConsent() {
-      await fetch('/api/v1/consents', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          patientId: 'pat-verma-01',
-          recipientId: 'doc-sharma-01',
-          purpose: 'CONSULTATION',
-          scopeCategories: ['LAB_REPORT', 'PRESCRIPTION'],
-          validHours: 24
-        })
-      });
-      alert('Scoped consent granted for 24 hours to Dr. Sharma for Lab Reports & Prescriptions.');
-      await fetchState();
-    }
-
-    async function handleStartEncounter(appointmentId) {
-      await fetch('/api/v1/encounters/sign', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          appointmentId,
-          clinicalNotes: 'Blood pressure 128/82 mmHg. Patient compliant with lifestyle modifications. Lipid panel reviewed. Continue current regimen.',
-          icd10DiagnosisCodes: ['I10'], // Essential hypertension
-          prescriptionItems: [
-            {
-              medicineName: 'Telmisartan Tablets IP',
-              genericName: 'Telmisartan',
-              dosageForm: 'TABLET',
-              strength: '40 mg',
-              frequency: 'Once daily after breakfast',
-              durationDays: 30
-            }
-          ]
-        })
-      });
-      await fetchState();
-    }
-
-    async function handleAmendEncounter(encounterId) {
-      const reason = prompt('Enter clinical justification for amendment (required by DCB0129 / CAT-09):', 'Corrected dosage adjustment based on weight');
-      if (!reason) return;
-      await fetch('/api/v1/encounters/amend', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          encounterId,
-          amendmentReason: reason,
-          correctedNotes: 'Blood pressure 128/82 mmHg. Dosage confirmed Telmisartan 40mg. Advised low sodium intake and 30-min daily aerobic exercise.'
-        })
-      });
-      await fetchState();
-    }
-
-    async function handleInitiateAdminRemoval(adminId) {
-      const res = await fetch('/api/v1/admin/removal/initiate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetAdminId: adminId, reason: 'Governance rotation policy test' })
-      });
-      const data = await res.json();
-      alert(data.message);
-      await fetchState();
-    }
-
-    async function testCustomerCareDenial() {
-      const res = await fetch('/api/v1/clinical/chart?role=CUSTOMER_CARE');
-      const data = await res.json();
-      document.getElementById('cc-test-output').innerText = 'HTTP ' + res.status + ' Forbidden: ' + data.error;
-    }
-
-    async function updateAuditLog() {
-      try {
-        const res = await fetch('/api/v1/audit');
-        const data = await res.json();
-        const term = document.getElementById('audit-log-terminal');
-        if (term) {
-          term.innerText = JSON.stringify(data.events.slice(-10), null, 2);
-        }
-      } catch (e) {}
-    }
-
-    fetchState();
-    setInterval(updateAuditLog, 2000);
-  </script>
+    const root=document.getElementById('app-root');
+    if(!root) return;
+    const candidates=[...root.querySelectorAll('tbody tr, .appointment-item, .record-item, .module-tile, .provider-row')];
+    candidates.forEach(el=>{el.style.display=!q||el.textContent.toLowerCase().includes(q)?'':'none';});
+  }
+  function showToast(message,type='success') {
+    const stack=document.getElementById('toast-stack'),el=document.createElement('div');el.className='toast '+type;el.innerHTML=`${icon(type==='error'?'close':'check',15)}<span>${esc(message)}</span>`;stack.appendChild(el);setTimeout(()=>el.remove(),4200);
+  }
+  function openModal(title,subtitle,content,actions) {
+    document.getElementById('modal-title').textContent=title;document.getElementById('modal-subtitle').textContent=subtitle;document.getElementById('modal-content').innerHTML=content;document.getElementById('modal-actions').innerHTML=actions;document.getElementById('modal-backdrop').classList.add('open');
+  }
+  function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); }
+  function showEmergencyInfo() { openModal('Emergency care guidance','This platform does not provide emergency dispatch or real-time ambulance availability.','<div class="notice" style="margin:0"><div class="notice-content"><span class="notice-icon">'+icon('activity',17)+'</span><div><strong>Seek urgent in-person help</strong><p>For a medical emergency in India, call 112 or go to the nearest emergency department. Do not wait for routine appointment booking or a virtual consultation.</p></div></div></div>','<button class="btn btn-primary" onclick="closeModal()">I understand</button>'); }
+  async function apiPost(url,body) {
+    const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let data={};try{data=await res.json()}catch{}
+    if(!res.ok||data.success===false) throw new Error(data.error||`Request failed (${res.status})`);return data;
+  }
+  async function handleHoldSlot(slotId) {
+    try {
+      const held=await apiPost('/api/v1/slots/hold',{slotId,patientId:PATIENT_ID,durationMinutes:10});
+      const result=await apiPost('/api/v1/appointments',{patientId:PATIENT_ID,doctorId:held.slot.doctorId,facilityId:held.slot.facilityId,slotId:held.slot.id,consultationMode:held.slot.mode,paymentMode:'ONLINE',chiefComplaint:'Routine consultation request'});
+      showToast(`Appointment request created · ${result.appointment.id}`,'success');await fetchState(true);
+    } catch(e) { showToast(e.message,'error'); }
+  }
+  async function handleProviderAction(appointmentId,action) {
+    try { await apiPost('/api/v1/appointments/'+encodeURIComponent(appointmentId)+'/transition',{newState:action,role:'DOCTOR_RMP',userId:'doc-sharma-01',reason:action==='REJECTED'?'Provider declined in demo workflow':undefined});showToast(action==='ACCEPTED'?'Appointment accepted. Patient can complete the sandbox payment step.':'Appointment declined and slot released.','success');await fetchState(true); }
+    catch(e){showToast(e.message,'error');}
+  }
+  async function handlePaymentSimulation(appointmentId) {
+    try { await apiPost('/api/v1/webhooks/payment',{eventId:'sim-pay-'+Date.now(),appointmentId,amountMinorUnits:80000,paymentMode:'ONLINE',gatewayProvider:'SANDBOX',status:'SUCCESS'});showToast('Sandbox payment recorded. This is not a real charge.','success');await fetchState(true); }
+    catch(e){showToast(e.message,'error');}
+  }
+  async function handleGrantConsent() {
+    try { await apiPost('/api/v1/consents',{patientId:PATIENT_ID,recipientId:'doc-sharma-01',purpose:'CONSULTATION',scopeCategories:['LAB_REPORT','PRESCRIPTION'],validHours:24});showToast('Demo consent grant created for 24 hours.','success');await fetchState(true); }
+    catch(e){showToast(e.message,'error');}
+  }
+  function openEncounterModal(appointmentId) {
+    openModal('Document clinical encounter','Enter a draft note. The demo API signs it using a simulated practitioner session.','<div class="field"><label>Clinical note</label><textarea id="encounter-notes">Patient reviewed during consultation. Further examination and plan documented by the treating practitioner.</textarea></div><div class="field"><label>Diagnosis code (optional)</label><input id="encounter-code" value="" placeholder="Enter an appropriate code only after clinical review" /></div><div class="field"><label>Prescription item (optional)</label><input id="encounter-rx" placeholder="Medicine name, strength and directions" /></div>','<button class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="submitEncounter(\''+appointmentId+'\')">Sign encounter</button>');
+  }
+  async function submitEncounter(appointmentId) {
+    const notes=document.getElementById('encounter-notes').value.trim(),code=document.getElementById('encounter-code').value.trim(),rx=document.getElementById('encounter-rx').value.trim();if(!notes){showToast('A clinical note is required.','error');return;}
+    const items=rx?[{medicineName:rx,genericName:rx,dosageForm:'UNSPECIFIED',strength:'As entered by clinician',frequency:'As prescribed by clinician',durationDays:1}]:[];
+    try { await apiPost('/api/v1/encounters/sign',{appointmentId,clinicalNotes:notes,icd10DiagnosisCodes:code?[code]:[],prescriptionItems:items});closeModal();showToast('Encounter signed in demo workflow.','success');await fetchState(true); }
+    catch(e){showToast(e.message,'error');}
+  }
+  function openAmendModal(encounterId) {
+    openModal('Add a linked amendment','The original signed note remains preserved. Record the reason and corrected text.','<div class="field"><label>Amendment reason</label><input id="amend-reason" placeholder="Reason for amendment" /></div><div class="field"><label>Amended note</label><textarea id="amend-notes" placeholder="Enter corrected or additional information"></textarea></div>','<button class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="submitAmendment(\''+encounterId+'\')">Save amendment</button>');
+  }
+  async function submitAmendment(encounterId) {
+    const reason=document.getElementById('amend-reason').value.trim(),notes=document.getElementById('amend-notes').value.trim();if(!reason||!notes){showToast('Both amendment reason and note are required.','error');return;}
+    try { await apiPost('/api/v1/encounters/amend',{encounterId,amendmentReason:reason,correctedNotes:notes});closeModal();showToast('Linked amendment recorded. Original note preserved.','success');await fetchState(true); }
+    catch(e){showToast(e.message,'error');}
+  }
+  async function handleInitiateAdminRemoval(adminId) {
+    openModal('Request administrator removal','This starts the seven-day cooling-off process in the current demo.','<div class="field"><label>Reason for change</label><textarea id="admin-remove-reason">Scheduled governance review</textarea></div><p style="font-size:9px;color:var(--muted)">Production systems must require authenticated initiator identity and any applicable independent approval.</p>','<button class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-danger" onclick="submitAdminRemoval(\''+adminId+'\')">Initiate request</button>');
+  }
+  async function submitAdminRemoval(adminId) {
+    const reason=document.getElementById('admin-remove-reason').value.trim();if(!reason){showToast('A reason is required.','error');return;}
+    try { const data=await apiPost('/api/v1/admin/removal/initiate',{targetAdminId:adminId,reason});closeModal();showToast(data.message||'Removal request submitted.','success');await fetchState(true); }
+    catch(e){showToast(e.message,'error');}
+  }
+  async function testCustomerCareDenial() {
+    try {const res=await fetch('/api/v1/clinical/chart?role=CUSTOMER_CARE');const data=await res.json();const out=document.getElementById('cc-test-output');if(out)out.innerHTML=`<div class="module-tile" style="background:${res.status===403?'#fff6f4':'#f6fbf9'}"><span class="module-icon" style="background:${res.status===403?'#fff0ef':'#e7f6ee'};color:${res.status===403?'#bd5450':'#17836c'}">${icon(res.status===403?'shield':'activity',16)}</span><div><strong>HTTP ${res.status} · ${res.status===403?'Access correctly denied':'Unexpected access response'}</strong><p>${esc(data.error||'No policy message returned.')}</p></div></div>`; }
+    catch(e){showToast(e.message,'error');}
+  }
+  function startAuditRefresh() { setInterval(async()=>{try{const r=await fetch('/api/v1/audit');if(r.ok)auditState=await r.json();}catch{}},12000); }
+  window.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();document.getElementById('global-search').focus();}});
+  setWorkspaceChrome();fetchState();startAuditRefresh();
+</script>
 </body>
 </html>
-

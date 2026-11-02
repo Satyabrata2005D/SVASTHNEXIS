@@ -352,3 +352,4 @@ CREATE TABLE IF NOT EXISTS audit_events (
     previous_hash VARCHAR(128) NOT NULL,
     event_hash VARCHAR(128) NOT NULL
 );
+

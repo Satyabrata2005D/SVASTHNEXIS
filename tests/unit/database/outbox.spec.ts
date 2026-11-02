@@ -81,3 +81,4 @@ describe('Transactional Outbox Manager (ADR-007, BP Sec 18)', () => {
     expect(sql).toContain("status = CASE WHEN retry_count + 1 >= 5 THEN 'FAILED' ELSE 'PENDING' END");
   });
 });
+
