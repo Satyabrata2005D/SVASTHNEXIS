@@ -1,0 +1,36 @@
+# Project Dependency & Risk Register
+## Unified Healthcare Management Ecosystem (SvasthNexis)
+**Document Status:** Active Baseline (Stage 0 Foundation)  
+**Governing Rule:** Never invent vendor credentials, partner contracts, clinical owners, approved clinical forms, legal interpretations, or medical guidelines. Missing external items must be explicitly registered and tracked.
+
+---
+
+### 1. Unresolved Partner, Clinical & Legal Dependencies
+
+| Dependency ID | Category | Description | Source Blueprint Ref | Current Status | Impact / Workaround | Accountable Owner |
+|---|---|---|---|---|---|---|
+| **DEP-01** | Partner Contract | **Payment Gateway Merchant Agreement & Sandbox Keys:** Production merchant account with compliant gateway (e.g., Razorpay, Cashfree, Pine Labs) for UPI/Cards/Netbanking. | BP Sec 12, p. 21; IP p. 18 | PENDING | Sandbox payment adapter simulates signed webhooks, success/failure states, and refunds for local testing. | Platform Engineering / Finance |
+| **DEP-02** | Clinical Governance | **Clinical Pilot Owner & Advisory Sign-Off:** Named Chief Medical Officer (CMO) or Clinical Director to approve clinical encounter forms, diagnosis coding standards (ICD-10/SNOMED), and doctor onboarding rules. | BP Sec 05, 25, p. 38; IP p. 21 | PENDING | Outpatient consultation templates use standardized draft schemas pending formal clinical approval. | Clinical Advisory Group |
+| **DEP-03** | Regulatory / Legal | **DPDP Act & Rules Legal Counsel Opinion:** Formal legal review of patient consent notices, data retention schedules, dependent/minor registration rules, and data fiduciary obligations under Digital Personal Data Protection Act 2023. | BP Sec 19, p. 31; IP p. 19 | PENDING | Strict privacy-by-design baseline implemented (explicit granular consent, access logging, right to withdraw). | Legal Counsel / Privacy Officer |
+| **DEP-04** | Partner Integration | **ABDM Sandbox Access & Conformance Testing:** M1/M2/M3 certification access for Ayushman Bharat Digital Mission (ABHA creation, HPR lookup, HFR facility linking, PHR consent manager). | BP Sec 16, p. 28; IP p. 18 | PENDING | Architecture models ABDM interfaces behind `AbdmIntegrationAdapter`; mocked in sandbox mode. | Integration Engineering |
+| **DEP-05** | Partner Contract | **Telehealth Video Provider Agreement:** Commercial WebRTC or video infrastructure contract (e.g., AWS Chime SDK, Zoom SDK, Twilio Video) with HIPAA/DPDP data protection addendum. | BP Sec 10, p. 18; IP p. 18 | PENDING | Video session lifecycle operates via adapter; default WebRTC/sandbox token exchange used for local tests. Recording disabled by default. | Platform Engineering |
+| **DEP-06** | Clinical Operations | **Pilot Facility Workflow & Department Mapping:** Selected hospital or clinic partner defining live department hierarchy, doctor rosters, consultation fee tariffs, and cancellation policies. | BP Sec 06, 22, p. 35; IP p. 21 | PENDING | Seeded demo tenant ("City Care General Hospital") with verified sample departments and doctors provided for testing. | Hospital Operations |
+| **DEP-07** | Clinical Governance | **Laboratory & Imaging Standard Operating Procedures:** Pathologist-approved laboratory test catalogue, standard reference intervals, specimen collection workflows, and result validation hierarchy. | BP Sec 07, p. 12; IP p. 23 | PENDING | LIS engine implements sample collection -> result entry -> validation state machine with strict pathologist review gate. | Pathology Lead |
+| **DEP-08** | Regulatory / Security | **CERT-In Incident Response Protocol & Playbook:** Documented incident management playbook ensuring compliance with CERT-In 6-hour cybersecurity reporting directions under IT Act Section 70B. | BP Sec 19, p. 31; IP p. 19 | PENDING | Security event auditing implemented; draft CERT-In escalation runbook created in `docs/runbooks/incident-response.md`. | Security Operations (SOC) |
+| **DEP-09** | Clinical Governance | **AI Safety Evaluation Dataset & Ethics Approval:** Clinically curated benchmark dataset of anonymized lab reports and consultation transcripts to validate extraction accuracy, false positive rates, and emergency red-flag triggers. | BP Sec 11, pp. 19-20; IP p. 24 | PENDING | All AI services remain disabled behind `FEATURE_FLAG_AI_ASSISTANCE=false` until validation dataset is approved. | Clinical AI Lead |
+| **DEP-10** | Clinical Operations | **Hospital Downtime Standard Operating Procedures (SOP):** Facility operational paper backup and manual intake procedures during power or network outages. | BP Sec 20, p. 33; IP p. 20 | PENDING | Documented manual fallback runbook created in `docs/runbooks/facility-downtime-sop.md`. | Hospital Operations |
+
+---
+
+### 2. High-Severity Risk Mitigation Matrix
+
+| Risk ID | Hazard Description | Severity | Impact | Mitigation Strategy | Accountable Owner |
+|---|---|---|---|---|---|
+| **RSK-01** | Incorrect or unverified doctor credentials published. | High | Patient harm, regulatory sanction, liability. | Mandatory authoritative verification before profile publication; separate credential check from facility affiliation; annual renewal tracking. | Provider Operations |
+| **RSK-02** | Race condition causes duplicate confirmed booking on single slot. | High | Double-booking, patient dispute, clinic disruption. | Atomic PostgreSQL row-level locks / exclusion constraints during slot hold; idempotency keys on confirmation. (CAT-01) | Platform Engineering |
+| **RSK-03** | Cross-tenant data leakage between independent hospitals. | Critical | Major privacy breach under DPDP Act, confidentiality violation. | Server-side tenant scoping from trusted token claim + PostgreSQL Row-Level Security (RLS) defense in depth. (CAT-08) | Security Architecture |
+| **RSK-04** | Unauthorized clinical chart access by customer support or staff. | High | Compromise of sensitive patient medical data. | Strict RBAC/ABAC policy engine; Customer Care role receives 403 on medical records; audit trail on every access attempt. (CAT-07) | Privacy Officer |
+| **RSK-05** | AI hallucination or patient misdirection in navigation. | High | Missed emergency, delayed life-saving intervention. | Bounded navigation assistant with hard-coded emergency red-flag triage rules; no medical diagnoses or prescriptions permitted. (CAT-11) | Clinical Safety Lead |
+| **RSK-06** | Medical records silently overwritten or altered. | Critical | Loss of clinical integrity, diagnostic errors, legal inadmissibility. | Signed clinical notes and prescriptions are strictly immutable; corrections must link as amendments with author, timestamp, and justification. (CAT-09) | Clinical Governance |
+| **RSK-07** | Payment success webhook replay causes duplicate ledger entries. | Medium | Financial discrepancies, accounting errors, duplicate invoices. | Idempotency key tracking on incoming webhooks; atomic upsert on immutable financial ledger. (CAT-04) | Finance Engineering |
+| **RSK-08** | Consultation video recording accessed without consent or leaked. | High | Severe privacy violation, breach of confidential consultation. | Recording disabled by default; requires explicit dual consent from doctor and patient; short-lived signed URLs; AES-256 encryption. (CAT-13) | Privacy & Security |
