@@ -12,3 +12,4 @@ DO $$
 BEGIN
   RAISE NOTICE 'SvasthNexis Database Initialized with UUID and pgcrypto extensions.';
 END $$;
+

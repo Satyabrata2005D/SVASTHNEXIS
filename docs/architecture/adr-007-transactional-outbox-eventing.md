@@ -26,3 +26,4 @@ Critical healthcare workflows trigger secondary operations (notifications, docum
 ## Consequences
 - Guaranteed at-least-once delivery with exactly-once processing semantics.
 - Resilient asynchronous operations that do not compromise primary transactional latency.
+

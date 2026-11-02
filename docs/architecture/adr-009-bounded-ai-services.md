@@ -25,3 +25,4 @@ Deploying an unrestricted, open-ended conversational AI ("medical chatbot") dire
 ## Consequences
 - Guaranteed adherence to Indian Telemedicine Practice Guidelines (2020) and patient safety principles.
 - Eradicates hallucinated clinical records or unauthorized autonomous prescriptions.
+

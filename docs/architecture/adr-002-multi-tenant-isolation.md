@@ -17,3 +17,4 @@ The ecosystem serves multiple independent hospitals, multi-facility hospital gro
 ## Consequences
 - Guaranteed defense-in-depth preventing Insecure Direct Object Reference (IDOR) attacks.
 - Automated security integration test suite (`tests/security/tenant-isolation.spec.ts`) continuously validates cross-tenant barriers.
+

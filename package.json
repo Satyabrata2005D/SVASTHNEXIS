@@ -10,6 +10,8 @@
   ],
   "scripts": {
     "build": "npm run --workspaces --if-present build",
+    "start": "tsx apps/api/src/server.ts",
+    "dev": "tsx watch apps/api/src/server.ts",
     "lint": "npm run --workspaces --if-present lint",
     "typecheck": "npm run --workspaces --if-present typecheck",
     "test": "npm run test:unit && npm run test:integration",
@@ -31,5 +33,11 @@
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "cors": "^2.8.6",
+    "express": "^5.3.0"
   }
 }

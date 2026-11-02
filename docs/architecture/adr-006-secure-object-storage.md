@@ -25,3 +25,4 @@ Medical documents (prescriptions, diagnostic lab PDFs, DICOM radiology studies, 
 ## Consequences
 - Prevents public data leaks and unauthorized direct download links.
 - Strictly satisfies blueprint Sections 09, 10, 19, and critical acceptance test CAT-05 / CAT-13.
+

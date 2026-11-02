@@ -49,3 +49,4 @@
    - Compare manual offline receipts against digital payment intents.
    - Reconcile physical bed assignments with digital bed state machine.
    - Mark physical paper records as `RECONCILED_DIGITALLY` and archive in Medical Records Department (MRD) per statutory retention policy.
+

@@ -1,0 +1,29 @@
+{
+  "name": "@svasthnexis/api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc -b && cp -r src/public dist/public 2>/dev/null || true",
+    "typecheck": "tsc --noEmit",
+    "start": "tsx src/server.ts",
+    "dev": "tsx watch src/server.ts"
+  },
+  "dependencies": {
+    "@svasthnexis/shared-types": "*",
+    "@svasthnexis/policy-engine": "*",
+    "@svasthnexis/audit": "*",
+    "@svasthnexis/test-fixtures": "*",
+    "@svasthnexis/design-system": "*",
+    "@svasthnexis/observability": "*",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

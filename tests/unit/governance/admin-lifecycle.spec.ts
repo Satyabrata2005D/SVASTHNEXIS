@@ -74,3 +74,4 @@ describe('Admin Governance & 7-Day Removal Lifecycle (T-01, BP Sec 03)', () => {
     expect(approvedResult.updatedAdmin?.archivedAt).toBeDefined();
   });
 });
+

@@ -25,3 +25,4 @@ Before any clinical module (Encounter, Prescription, LIS, Nursing, Inpatient) is
 1. Named Clinical Safety Officer (licensed RMP) must sign off on clinical workflows.
 2. Standardized clinical terminology sets (ICD-10, SNOMED CT, LOINC) must be mapped and reviewed.
 3. Local facility downtime procedures must be distributed and trained with clinical staff.
+

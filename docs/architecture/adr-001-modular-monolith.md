@@ -25,3 +25,4 @@ We adopt a **modular monolith** as the primary architecture pattern for core bac
 ### Negative / Trade-offs
 - Requires discipline in code reviews to prevent leaky boundaries between modules.
 - Enforced through lint rules (`import/no-restricted-paths`) and automated dependency graph validation.
+

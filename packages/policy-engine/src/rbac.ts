@@ -214,3 +214,4 @@ export function evaluateRbac(roles: UserRole[], action: SystemAction): RbacDecis
     reason: `Action '${action}' is not granted to roles: [${roles.join(', ')}]`,
   };
 }
+

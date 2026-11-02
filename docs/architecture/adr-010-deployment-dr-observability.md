@@ -29,3 +29,4 @@ Healthcare infrastructure requires resilient operations, auditable transactions,
 ## Consequences
 - Predictable, auditable operations and disaster recovery resilience.
 - Full traceability for debugging and compliance investigations.
+

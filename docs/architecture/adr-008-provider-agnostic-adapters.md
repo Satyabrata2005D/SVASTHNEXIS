@@ -26,3 +26,4 @@ Healthcare organizations rely on varied external vendors for payments (Razorpay,
 ## Consequences
 - Clean separation between core domain logic and third-party vendor APIs.
 - Unhindered local development and automated testing using robust sandbox adapters.
+

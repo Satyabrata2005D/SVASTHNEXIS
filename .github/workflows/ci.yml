@@ -60,3 +60,4 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres_dev_password@localhost:5432/svasthnexis_test
           REDIS_URL: redis://localhost:6379/0
+

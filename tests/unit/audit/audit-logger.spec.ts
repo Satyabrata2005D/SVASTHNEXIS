@@ -67,3 +67,4 @@ describe('AuditLogEngine (BP Sec 09, Sec 19, NFR-04)', () => {
     expect(integrityCheck.brokenAtIndex).toBe(0);
   });
 });
+

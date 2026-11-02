@@ -85,3 +85,4 @@ export function evaluateConsent(request: ConsentEvaluationRequest): ConsentEvalu
     evaluatedAt: nowIso,
   };
 }
+

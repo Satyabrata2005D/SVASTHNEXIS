@@ -34,3 +34,4 @@
 | **RSK-06** | Medical records silently overwritten or altered. | Critical | Loss of clinical integrity, diagnostic errors, legal inadmissibility. | Signed clinical notes and prescriptions are strictly immutable; corrections must link as amendments with author, timestamp, and justification. (CAT-09) | Clinical Governance |
 | **RSK-07** | Payment success webhook replay causes duplicate ledger entries. | Medium | Financial discrepancies, accounting errors, duplicate invoices. | Idempotency key tracking on incoming webhooks; atomic upsert on immutable financial ledger. (CAT-04) | Finance Engineering |
 | **RSK-08** | Consultation video recording accessed without consent or leaked. | High | Severe privacy violation, breach of confidential consultation. | Recording disabled by default; requires explicit dual consent from doctor and patient; short-lived signed URLs; AES-256 encryption. (CAT-13) | Privacy & Security |
+

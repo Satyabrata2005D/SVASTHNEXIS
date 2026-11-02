@@ -8,3 +8,4 @@ import * as crypto from 'crypto';
 export function generateCorrelationId(prefix = 'req'): string {
   return `${prefix}-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
 }
+

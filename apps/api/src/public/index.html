@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SvasthNexis - Unified Healthcare Management Ecosystem</title>
+  <style>
+    :root {
+      --navy-900: #06101e;
+      --navy-700: #0b1d30;
+      --navy-500: #102a43;
+      --teal-700: #005a5a;
+      --teal-500: #008080;
+      --teal-50: #e6fffa;
+      --surface: #ffffff;
+      --bg: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --emergency-red: #d32f2f;
+      --success-green: #2e7d32;
+      --amber: #ed6c02;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    header { background: var(--navy-900); color: white; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--teal-500); }
+    .brand { display: flex; align-items: center; gap: 0.75rem; }
+    .brand h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; }
+    .brand .badge { background: var(--teal-500); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase; }
+    .entry-nav { display: flex; gap: 0.5rem; }
+    .entry-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.85rem; border-radius: 6px; cursor: pointer; font-size: 0.825rem; font-weight: 600; transition: all 0.2s; }
+    .entry-btn:hover, .entry-btn.active { background: var(--teal-500); border-color: var(--teal-500); }
+    
+    .workspace-banner { background: var(--teal-50); border-bottom: 1px solid var(--border); padding: 0.6rem 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; }
+    .workspace-info { font-weight: 600; color: var(--teal-700); display: flex; align-items: center; gap: 0.5rem; }
+    .persona-selector { display: flex; gap: 0.35rem; align-items: center; }
+    .persona-btn { padding: 0.25rem 0.65rem; border: 1px solid var(--border); background: white; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+    .persona-btn.active { background: var(--navy-700); color: white; border-color: var(--navy-700); }
+
+    main { max-width: 1280px; margin: 1.5rem auto; padding: 0 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--navy-900); display: flex; justify-content: space-between; align-items: center; }
+    .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.875rem; cursor: pointer; border: none; transition: 0.15s; }
+    .btn-primary { background: var(--teal-500); color: white; }
+    .btn-primary:hover { background: var(--teal-700); }
+    .btn-secondary { background: var(--navy-700); color: white; }
+    .btn-secondary:hover { background: var(--navy-900); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: var(--bg); }
+    .btn-emergency { background: var(--emergency-red); color: white; font-weight: 700; }
+    .btn-sm { padding: 0.3rem 0.65rem; font-size: 0.775rem; }
+
+    .tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.725rem; font-weight: 600; }
+    .tag-verified { background: #dcfce7; color: #166534; }
+    .tag-pending { background: #fef3c7; color: #92400e; }
+    .tag-red { background: #fee2e2; color: #991b1b; }
+    .tag-blue { background: #e0f2fe; color: #075985; }
+
+    .log-terminal { background: #0b1120; color: #38bdf8; font-family: ui-monospace, monospace; font-size: 0.75rem; padding: 0.75rem; border-radius: 6px; max-height: 220px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
+    
+    .timeline-item { border-left: 2px solid var(--teal-500); padding-left: 1rem; margin-bottom: 1rem; position: relative; }
+    .timeline-item::before { content: ""; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--teal-500); }
+    .timeline-title { font-weight: 700; font-size: 0.875rem; }
+    .timeline-meta { font-size: 0.75rem; color: var(--text-muted); }
+
+    .emergency-banner { background: #fef2f2; border: 1px solid #fecaca; border-left: 4px solid var(--emergency-red); padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+    .emergency-text { font-size: 0.85rem; color: #991b1b; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.825rem; }
+    th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+    th { background: #f1f5f9; font-weight: 600; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <h1>SvasthNexis</h1>
+      <span class="badge">Unified Healthcare Ecosystem</span>
+    </div>
+    <div class="entry-nav">
+      <button class="entry-btn active" onclick="switchWorkspace('PATIENT')">1. Patient Portal</button>
+      <button class="entry-btn" onclick="switchWorkspace('DOCTOR')">2. Doctor Workspace</button>
+      <button class="entry-btn" onclick="switchWorkspace('HOSPITAL')">3. Hospital Portal</button>
+      <button class="entry-btn" onclick="switchWorkspace('STAFF_HUB')">4. Staff Hub</button>
+      <button class="entry-btn" onclick="switchWorkspace('CUSTOMER_CARE')">5. Customer Care</button>
+      <button class="entry-btn" onclick="switchWorkspace('PLATFORM_ADMIN')">6. Platform Admin</button>
+    </div>
+  </header>
+
+  <div class="workspace-banner">
+    <div class="workspace-info" id="ws-info">
+      <span>Active Persona:</span>
+      <strong id="ws-title">Patient & Family Health Portal (Rahul Verma)</strong>
+    </div>
+    <div class="persona-selector">
+      <span style="font-size: 0.75rem; color: var(--text-muted); margin-right: 0.5rem;">Mode:</span>
+      <button class="persona-btn active" id="btn-env-pilot">Pilot Facility (City Care)</button>
+      <button class="persona-btn" id="btn-env-audit">Tamper-Evident Audit</button>
+    </div>
+  </div>
+
+  <main id="app-root">
+    <!-- Dynamic Workspace Containers rendered by JS -->
+  </main>
+
+  <script>
+    let currentWorkspace = 'PATIENT';
+    let appState = null;
+
+    async function fetchState() {
+      try {
+        const res = await fetch('/api/v1/state');
+        appState = await res.json();
+        renderWorkspace();
+      } catch (err) {
+        console.error('Error fetching state:', err);
+      }
+    }
+
+    function switchWorkspace(ws) {
+      currentWorkspace = ws;
+      document.querySelectorAll('.entry-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderWorkspace();
+    }
+
+    function renderWorkspace() {
+      if (!appState) return;
+      const root = document.getElementById('app-root');
+      const wsTitle = document.getElementById('ws-title');
+
+      if (currentWorkspace === 'PATIENT') {
+        wsTitle.innerText = 'Patient & Family Health Portal (User: Rahul Verma)';
+        root.innerHTML = renderPatientPortal();
+      } else if (currentWorkspace === 'DOCTOR') {
+        wsTitle.innerText = 'Doctor Clinical Workspace (RMP: Dr. Ananya Sharma, DM Cardiology)';
+        root.innerHTML = renderDoctorWorkspace();
+      } else if (currentWorkspace === 'HOSPITAL') {
+        wsTitle.innerText = 'Hospital & Facility Operations (City Care General Hospital)';
+        root.innerHTML = renderHospitalPortal();
+      } else if (currentWorkspace === 'STAFF_HUB') {
+        wsTitle.innerText = 'Staff Portal / Employee Hub (Verification & Security Ops)';
+        root.innerHTML = renderStaffHub();
+      } else if (currentWorkspace === 'CUSTOMER_CARE') {
+        wsTitle.innerText = 'Customer Care & Triage (Non-Clinical Restricted View)';
+        root.innerHTML = renderCustomerCare();
+      } else if (currentWorkspace === 'PLATFORM_ADMIN') {
+        wsTitle.innerText = 'Platform Admin Console (Max 5 Admins, 7-Day Cooling Off)';
+        root.innerHTML = renderPlatformAdmin();
+      }
+    }
+
+    function renderPatientPortal() {
+      const doctors = appState.doctors || [];
+      const slots = appState.slots || [];
+      const appointments = appState.appointments || [];
+      const documents = appState.documents || [];
+
+      return `
+        <div class="emergency-banner">
+          <div class="emergency-text">
+            <strong>Emergency Route:</strong> Experiencing acute chest pain, breathlessness, or stroke symptoms?
+            Emergency care bypasses routine booking immediately.
+          </div>
+          <button class="btn btn-emergency btn-sm" onclick="alert('Calling National Emergency 112 / Direct Ambulance Dispatch...')">Call Emergency (112)</button>
+        </div>
+
+        <div class="grid">
+          <!-- Step 1: Provider Discovery & Atomic Slot Hold -->
+          <div class="card">
+            <h3>Find Verified Doctor & Reserve Slot <span class="tag tag-verified">Dual Search</span></h3>
+            <p class="card-subtitle">Location opt-in with postal code fallback (Bengaluru - 560034)</p>
+            <div style="margin-bottom: 1rem;">
+              <label style="font-size:0.75rem; font-weight:600;">Available Doctors & Slots:</label>
+              ${doctors.map(d => {
+                const docSlots = slots.filter(s => s.doctorId === d.id);
+                return `
+                  <div style="border: 1px solid var(--border); padding: 0.75rem; border-radius: 6px; margin-top: 0.5rem;">
+                    <div style="font-weight: 700;">${d.fullName} <span class="tag tag-verified">${d.primarySpecialty}</span></div>
+                    <div style="font-size:0.75rem; color: var(--text-muted);">${d.qualificationDegrees.join(', ')} • ${d.yearsExperience} yrs exp</div>
+                    <div style="margin-top: 0.5rem; display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                      ${docSlots.map(s => `
+                        <button class="btn btn-outline btn-sm" onclick="handleHoldSlot('${s.id}')" ${s.isHeld ? 'disabled' : ''}>
+                          ${new Date(s.startTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} (${s.mode}) ${s.isHeld ? '[HELD]' : 'Hold Slot'}
+                        </button>
+                      `).join('')}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Step 2: Active Booking & Payment Simulation -->
+          <div class="card">
+            <h3>Appointments & Status Machine <span class="tag tag-blue">State Machine</span></h3>
+            <p class="card-subtitle">Atomic Slot Hold -> Provider Review -> Payment -> Confirmed</p>
+            ${appointments.length === 0 ? '<p style="font-size:0.8rem; color:var(--text-muted);">No active bookings. Hold a slot to initiate booking.</p>' : ''}
+            ${appointments.map(a => `
+              <div style="border: 1px solid var(--border); padding: 0.75rem; border-radius: 6px; margin-bottom: 0.75rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong>${a.id}</strong>
+                  <span class="tag ${a.state === 'CONFIRMED' ? 'tag-verified' : a.state === 'REQUESTED' ? 'tag-pending' : 'tag-blue'}">${a.state}</span>
+                </div>
+                <div style="font-size:0.8rem; margin: 0.4rem 0;">Doctor: ${a.doctorId} • Mode: ${a.consultationMode}</div>
+                ${a.state === 'ACCEPTED' ? `
+                  <div style="margin-top: 0.5rem; background: #ecfdf5; padding: 0.5rem; border-radius: 4px;">
+                    <div style="font-size: 0.75rem; color: #065f46; font-weight:600;">Provider Accepted! Payment Due: INR 800.00</div>
+                    <button class="btn btn-primary btn-sm" style="margin-top:0.3rem;" onclick="handlePaymentSimulation('${a.id}')">Pay via UPI / Card (Sandbox Gateway)</button>
+                  </div>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Step 3: Patient Document Vault & Scoped Consent -->
+          <div class="card">
+            <h3>Document Vault & Consent Centre <span class="tag tag-verified">Scoped Sharing</span></h3>
+            <p class="card-subtitle">Patient retains ownership; records are shared only with explicit purpose & time limit</p>
+            <div style="margin-bottom: 0.75rem;">
+              <button class="btn btn-secondary btn-sm" onclick="handleGrantConsent()">+ Grant Scoped Consent to Dr. Sharma (24h)</button>
+            </div>
+            <div>
+              <label style="font-size:0.75rem; font-weight:600;">Stored Medical Documents:</label>
+              ${documents.map(d => `
+                <div style="border: 1px solid var(--border); padding: 0.5rem; border-radius: 4px; margin-top: 0.4rem; font-size: 0.8rem;">
+                  <strong>${d.title}</strong> (${d.category})
+                  <div style="font-size: 0.7rem; color: var(--text-muted);">Source: ${d.source} • Date: ${d.documentDate} • Vault Status: Encrypted</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDoctorWorkspace() {
+      const appointments = appState.appointments || [];
+      const encounters = appState.encounters || [];
+      const prescriptions = appState.prescriptions || [];
+
+      return `
+        <div class="grid">
+          <div class="card">
+            <h3>Clinical Appointment Inbox <span class="tag tag-pending">Provider Review</span></h3>
+            <p class="card-subtitle">Review incoming booking requests with patient chief complaint</p>
+            ${appointments.length === 0 ? '<p style="font-size:0.8rem; color:var(--text-muted);">Inbox empty.</p>' : ''}
+            ${appointments.map(a => `
+              <div style="border:1px solid var(--border); padding: 0.75rem; border-radius:6px; margin-bottom: 0.5rem;">
+                <div style="display:flex; justify-content:space-between;">
+                  <strong>${a.id} (Patient: ${a.patientId})</strong>
+                  <span class="tag tag-blue">${a.state}</span>
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin: 0.3rem 0;">Complaint: Routine hypertension follow-up</div>
+                ${a.state === 'REQUESTED' ? `
+                  <div style="display:flex; gap: 0.4rem; margin-top:0.5rem;">
+                    <button class="btn btn-primary btn-sm" onclick="handleProviderAction('${a.id}', 'ACCEPTED')">Accept Appointment</button>
+                    <button class="btn btn-outline btn-sm" onclick="handleProviderAction('${a.id}', 'REJECTED')">Decline</button>
+                  </div>
+                ` : a.state === 'CONFIRMED' ? `
+                  <button class="btn btn-secondary btn-sm" style="margin-top:0.4rem;" onclick="handleStartEncounter('${a.id}')">Start Consultation & Clinical Note</button>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="card">
+            <h3>Clinical Encounter & Prescription <span class="tag tag-verified">Signed & Immutable</span></h3>
+            <p class="card-subtitle">Digital signature sealed; corrections must link as amendments (CAT-09)</p>
+            ${encounters.map(e => `
+              <div style="border: 1px solid var(--border); padding: 0.75rem; border-radius: 6px; margin-bottom: 0.75rem;">
+                <div style="display:flex; justify-content:space-between;">
+                  <strong>${e.id}</strong>
+                  <span class="tag tag-verified">${e.status}</span>
+                </div>
+                <div style="font-size:0.75rem; margin-top:0.3rem;"><strong>SOAP Note:</strong> ${e.clinicalNotes}</div>
+                <div style="font-size:0.7rem; color:var(--text-muted); font-family: monospace;">Sig Hash: ${e.doctorSignatureHash.slice(0, 24)}...</div>
+                <button class="btn btn-outline btn-sm" style="margin-top:0.4rem;" onclick="handleAmendEncounter('${e.id}')">Add Signed Amendment</button>
+              </div>
+            `).join('')}
+            ${prescriptions.map(p => `
+              <div style="background:#f0fdf4; border: 1px solid #bbf7d0; padding: 0.5rem; border-radius: 4px; font-size:0.75rem;">
+                <strong>Signed Prescription: ${p.id}</strong>
+                <div>${p.items.map(i => `${i.medicineName} (${i.strength}) - ${i.frequency} x ${i.durationDays}d`).join(', ')}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="card">
+            <h3>AI Doctor Assistant (Non-Authoritative) <span class="tag tag-blue">Draft Only</span></h3>
+            <p class="card-subtitle">OCR extraction side-by-side with original document; clinician approval mandatory</p>
+            <div style="border: 1px dashed var(--border); padding: 0.75rem; border-radius:6px; font-size:0.8rem;">
+              <strong>Extracted Lab Report: Lipid Profile</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin: 0.3rem 0;">• Serum Cholesterol: 210 mg/dL [Source Ref: 150-200] (High)</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">• HDL: 45 mg/dL [Source Ref: 40-60] (Normal)</div>
+              <div style="margin-top:0.5rem;">
+                <span class="tag tag-pending">Review Required</span>
+                <button class="btn btn-outline btn-sm" onclick="alert('Clinician verified extraction with source scan. Accepted into encounter.')">Verify & Accept</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHospitalPortal() {
+      const fac = appState.facilities[0] || {};
+      return `
+        <div class="grid">
+          <div class="card">
+            <h3>Facility Profile & Governance <span class="tag tag-verified">Verified</span></h3>
+            <p class="card-subtitle">${fac.legalName}</p>
+            <div style="font-size: 0.825rem;">
+              <div><strong>Registration:</strong> ${fac.registrationNumber}</div>
+              <div><strong>Authority:</strong> ${fac.issuingAuthority}</div>
+              <div><strong>Address:</strong> ${fac.address?.locality}, ${fac.address?.city}</div>
+              <div><strong>Status:</strong> ${fac.verificationStatus} (Verified: ${new Date(fac.lastVerifiedAt).toLocaleDateString()})</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Live Capacity & Freshness <span class="tag tag-blue">Live Operational</span></h3>
+            <p class="card-subtitle">Separate static count from dynamic availability (Blueprint Sec 06)</p>
+            <table>
+              <tr><th>Ward / Resource</th><th>Capacity</th><th>Available</th><th>Status</th></tr>
+              <tr><td>General Medical Ward</td><td>40</td><td>12</td><td><span class="tag tag-verified">Available</span></td></tr>
+              <tr><td>Cardiology ICU</td><td>10</td><td>2</td><td><span class="tag tag-verified">Available</span></td></tr>
+              <tr><td>Operation Theatre 1</td><td>1</td><td>0</td><td><span class="tag tag-pending">In Procedure</span></td></tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Service Tariffs <span class="tag tag-verified">Versioned</span></h3>
+            <p class="card-subtitle">Effective Dates & Inclusions Defined</p>
+            <table>
+              <tr><th>Service / Consultation</th><th>Tariff</th><th>Effective Date</th></tr>
+              <tr><td>Cardiology OPD Consultation</td><td>INR 800.00</td><td>01-Jan-2026</td></tr>
+              <tr><td>General Medicine OPD</td><td>INR 600.00</td><td>01-Jan-2026</td></tr>
+              <tr><td>Lipid Profile Complete</td><td>INR 450.00</td><td>01-Jan-2026</td></tr>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderStaffHub() {
+      return `
+        <div class="grid">
+          <div class="card">
+            <h3>Doctor & Facility Verification Queue <span class="tag tag-pending">Pending Check</span></h3>
+            <p class="card-subtitle">Staff checks medical council registration and degree evidence</p>
+            <table>
+              <tr><th>Applicant</th><th>Council / Reg</th><th>Status</th><th>Action</th></tr>
+              <tr><td>Dr. Rajesh Varma</td><td>KMC-55821</td><td><span class="tag tag-verified">VERIFIED</span></td><td><button class="btn btn-outline btn-sm">Audit Details</button></td></tr>
+              <tr><td>Dr. Ananya Sharma</td><td>KMC-77412</td><td><span class="tag tag-verified">VERIFIED</span></td><td><button class="btn btn-outline btn-sm">Audit Details</button></td></tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Security Operations Centre (SOC) <span class="tag tag-verified">Active</span></h3>
+            <p class="card-subtitle">CERT-In 6-hour reporting compliance & threat monitoring</p>
+            <div style="font-size:0.8rem; margin-bottom: 0.5rem;">
+              <div>• Active Trust Boundaries: <strong>Edge WAF + RLS Isolated</strong></div>
+              <div>• Suspicious Login Spikes: <strong>0</strong></div>
+              <div>• Cross-Tenant Access Attempts: <strong>0 (Protected by RLS)</strong></div>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="alert('Triggering simulated tabletop drill for incident response runbook.')">Simulate CERT-In Incident Triage</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCustomerCare() {
+      const tickets = appState.tickets || [];
+      return `
+        <div class="grid">
+          <div class="card">
+            <h3>Support & Ticket Triage <span class="tag tag-blue">Customer Care</span></h3>
+            <p class="card-subtitle">First-line triage for booking and payment issues. Clinical chart access is strictly blocked.</p>
+            ${tickets.map(t => `
+              <div style="border:1px solid var(--border); padding: 0.75rem; border-radius:6px; margin-bottom: 0.5rem;">
+                <div style="display:flex; justify-content:space-between;">
+                  <strong>${t.id}: ${t.title}</strong>
+                  <span class="tag tag-pending">${t.status}</span>
+                </div>
+                <div style="font-size:0.8rem; margin: 0.3rem 0;">${t.description}</div>
+                <div style="font-size:0.725rem; color:var(--text-muted);">Queue: ${t.assignedQueue} • SLA Due: ${new Date(t.slaDueAt).toLocaleString()}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="card">
+            <h3>RBAC Clinical Access Boundary Test <span class="tag tag-red">Explicit Deny</span></h3>
+            <p class="card-subtitle">Verify Customer Care cannot access patient clinical charts (CAT-07)</p>
+            <button class="btn btn-outline btn-sm" onclick="testCustomerCareDenial()">Attempt Clinical Chart Access as Customer Care</button>
+            <div id="cc-test-output" style="margin-top:0.5rem; font-size:0.8rem; color: var(--emergency-red); font-weight:600;"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPlatformAdmin() {
+      const admins = appState.admins || [];
+      return `
+        <div class="grid">
+          <div class="card">
+            <h3>Platform Administrator Lifecycle (T-01) <span class="tag tag-verified">${admins.length} / 5 Active</span></h3>
+            <p class="card-subtitle">Maximum 5 platform admins. Removal enforces 7-day cooling-off window.</p>
+            <table>
+              <tr><th>Admin ID</th><th>User ID</th><th>Status</th><th>Appointed</th><th>Action</th></tr>
+              ${admins.map(adm => `
+                <tr>
+                  <td>${adm.adminId}</td>
+                  <td>${adm.userId}</td>
+                  <td><span class="tag ${adm.status === 'ACTIVE' ? 'tag-verified' : 'tag-pending'}">${adm.status}</span></td>
+                  <td>${new Date(adm.appointedAt).toLocaleDateString()}</td>
+                  <td>
+                    ${adm.status === 'ACTIVE' ? `
+                      <button class="btn btn-outline btn-sm" onclick="handleInitiateAdminRemoval('${adm.adminId}')">Request 7-Day Removal</button>
+                    ` : `<span style="font-size:0.75rem; color:var(--amber);">Cooling Off (7d)</span>`}
+                  </td>
+                </tr>
+              `).join('')}
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Tamper-Evident SHA-256 Audit Stream <span class="tag tag-verified">Cryptographically Verified</span></h3>
+            <p class="card-subtitle">Every sensitive action, consent check, and financial transaction</p>
+            <div class="log-terminal" id="audit-log-terminal">Loading audit chain...</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Actions
+    async function handleHoldSlot(slotId) {
+      const res = await fetch('/api/v1/slots/hold', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slotId, patientId: 'pat-verma-01' })
+      });
+      const data = await res.json();
+      if (!data.success) {
+        alert(data.error);
+      } else {
+        // Automatically request appointment
+        await fetch('/api/v1/appointments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            patientId: 'pat-verma-01',
+            doctorId: data.slot.doctorId,
+            facilityId: data.slot.facilityId,
+            slotId: data.slot.id,
+            consultationMode: data.slot.mode,
+            paymentMode: 'ONLINE',
+            chiefComplaint: 'Routine hypertension follow-up'
+          })
+        });
+        await fetchState();
+      }
+    }
+
+    async function handleProviderAction(appointmentId, action) {
+      await fetch('/api/v1/appointments/' + appointmentId + '/transition', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newState: action, role: 'DOCTOR_RMP', userId: 'doc-sharma-01' })
+      });
+      await fetchState();
+    }
+
+    async function handlePaymentSimulation(appointmentId) {
+      await fetch('/api/v1/webhooks/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventId: 'sim-pay-' + Date.now(),
+          appointmentId,
+          amountMinorUnits: 80000,
+          paymentMode: 'ONLINE',
+          gatewayProvider: 'SANDBOX',
+          status: 'SUCCESS'
+        })
+      });
+      await fetchState();
+    }
+
+    async function handleGrantConsent() {
+      await fetch('/api/v1/consents', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          patientId: 'pat-verma-01',
+          recipientId: 'doc-sharma-01',
+          purpose: 'CONSULTATION',
+          scopeCategories: ['LAB_REPORT', 'PRESCRIPTION'],
+          validHours: 24
+        })
+      });
+      alert('Scoped consent granted for 24 hours to Dr. Sharma for Lab Reports & Prescriptions.');
+      await fetchState();
+    }
+
+    async function handleStartEncounter(appointmentId) {
+      await fetch('/api/v1/encounters/sign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          appointmentId,
+          clinicalNotes: 'Blood pressure 128/82 mmHg. Patient compliant with lifestyle modifications. Lipid panel reviewed. Continue current regimen.',
+          icd10DiagnosisCodes: ['I10'], // Essential hypertension
+          prescriptionItems: [
+            {
+              medicineName: 'Telmisartan Tablets IP',
+              genericName: 'Telmisartan',
+              dosageForm: 'TABLET',
+              strength: '40 mg',
+              frequency: 'Once daily after breakfast',
+              durationDays: 30
+            }
+          ]
+        })
+      });
+      await fetchState();
+    }
+
+    async function handleAmendEncounter(encounterId) {
+      const reason = prompt('Enter clinical justification for amendment (required by DCB0129 / CAT-09):', 'Corrected dosage adjustment based on weight');
+      if (!reason) return;
+      await fetch('/api/v1/encounters/amend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          encounterId,
+          amendmentReason: reason,
+          correctedNotes: 'Blood pressure 128/82 mmHg. Dosage confirmed Telmisartan 40mg. Advised low sodium intake and 30-min daily aerobic exercise.'
+        })
+      });
+      await fetchState();
+    }
+
+    async function handleInitiateAdminRemoval(adminId) {
+      const res = await fetch('/api/v1/admin/removal/initiate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ targetAdminId: adminId, reason: 'Governance rotation policy test' })
+      });
+      const data = await res.json();
+      alert(data.message);
+      await fetchState();
+    }
+
+    async function testCustomerCareDenial() {
+      const res = await fetch('/api/v1/clinical/chart?role=CUSTOMER_CARE');
+      const data = await res.json();
+      document.getElementById('cc-test-output').innerText = 'HTTP ' + res.status + ' Forbidden: ' + data.error;
+    }
+
+    async function updateAuditLog() {
+      try {
+        const res = await fetch('/api/v1/audit');
+        const data = await res.json();
+        const term = document.getElementById('audit-log-terminal');
+        if (term) {
+          term.innerText = JSON.stringify(data.events.slice(-10), null, 2);
+        }
+      } catch (e) {}
+    }
+
+    fetchState();
+    setInterval(updateAuditLog, 2000);
+  </script>
+</body>
+</html>

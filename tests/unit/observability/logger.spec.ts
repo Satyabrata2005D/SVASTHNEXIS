@@ -33,3 +33,4 @@ describe('StructuredLogger & Scrubbing (BP Sec 20.3, NFR-05)', () => {
     consoleSpy.mockRestore();
   });
 });
+

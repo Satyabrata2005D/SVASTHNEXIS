@@ -31,3 +31,4 @@ Under the Digital Personal Data Protection Act (DPDP Act 2023) and standard medi
 ## Consequences
 - Protects patient autonomy and ensures full auditability.
 - Blocks unauthorized provider queries and protects against clinical data harvesting.
+

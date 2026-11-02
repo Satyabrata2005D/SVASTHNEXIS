@@ -68,3 +68,4 @@
    - **Measured RPO:** Time delta between specified target time and latest replayed WAL commit. (Must be <= 15 minutes).
    - **Measured RTO:** Wall-clock time elapsed from drill initiation to successful integrity verification. (Must be <= 4 hours).
 2. File formal drill report in `docs/runbooks/dr-drill-reports/YYYY-MM-DD.md` signed by Lead DevOps Engineer and CISO.
+

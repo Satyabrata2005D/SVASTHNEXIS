@@ -68,3 +68,4 @@ graph TD
    - *Mitigation:* Webhook idempotency table records `event_id`. Duplicate webhook requests return `200 OK` without re-processing ledger updates.
 3. **Emergency Red-Flag Masking via Chatbot:** Patient experiencing myocardial infarction asks chatbot for advice.
    - *Mitigation:* Hard-coded emergency heuristic detector triggers immediate emergency guidance modal, stopping standard appointment triage and displaying emergency hotlines.
+

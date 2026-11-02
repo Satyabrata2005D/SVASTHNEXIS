@@ -214,3 +214,4 @@ describe('Scoped Patient Consent Evaluation (BP Sec 09, CAT-05, CAT-06)', () => 
     expect(result.isGranted).toBe(false);
   });
 });
+
