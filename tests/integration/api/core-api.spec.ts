@@ -194,3 +194,4 @@ describe('Core Modular API Integration Tests (Phase 1 Baseline)', () => {
     expect(body.count).toBeGreaterThan(5);
   });
 });
+
