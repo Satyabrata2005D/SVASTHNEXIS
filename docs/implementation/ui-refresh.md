@@ -6,12 +6,18 @@ Replace the original plain, table-heavy portal page with a polished, responsive 
 
 ## Design system
 
-- Deep clinical navy for the workspace shell, teal for primary actions and care-related states, and pale neutral surfaces for reading comfort.
-- Consistent card radii, spacing, borders, subtle shadows, and typographic hierarchy.
+- Warm Ivory `#F8F7F3` as the dominant canvas, Pure White `#FFFFFF` for cards and navigation surfaces, and Warm Light Grey `#F1F0EC` for secondary surfaces and form controls.
+- Coral `#FF5B47` for brand highlights and active navigation; accessible deep coral `#C94132` for primary actions with white labels.
+- Midnight Navy `#171C2C` for headings and primary text; Slate Grey `#6B7280` for secondary text.
+- Emerald `#10B981` for positive operational states and Golden Amber `#FBC024` for attention / warning data; Muted Blue Grey `#93A2B9` and Pale Mint `#EAF8F1` are supporting tones.
+- The patient hero uses the subtle three-stop gradient `#F9EBE8 → #F4EEF0 → #EEF0F4`.
+- Recommended composition: 55% Warm Ivory, 25% White, 10% Midnight Navy, 6% Coral, 2% Emerald and 2% Amber. These are design targets, not measured pixel percentages.
+- Consistent card radii, spacing, borders, subtle shadows, focus states and typographic hierarchy.
 - Responsive fixed sidebar on desktop and slide-in navigation on smaller screens.
 - Role-aware navigation for Patient, Doctor, Hospital, Employee Hub, Customer Care and Platform Admin.
 - Shared status pills, KPI cards, timeline rows, data tables, empty states, toast feedback and modal dialogs.
 - System font stack and inline SVG icons; no third-party font or icon runtime is required.
+- Colour tokens are centralized in `packages/design-system/src/tokens.ts` and semantic CSS variables are applied to the shared six-workspace page.
 
 ## Workspace coverage
 

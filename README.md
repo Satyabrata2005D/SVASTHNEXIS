@@ -7,6 +7,7 @@ SvasthNexis is a multi-workspace healthcare platform prototype based on the Unif
 ## What is included
 
 - Redesigned responsive dashboard UI with a role-aware navigation shell and six workspaces.
+- SVASTHNEXIS Warm Ivory / Coral / Midnight Navy design system with a peach-to-cool-ivory hero gradient; shared colour tokens live in `packages/design-system/src/tokens.ts`.
 - Patient provider discovery, demo slot reservation, appointment request, consent grant and personal timeline.
 - Doctor appointment review, encounter signing and linked amendment demonstrations.
 - Hospital overview for OPD flow, care teams, resources and sandbox payment summaries.

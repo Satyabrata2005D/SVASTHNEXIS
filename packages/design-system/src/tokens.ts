@@ -1,113 +1,139 @@
 /**
  * @file packages/design-system/src/tokens.ts
- * Accessible Design Tokens and Theme Variables for SvasthNexis Portals
- * WCAG 2.1 AA Compliant (Contrast Ratio >= 4.5:1 for standard text)
+ * SVASTHNEXIS visual system: Warm Ivory + Coral + Midnight Navy.
+ * Status colours are semantic and deliberately separate from the brand accent.
  */
 
 export const colors = {
-  // Brand Primaries
+  brand: {
+    coral: '#FF5B47',
+    coralDeep: '#C94132', // Accessible primary action with white text.
+    coralSoft: '#FCEAE7',
+    warmIvory: '#F8F7F3',
+    white: '#FFFFFF',
+    warmLightGrey: '#F1F0EC',
+    softGreyBorder: '#E7E5E0',
+    midnightNavy: '#171C2C',
+    slateGrey: '#6B7280',
+    emeraldGreen: '#10B981',
+    goldenAmber: '#FBC024',
+    mutedBlueGrey: '#93A2B9',
+    paleMint: '#EAF8F1',
+  },
+  heroGradient: {
+    left: '#F9EBE8',
+    center: '#F4EEF0',
+    right: '#EEF0F4',
+    css: 'linear-gradient(110deg, #F9EBE8 0%, #F4EEF0 52%, #EEF0F4 100%)',
+  },
+  // Compatibility aliases for modules that still import the original token names.
   navy: {
-    50: '#f0f4f8',
-    100: '#d9e2ec',
-    500: '#102a43',
-    700: '#0b1d30',
-    900: '#06101e',
+    50: '#F0F2F6',
+    100: '#DCE1E9',
+    500: '#171C2C',
+    700: '#252B3B',
+    900: '#111522',
   },
   teal: {
-    50: '#e6fffa',
-    100: '#b2f5ea',
-    500: '#008080', // Primary Healthcare Teal
-    700: '#005a5a',
-    900: '#003333',
+    50: '#FCEAE7',
+    100: '#F9D8D2',
+    500: '#FF5B47',
+    700: '#C94132',
+    900: '#963B31',
   },
-  // Clinical Alert & Safety Statuses
   safety: {
-    emergencyRed: '#d32f2f', // Bypasses routine queue
-    warningAmber: '#ed6c02',
-    successEmerald: '#2e7d32',
-    infoBlue: '#0288d1',
+    emergencyRed: '#C94132',
+    warningAmber: '#765000',
+    successEmerald: '#087B56',
+    infoBlue: '#64748B',
   },
-  // Neutral Canvas & Surface
   neutral: {
-    white: '#ffffff',
-    background: '#f8fafc',
-    surface: '#ffffff',
-    border: '#e2e8f0',
-    textPrimary: '#0f172a', // High contrast (14.2:1 against white)
-    textSecondary: '#475569', // Contrast 5.1:1 against white (WCAG AA compliant)
-    textMuted: '#64748b',
+    white: '#FFFFFF',
+    background: '#F8F7F3',
+    surface: '#FFFFFF',
+    border: '#E7E5E0',
+    textPrimary: '#171C2C',
+    textSecondary: '#6B7280',
+    textMuted: '#6B7280',
+    warmLightGrey: '#F1F0EC',
   },
 };
 
 export const typography = {
   fontFamily: {
-    sans: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    sans: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
   },
   fontSize: {
-    xs: '0.75rem', // 12px
-    sm: '0.875rem', // 14px
-    base: '1rem', // 16px (Standard readable body)
-    lg: '1.125rem', // 18px
-    xl: '1.25rem', // 20px
-    '2xl': '1.5rem', // 24px
-    '3xl': '1.875rem', // 30px
-    '4xl': '2.25rem', // 36px
+    xs: '0.75rem',
+    sm: '0.875rem',
+    base: '1rem',
+    lg: '1.125rem',
+    xl: '1.25rem',
+    '2xl': '1.5rem',
+    '3xl': '1.875rem',
+    '4xl': '2.25rem',
   },
-  lineHeight: {
-    tight: '1.25',
-    normal: '1.5',
-    relaxed: '1.75',
-  },
+  lineHeight: { tight: '1.25', normal: '1.5', relaxed: '1.75' },
 };
 
 export const spacing = {
-  1: '0.25rem', // 4px
-  2: '0.5rem', // 8px
-  3: '0.75rem', // 12px
-  4: '1rem', // 16px
-  6: '1.5rem', // 24px
-  8: '2rem', // 32px
-  12: '3rem', // 48px
-  16: '4rem', // 64px
+  1: '0.25rem',
+  2: '0.5rem',
+  3: '0.75rem',
+  4: '1rem',
+  6: '1.5rem',
+  8: '2rem',
+  12: '3rem',
+  16: '4rem',
 };
 
 export const portalThemes = {
   PATIENT: {
-    primaryColor: colors.teal[700],
-    accentColor: colors.teal[500],
+    primaryColor: colors.brand.coralDeep,
+    accentColor: colors.brand.coral,
     portalTitle: 'Patient & Family Health Portal',
     navBg: colors.neutral.white,
   },
   DOCTOR: {
-    primaryColor: colors.navy[700],
-    accentColor: colors.teal[700],
+    primaryColor: colors.brand.midnightNavy,
+    accentColor: colors.brand.coralDeep,
     portalTitle: 'Doctor Clinical Workspace (RMP)',
-    navBg: colors.navy[900],
+    navBg: colors.neutral.white,
   },
   HOSPITAL: {
-    primaryColor: colors.navy[700],
-    accentColor: colors.safety.infoBlue,
+    primaryColor: colors.brand.midnightNavy,
+    accentColor: colors.brand.coral,
     portalTitle: 'Hospital & Facility Operations',
-    navBg: colors.navy[700],
+    navBg: colors.neutral.white,
   },
   STAFF_HUB: {
-    primaryColor: colors.navy[500],
-    accentColor: colors.teal[700],
+    primaryColor: colors.brand.midnightNavy,
+    accentColor: colors.brand.coralDeep,
     portalTitle: 'Staff Portal & Employee Operations Hub',
-    navBg: colors.navy[700],
+    navBg: colors.neutral.white,
   },
   CUSTOMER_CARE: {
-    primaryColor: colors.safety.infoBlue,
-    accentColor: colors.teal[500],
+    primaryColor: colors.brand.midnightNavy,
+    accentColor: colors.safety.infoBlue,
     portalTitle: 'Customer Care & Support Triage',
-    navBg: colors.navy[500],
+    navBg: colors.neutral.white,
   },
   PLATFORM_ADMIN: {
-    primaryColor: colors.navy[900],
-    accentColor: colors.safety.warningAmber,
+    primaryColor: colors.brand.midnightNavy,
+    accentColor: colors.brand.goldenAmber,
     portalTitle: 'Platform Governance & Administration Console',
-    navBg: colors.navy[900],
+    navBg: colors.neutral.white,
+  },
+} as const;
+
+export const designTokens = {
+  color: colors,
+  typography,
+  spacing,
+  radius: { sm: '12px', md: '18px', lg: '21px' },
+  shadow: {
+    card: '0 4px 14px rgba(23, 28, 44, .035)',
+    elevated: '0 14px 38px rgba(23, 28, 44, .055)',
   },
 };
-
