@@ -15,4 +15,5 @@ This directory documents the core architectural decisions governing the design, 
 8. [ADR-008: Provider-Agnostic Partner Adapters (Payment, Video, Telehealth, ABDM)](adr-008-provider-agnostic-adapters.md)
 9. [ADR-009: Bounded AI Services & Mandatory Clinical Safety Boundaries](adr-009-bounded-ai-services.md)
 10. [ADR-010: Deployment, Disaster Recovery, RPO/RTO & Observability Baseline](adr-010-deployment-dr-observability.md)
+11. [ADR-011: SvasthNexis Brand Color System (Warm Ivory + Coral + Midnight Navy)](adr-011-brand-color-system.md)
 
