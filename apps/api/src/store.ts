@@ -1018,12 +1018,12 @@ export class DomainStore {
     departmentId: string;
     doctorId: string;
     patientId: string;
-    patientName: string;
+    patientName?: string;
     triagePriority?: 'ROUTINE' | 'URGENT' | 'EMERGENT';
   }): QueueToken {
     const now = new Date().toISOString();
-    const maskName = (name: string) => {
-      const parts = name.split(' ');
+    const maskName = (name?: string) => {
+      const parts = (name || 'Anonymous Patient').trim().split(' ');
       return parts.map((p) => (p.length > 2 ? `${p[0]}***${p[p.length - 1]}` : `${p}*`)).join(' ');
     };
 
@@ -1069,22 +1069,23 @@ export class DomainStore {
     const token = this.state.queueTokens.find((t) => t.id === tokenId);
     if (!token) return { success: false, error: 'Queue token not found' };
 
+    const validState = newState || 'CALLED';
     const now = new Date().toISOString();
-    token.state = newState;
-    if (newState === 'CALLED') token.calledAt = now;
-    if (newState === 'IN_CONSULTATION') token.startedAt = now;
-    if (newState === 'COMPLETED') token.completedAt = now;
+    token.state = validState;
+    if (validState === 'CALLED') token.calledAt = now;
+    if (validState === 'IN_CONSULTATION') token.startedAt = now;
+    if (validState === 'COMPLETED') token.completedAt = now;
 
     this.audit.log({
       correlationId: `qtok-upd-${token.id}`,
       tenantId: token.facilityId,
       actorId: actorSession.userId,
       actorRole: actorSession.roles[0] || 'STAFF_EMPLOYEE',
-      action: `opd:token-${newState.toLowerCase()}`,
+      action: `opd:token-${validState.toLowerCase()}`,
       resourceType: 'QueueToken',
       resourceId: token.id,
       outcome: 'SUCCESS',
-      metadata: { newState },
+      metadata: { newState: validState },
     });
 
     return { success: true, token };

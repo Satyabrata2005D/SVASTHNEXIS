@@ -307,7 +307,8 @@ export function createApp(store: DomainStore) {
   });
 
   app.post('/api/v1/opd/queue/:id/transition', (req: Request, res: Response) => {
-    const { newState, role, userId } = req.body;
+    const targetState = (req.body.newState || req.body.state || req.body.status || 'CALLED') as any;
+    const { role, userId } = req.body;
     const session: UserSession = {
       userId: userId || 'usr-nurse-01',
       email: 'staff@citycare.example.org',
@@ -318,7 +319,7 @@ export function createApp(store: DomainStore) {
       expiresAt: Date.now() + 3600000,
     };
 
-    const result = store.updateQueueTokenState(req.params.id as string, newState, session);
+    const result = store.updateQueueTokenState(req.params.id as string, targetState, session);
     if (!result.success) return res.status(400).json(result);
     return res.status(200).json(result);
   });
