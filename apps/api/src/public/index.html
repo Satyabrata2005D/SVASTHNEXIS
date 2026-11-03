@@ -1129,6 +1129,9 @@
           <span class="status-pulse-dot"></span>
           <span>99.98% Monolith Active (14ms)</span>
         </div>
+        <button class="btn btn-secondary btn-sm" onclick="openColorSystemModal()" title="View FinTech Color System & Palette Rules">
+          <span>🎨</span> <span>Color System</span>
+        </button>
         <button class="btn btn-secondary btn-sm" id="live-sim-btn" onclick="toggleLiveSim()">
           <span id="sim-icon">▶</span> <span id="sim-text">Live Sim</span>
         </button>
@@ -1417,9 +1420,151 @@
     openModal('Switch Ecosystem Workspace', html);
   }
 
+  function openColorSystemModal() {
+    const html = `
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <!-- Distribution Header & Visual Progress Bar -->
+        <div style="background:var(--brand-white); border:1px solid var(--brand-border); border-radius:var(--radius); padding:18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <strong style="font-size:13px; color:var(--brand-midnight);">Visual Colour Distribution (Recommended Proportions)</strong>
+            <span class="metric-pill emerald" style="font-size:10px;">FinTech Identity Standard</span>
+          </div>
+
+          <!-- Multi-Segmented Proportional Bar -->
+          <div style="height:14px; width:100%; border-radius:7px; overflow:hidden; display:flex; border:1px solid var(--brand-border-dark); margin-bottom:14px; box-shadow:inset 0 1px 3px rgba(0,0,0,0.06);">
+            <div style="width:55%; background:#F8F7F3; border-right:1px solid #D9D6CE;" title="Warm Ivory: 55%"></div>
+            <div style="width:25%; background:#FFFFFF; border-right:1px solid #D9D6CE;" title="White Surfaces: 25%"></div>
+            <div style="width:10%; background:#171C2C; border-right:1px solid #000;" title="Midnight Navy: 10%"></div>
+            <div style="width:6%; background:#FF5B47;" title="Coral Red: 6%"></div>
+            <div style="width:2%; background:#10B981;" title="Emerald Green: 2%"></div>
+            <div style="width:2%; background:#FBC024;" title="Golden Amber: 2%"></div>
+          </div>
+
+          <!-- Color Key Breakdown -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:11.5px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 10px; background:#FAFAF8; border-radius:6px; border:1px solid #EFECE6;">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span style="width:14px; height:14px; border-radius:3px; background:#F8F7F3; border:1px solid #D9D6CE; display:inline-block;"></span>
+                <span style="color:var(--brand-midnight); font-weight:700;">Warm Ivory</span>
+                <code style="color:var(--brand-slate); font-size:10px;">#F8F7F3</code>
+              </span>
+              <strong style="color:var(--brand-midnight);">55%</strong>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 10px; background:#FAFAF8; border-radius:6px; border:1px solid #EFECE6;">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span style="width:14px; height:14px; border-radius:3px; background:#FFFFFF; border:1px solid #D9D6CE; display:inline-block;"></span>
+                <span style="color:var(--brand-midnight); font-weight:700;">White Surfaces</span>
+                <code style="color:var(--brand-slate); font-size:10px;">#FFFFFF</code>
+              </span>
+              <strong style="color:var(--brand-midnight);">25%</strong>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 10px; background:#FAFAF8; border-radius:6px; border:1px solid #EFECE6;">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span style="width:14px; height:14px; border-radius:3px; background:#171C2C; display:inline-block;"></span>
+                <span style="color:var(--brand-midnight); font-weight:700;">Midnight Navy</span>
+                <code style="color:var(--brand-slate); font-size:10px;">#171C2C</code>
+              </span>
+              <strong style="color:var(--brand-midnight);">10%</strong>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 10px; background:#FAFAF8; border-radius:6px; border:1px solid #EFECE6;">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span style="width:14px; height:14px; border-radius:3px; background:#FF5B47; display:inline-block;"></span>
+                <span style="color:var(--brand-midnight); font-weight:700;">Coral Red</span>
+                <code style="color:var(--brand-slate); font-size:10px;">#FF5B47</code>
+              </span>
+              <strong style="color:var(--brand-midnight);">6%</strong>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 10px; background:#FAFAF8; border-radius:6px; border:1px solid #EFECE6;">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span style="width:14px; height:14px; border-radius:3px; background:#10B981; display:inline-block;"></span>
+                <span style="color:var(--brand-midnight); font-weight:700;">Emerald Green</span>
+                <code style="color:var(--brand-slate); font-size:10px;">#10B981</code>
+              </span>
+              <strong style="color:var(--brand-midnight);">2%</strong>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 10px; background:#FAFAF8; border-radius:6px; border:1px solid #EFECE6;">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span style="width:14px; height:14px; border-radius:3px; background:#FBC024; display:inline-block;"></span>
+                <span style="color:var(--brand-midnight); font-weight:700;">Golden Amber</span>
+                <code style="color:var(--brand-slate); font-size:10px;">#FBC024</code>
+              </span>
+              <strong style="color:var(--brand-midnight);">2%</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Landing Page Special Gradient Demo -->
+        <div style="background:var(--hero-gradient); border:1px solid var(--brand-border); border-radius:var(--radius); padding:20px; text-align:center;">
+          <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.08em; font-weight:800; color:var(--brand-slate); margin-bottom:6px;">
+            The Landing Page's Special Gradient
+          </div>
+          <h2 style="margin:0 0 4px; font-size:22px; font-weight:800; color:var(--brand-midnight); letter-spacing:-0.02em;">
+            Your health changes.
+          </h2>
+          <div style="font-size:16px; font-weight:700; color:var(--brand-coral-deep); margin-bottom:14px;">
+            Your care resilience should grow.
+          </div>
+          <div style="display:inline-flex; gap:16px; background:rgba(255,255,255,0.7); backdrop-filter:blur(4px); padding:6px 14px; border-radius:20px; font-size:11px; color:var(--brand-slate); border:1px solid var(--brand-border);">
+            <span>Left: <strong style="color:#C94132;">#F9EBE8</strong> (Blush Peach)</span>
+            <span>•</span>
+            <span>Center: <strong style="color:var(--brand-midnight);">#F4EEF0</strong> (Pale Pink-Grey)</span>
+            <span>•</span>
+            <span>Right: <strong style="color:#4B6A9B;">#EEF0F4</strong> (Cool Ivory-Blue)</span>
+          </div>
+        </div>
+
+        <!-- How the Colour Combination Works Across SvasthNexis -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; font-size:12px;">
+          <div style="background:var(--brand-white); border:1px solid var(--brand-border); border-radius:var(--radius-sm); padding:14px;">
+            <strong style="display:block; color:var(--brand-midnight); margin-bottom:4px; font-size:12.5px;">A. Navigation & Command Centre</strong>
+            <p style="margin:0; color:var(--brand-slate); font-size:11.5px; line-height:1.45;">
+              Warm Ivory canvas, Pure White navigation surfaces, Coral active menu items and Midnight Navy text. Keeps layout calm, legible and structured.
+            </p>
+          </div>
+          <div style="background:var(--brand-white); border:1px solid var(--brand-border); border-radius:var(--radius-sm); padding:14px;">
+            <strong style="display:block; color:var(--brand-midnight); margin-bottom:4px; font-size:12.5px;">B. Bed Census & Financial Dashboard</strong>
+            <p style="margin:0; color:var(--brand-slate); font-size:11.5px; line-height:1.45;">
+              White cards, Coral important metrics (occupancy, red-flag alerts), Emerald positive indicators (available beds, online doctors), and Amber warnings (cleaning, triage).
+            </p>
+          </div>
+          <div style="background:var(--brand-white); border:1px solid var(--brand-border); border-radius:var(--radius-sm); padding:14px;">
+            <strong style="display:block; color:var(--brand-midnight); margin-bottom:4px; font-size:12.5px;">C. Login, Onboarding & Forms</strong>
+            <p style="margin:0; color:var(--brand-slate); font-size:11.5px; line-height:1.45;">
+              Pure White surfaces, soft grey input fields (<code style="font-size:10.5px;">#F4F3EF</code>), dark headings, and Coral primary buttons with high contrast.
+            </p>
+          </div>
+          <div style="background:var(--brand-white); border:1px solid var(--brand-border); border-radius:var(--radius-sm); padding:14px;">
+            <strong style="display:block; color:var(--brand-midnight); margin-bottom:4px; font-size:12.5px;">D. Charts & Operational Intelligence</strong>
+            <p style="margin:0; color:var(--brand-slate); font-size:11.5px; line-height:1.45;">
+              Green represents healthy clinical movement/revenue, amber represents attention/triage, and coral highlights critical clinical decisions and capacity limits.
+            </p>
+          </div>
+        </div>
+
+        <!-- Professional WCAG AA Contrast Improvement Note -->
+        <div style="background:#FFF9F8; border:1px solid #F8CBC6; border-radius:var(--radius-sm); padding:14px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+            <span style="color:var(--brand-coral-deep); font-weight:800; font-size:14px;">✓</span>
+            <strong style="color:var(--brand-midnight); font-size:12.5px;">Accessibility & WCAG AA Contrast Compliance</strong>
+          </div>
+          <p style="margin:0; font-size:11.5px; color:var(--brand-slate); line-height:1.5;">
+            The bright coral <code style="color:var(--brand-coral); font-weight:700;">#FF5B47</code> (3.1:1 on white) is reserved for non-text metrics, badges, and illustrations. For buttons with small white text, SvasthNexis strictly uses Accessible Deep Coral <code style="color:var(--brand-coral-deep); font-weight:700;">#C94132</code> (4.6:1 contrast ratio) ensuring full WCAG AA compliance.
+          </p>
+        </div>
+      </div>
+    `;
+    openModal('SvasthNexis FinTech Visual Identity & Colour Palette', html);
+  }
+
   // Command Palette Overlay (Ctrl+K / ⌘K)
   const COMMANDS = [
     { title: 'Emergency Intake & 112 Resuscitation', sub: 'Bypass routine booking for trauma/cardiac (CAT-12)', action: () => showEmergencyModal() },
+    { title: 'View FinTech Color System & Proportions', sub: 'Warm Ivory 55%, White 25%, Navy 10%, Coral 6%, Emerald 2%, Amber 2%', action: () => openColorSystemModal() },
     { title: 'Switch to Patient & Family Portal', sub: 'Personal timeline, ABHA card, booking & consent', action: () => switchWorkspace('PATIENT') },
     { title: 'Switch to Doctor Workspace', sub: 'OPD queue, SOAP AI drafting, digital prescriptions', action: () => switchWorkspace('DOCTOR') },
     { title: 'Switch to Hospital Operations & HIS', sub: 'Bed census floor plan, OT schedule, blood bank', action: () => switchWorkspace('HOSPITAL') },
@@ -2315,36 +2460,46 @@
     }
 
     if (activeTab === 'ot') {
+      const bookings = appState.otBookings || [];
       return `
         <div class="card">
           <div class="card-head">
-            <h3 class="card-title"><span>✂️</span> Operating Theatre Suite & WHO Surgical Safety Checklist</h3>
+            <h3 class="card-title"><span>✂️</span> Operating Theatre Suite & WHO Surgical Safety Checklist (P3-01)</h3>
+            <span class="metric-pill emerald">Strict Three-Stage Gate Enforced</span>
           </div>
           <div class="card-body">
+            <p style="font-size:12px; color:var(--brand-slate); margin-top:0;">
+              Surgical Safety Protocol: Sequential completion of WHO Checklist (Sign-In → Time-Out → Sign-Out) is mandatory before surgery progression.
+            </p>
             <div class="table-wrap">
               <table class="data-table">
                 <thead>
-                  <tr><th>OT Room</th><th>Surgeon</th><th>Procedure</th><th>Anesthesia</th><th>WHO Sign-In</th><th>WHO Time-Out</th><th>WHO Sign-Out</th></tr>
+                  <tr><th>Booking ID</th><th>OT Room</th><th>Procedure</th><th>Lead Surgeon</th><th>Status</th><th>WHO Checklist Progress</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><strong>OR-1 (Cardiac)</strong></td>
-                    <td>Dr. V. Menon</td>
-                    <td>Coronary Artery Bypass (CABG)</td>
-                    <td>General Anesthesia</td>
-                    <td><span class="metric-pill emerald">✓ Verified</span></td>
-                    <td><span class="metric-pill emerald">✓ Verified</span></td>
-                    <td><span class="metric-pill amber">In Progress</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>OR-2 (Ortho)</strong></td>
-                    <td>Dr. K. Patel</td>
-                    <td>Total Knee Arthroplasty</td>
-                    <td>Spinal Anesthesia</td>
-                    <td><span class="metric-pill emerald">✓ Verified</span></td>
-                    <td><span class="metric-pill emerald">✓ Verified</span></td>
-                    <td><span class="metric-pill emerald">✓ Verified</span></td>
-                  </tr>
+                  ${bookings.map(b => `
+                    <tr>
+                      <td style="font-family:monospace; font-weight:700;">${b.id}</td>
+                      <td><strong>${b.otRoomId}</strong></td>
+                      <td>${b.procedureName}</td>
+                      <td>${b.leadSurgeonId}</td>
+                      <td><span class="metric-pill ${b.status === 'COMPLETED' ? 'emerald' : b.status === 'IN_SURGERY' ? 'coral' : 'amber'}">${b.status}</span></td>
+                      <td>
+                        <span class="metric-pill ${b.whoChecklist.signInDone ? 'emerald' : 'amber'}">Sign-In: ${b.whoChecklist.signInDone ? '✓' : 'Pending'}</span>
+                        <span class="metric-pill ${b.whoChecklist.timeOutDone ? 'emerald' : 'amber'}">Time-Out: ${b.whoChecklist.timeOutDone ? '✓' : 'Pending'}</span>
+                        <span class="metric-pill ${b.whoChecklist.signOutDone ? 'emerald' : 'amber'}">Sign-Out: ${b.whoChecklist.signOutDone ? '✓' : 'Pending'}</span>
+                      </td>
+                      <td>
+                        ${!b.whoChecklist.signInDone ? `
+                          <button class="btn btn-secondary btn-xs" onclick="advanceWhoChecklist('${b.id}', 'SIGN_IN')">Sign-In</button>
+                        ` : !b.whoChecklist.timeOutDone ? `
+                          <button class="btn btn-primary btn-xs" onclick="advanceWhoChecklist('${b.id}', 'TIME_OUT')">Time-Out</button>
+                        ` : !b.whoChecklist.signOutDone ? `
+                          <button class="btn btn-secondary btn-xs" style="color:var(--brand-emerald-dark);" onclick="advanceWhoChecklist('${b.id}', 'SIGN_OUT')">Sign-Out</button>
+                        ` : '<span style="color:var(--brand-emerald-dark); font-size:10px;">Archived</span>'}
+                      </td>
+                    </tr>
+                  `).join('')}
                 </tbody>
               </table>
             </div>
@@ -2354,27 +2509,47 @@
     }
 
     if (activeTab === 'blood-bank') {
-      const stock = appState.bloodBank || [
-        { bloodGroup: 'O+', unitsAvailable: 34, reserveEmergency: 10 },
-        { bloodGroup: 'O-', unitsAvailable: 12, reserveEmergency: 8 },
-        { bloodGroup: 'A+', unitsAvailable: 28, reserveEmergency: 6 },
-        { bloodGroup: 'B+', unitsAvailable: 24, reserveEmergency: 6 },
-        { bloodGroup: 'AB+', unitsAvailable: 8, reserveEmergency: 2 },
-      ];
+      const stock = appState.bloodStock || [];
+      const crossmatches = appState.crossmatches || [];
       return `
         <div class="card">
           <div class="card-head">
-            <h3 class="card-title"><span>🩸</span> Blood Bank Inventory & Crossmatch Reserve</h3>
+            <h3 class="card-title"><span>🩸</span> Blood Bank Inventory & Crossmatch Reserve (P3-06)</h3>
+            <button class="btn btn-primary btn-sm" onclick="triggerCrossmatchReserve('O+')">+ Reserve Compatible O+ Units</button>
           </div>
           <div class="card-body">
-            <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:12px;">
+            <p style="font-size:12px; color:var(--brand-slate); margin-top:0;">
+              Blood Component Management: Verified ABO/Rh inventory with specialist crossmatch allocation protecting emergency reserves.
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-bottom:20px;">
               ${stock.map(s => `
-                <div style="border:1px solid var(--brand-border); border-radius:10px; padding:14px; text-align:center; background:white;">
-                  <div style="font-size:22px; font-weight:900; color:var(--brand-coral-deep);">${s.bloodGroup}</div>
-                  <div style="font-size:18px; font-weight:800; color:var(--brand-midnight); margin:4px 0;">${s.unitsAvailable} <small style="font-size:10px; font-weight:600; color:var(--brand-slate);">Units</small></div>
-                  <div style="font-size:10px; color:var(--brand-slate);">Reserve: ${s.reserveEmergency} Units</div>
+                <div style="border:1px solid var(--brand-border); border-radius:12px; padding:14px; text-align:center; background:white;">
+                  <div style="font-size:24px; font-weight:900; color:var(--brand-coral-deep);">${s.bloodGroup}</div>
+                  <div style="font-size:11px; color:var(--brand-slate); text-transform:uppercase;">${s.componentType}</div>
+                  <div style="font-size:20px; font-weight:800; color:var(--brand-midnight); margin:6px 0;">${s.unitsAvailable} <small style="font-size:11px; color:var(--brand-slate);">Units Available</small></div>
+                  <div style="font-size:10px; color:var(--brand-slate);">Expiry: ${s.expiryDate} (Temp: ${s.storageTempCelsius}°C)</div>
                 </div>
               `).join('')}
+            </div>
+
+            <div style="font-size:12px; font-weight:700; margin-bottom:8px; color:var(--brand-midnight);">Active Surgical Crossmatch Reservations:</div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Crossmatch ID</th><th>Patient</th><th>Blood Group</th><th>Units Reserved</th><th>Compatibility</th></tr>
+                </thead>
+                <tbody>
+                  ${crossmatches.map(x => `
+                    <tr>
+                      <td style="font-family:monospace; font-weight:700;">${x.id}</td>
+                      <td>${x.patientId}</td>
+                      <td><strong>${x.patientBloodGroup}</strong></td>
+                      <td>${x.requiredUnits} Units</td>
+                      <td><span class="metric-pill emerald">✓ ${x.compatibilityResult}</span></td>
+                    </tr>
+                  `).join('') || '<tr><td colspan="5" style="text-align:center; color:var(--brand-slate);">No active reservations</td></tr>'}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -2389,14 +2564,18 @@
   // =========================================================================
   function renderStaffWorkspace() {
     const labResults = appState.labResults || [];
+    const formulary = appState.formulary || [];
+    const incidents = appState.securityIncidents || [];
+    const studies = appState.imagingStudies || [];
+
     return `
       <!-- Hero Banner -->
       <div class="hero-banner">
         <div class="hero-title-row">
           <div>
-            <h1 class="hero-heading">Diagnostic LIS & Pharmacy Operations</h1>
+            <h1 class="hero-heading">Diagnostic LIS, Pharmacy & Operations Hub</h1>
             <div class="hero-subhead">
-              Central Clinical Laboratory • <strong>Pathologist Validation Gate</strong>
+              Central Clinical Operations • <strong>Verified Technical Gateways</strong>
             </div>
           </div>
           <span class="metric-pill emerald" style="font-size:11px; padding:4px 10px;">
@@ -2419,45 +2598,146 @@
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-head">
-          <h3 class="card-title"><span>🔬</span> Laboratory Information System (LIS) — Pathologist Validation Gate (CAT-10)</h3>
-          <span class="metric-pill amber">Unvalidated Results Strictly Blocked</span>
-        </div>
-        <div class="card-body">
-          <p style="font-size:12px; color:var(--brand-slate); margin-top:0;">
-            Safety mandate (CAT-10): Analyzer results cannot be published to the patient portal or doctor dashboard until certified and cryptographically signed by a registered Pathologist.
-          </p>
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>Order ID</th><th>Patient</th><th>Test Name</th><th>Machine Telemetry</th><th>Pathologist Review</th><th>Status</th><th>Action</th></tr>
-              </thead>
-              <tbody>
-                ${labResults.map(r => `
-                  <tr>
-                    <td style="font-family:monospace; font-weight:700;">${r.id}</td>
-                    <td>Rahul Verma</td>
-                    <td><strong>${r.testName}</strong></td>
-                    <td>Cobas 6000 (Complete)</td>
-                    <td>${r.validatedBy ? 'Dr. Pathologist' : 'Pending Signature'}</td>
-                    <td>
-                      <span class="metric-pill ${r.status === 'VALIDATED' ? 'emerald' : 'amber'}">${r.status}</span>
-                    </td>
-                    <td>
-                      ${r.status !== 'VALIDATED' ? `
-                        <button class="btn btn-primary btn-xs" onclick="validateLabResult('${r.id}')">Validate & Release</button>
-                      ` : '<span style="color:var(--brand-emerald-dark); font-size:10px;">Released</span>'}
-                    </td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
+      ${activeTab === 'overview' ? `
+        <div class="card">
+          <div class="card-head">
+            <h3 class="card-title"><span>🔬</span> Laboratory Information System (LIS) — Pathologist Validation Gate (CAT-10)</h3>
+            <span class="metric-pill amber">Unvalidated Results Strictly Blocked</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px; color:var(--brand-slate); margin-top:0;">
+              Safety mandate (CAT-10): Analyzer results cannot be published to the patient portal or doctor dashboard until certified and cryptographically signed by a registered Pathologist.
+            </p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Order ID</th><th>Patient</th><th>Test Name</th><th>Machine Telemetry</th><th>Pathologist Review</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                  ${labResults.map(r => `
+                    <tr>
+                      <td style="font-family:monospace; font-weight:700;">${r.id}</td>
+                      <td>Rahul Verma</td>
+                      <td><strong>${r.testName}</strong></td>
+                      <td>Cobas 6000 (Complete)</td>
+                      <td>${r.validatedBy ? 'Dr. Pathologist' : 'Pending Signature'}</td>
+                      <td>
+                        <span class="metric-pill ${r.status === 'VALIDATED' ? 'emerald' : 'amber'}">${r.status}</span>
+                      </td>
+                      <td>
+                        ${r.status !== 'VALIDATED' ? `
+                          <button class="btn btn-primary btn-xs" onclick="validateLabResult('${r.id}')">Validate & Release</button>
+                        ` : '<span style="color:var(--brand-emerald-dark); font-size:10px;">Released</span>'}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      ` : activeTab === 'pacs' ? `
+        <div class="card">
+          <div class="card-head">
+            <h3 class="card-title"><span>☢️</span> PACS Radiology & DICOM Imaging Worklist (P2-06)</h3>
+            <span class="metric-pill emerald">Private Tokenized Access</span>
+          </div>
+          <div class="card-body">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div style="background:#0D111A; border-radius:12px; padding:20px; color:white; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:280px;">
+                <div style="font-size:48px; opacity:0.8;">🩻</div>
+                <div style="font-size:13px; font-weight:700; margin-top:8px;">Chest PA View DICOM Preview</div>
+                <div style="font-size:10px; color:#8E96A8; margin-top:4px;">UID: 1.2.840.113619.2.55.3.281923</div>
+                <div style="display:flex; gap:8px; margin-top:14px;">
+                  <button class="btn btn-secondary btn-xs" style="background:#1E2538; color:white; border-color:#353F5C;">Zoom +</button>
+                  <button class="btn btn-secondary btn-xs" style="background:#1E2538; color:white; border-color:#353F5C;">Window/Level</button>
+                  <button class="btn btn-secondary btn-xs" style="background:#1E2538; color:white; border-color:#353F5C;">Invert</button>
+                </div>
+              </div>
+              <div style="border:1px solid var(--brand-border); border-radius:12px; padding:18px; background:white;">
+                <div style="font-size:13px; font-weight:800; color:var(--brand-midnight); margin-bottom:8px;">Radiologist Impression & Report</div>
+                <div style="font-size:12px; color:var(--brand-slate); line-height:1.6;">
+                  <strong>Findings:</strong> Cardiac contours within normal limits. Lung fields clear. No focal consolidation, pneumothorax, or pleural effusion.
+                  <br><br>
+                  <strong>Impression:</strong> Normal study. No acute cardiopulmonary pathology.
+                </div>
+                <div style="margin-top:16px; padding:10px; background:var(--brand-warm-grey); border-radius:8px; font-size:11px;">
+                  Validated By: <strong>Dr. R. Menon, DMRD</strong> (KMC-88127)<br>
+                  Status: <span class="metric-pill emerald">FINAL_VERIFIED</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ` : activeTab === 'pharmacy' ? `
+        <div class="card">
+          <div class="card-head">
+            <h3 class="card-title"><span>💊</span> Pharmacy Formulary & Closed-Loop Dispensing (P2-07)</h3>
+            <button class="btn btn-primary btn-sm" onclick="triggerDispenseMedication('pharma-01', 'BT-AT-2024-09')">Dispense 30 Tablets</button>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px; color:var(--brand-slate); margin-top:0;">
+              Closed-Loop Barcode Dispensing: Inpatient medication administration is kept strictly traceable with batch/lot numbers and expiry safeguards.
+            </p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Formulary ID</th><th>Brand / Generic Name</th><th>Dosage Form</th><th>Strength</th><th>Batch #</th><th>Expiry Date</th><th>Stock Available</th><th>Reorder Level</th></tr>
+                </thead>
+                <tbody>
+                  ${formulary.map(f => `
+                    <tr>
+                      <td style="font-family:monospace; font-weight:700;">${f.id}</td>
+                      <td><strong>${f.brandName}</strong> (${f.genericName})</td>
+                      <td>${f.dosageForm}</td>
+                      <td>${f.strength}</td>
+                      <td><code>${f.batchNumber}</code></td>
+                      <td>${f.expiryDate}</td>
+                      <td><strong style="color:var(--brand-coral-deep); font-size:13px;">${f.stockQuantity}</strong></td>
+                      <td>${f.reorderLevel}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      ` : activeTab === 'soc' ? `
+        <div class="card">
+          <div class="card-head">
+            <h3 class="card-title"><span>🛡️</span> Cybersecurity SOC Telemetry & CERT-In Compliance (P4-08)</h3>
+            <button class="btn btn-secondary btn-sm" onclick="triggerSocIncidentSim()">Simulate Threat Incident</button>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px; color:var(--brand-slate); margin-top:0;">
+              Continuous Threat Detection: Correlates identity, API rate limits, and cross-tenant access. High-severity breaches enforce statutory 6-hour CERT-In incident reporting.
+            </p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Incident ID</th><th>Severity</th><th>Incident Type</th><th>Description</th><th>Detected At</th><th>CERT-In 6-Hour Deadline</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                  ${incidents.map(inc => `
+                    <tr>
+                      <td style="font-family:monospace; font-weight:700;">${inc.id}</td>
+                      <td><span class="metric-pill ${inc.severity === 'CRITICAL' || inc.severity === 'HIGH' ? 'coral' : 'amber'}">${inc.severity}</span></td>
+                      <td><strong>${inc.incidentType}</strong></td>
+                      <td>${inc.description}</td>
+                      <td>${new Date(inc.detectedAt).toLocaleTimeString()}</td>
+                      <td style="font-family:monospace; color:var(--brand-coral-deep); font-size:11px;">${new Date(inc.certInDeadline).toLocaleTimeString()}</td>
+                      <td><span class="metric-pill emerald">${inc.status}</span></td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      ` : ''}
     `;
   }
+
 
   // =========================================================================
   // 5. CUSTOMER CARE DESK RENDERER (CAT-07)
@@ -2661,6 +2941,105 @@
   // =========================================================================
   // ACTIONS, DISPATCHERS & SIMULATORS
   // =========================================================================
+
+  async function advanceWhoChecklist(bookingId, phase) {
+    try {
+      chimeAlert();
+      const res = await fetch('/api/v1/ot/checklist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId, phase, verifiedBy: 'doc-sharma-01' })
+      });
+      const data = await res.json();
+      if (data.success) {
+        chimeSuccess();
+        showToast(`WHO Checklist ${phase} verified and recorded in audit log.`, 'success');
+        await fetchState();
+      } else {
+        showToast(data.error || 'Checklist update failed', 'error');
+      }
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
+
+  async function triggerDispenseMedication(medicationId, batchNumber) {
+    try {
+      const res = await fetch('/api/v1/pharmacy/dispense', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prescriptionId: 'rx-cardio-01',
+          medicationId,
+          quantity: 30,
+          pharmacistId: 'pharma-lead-01',
+          batchNumber
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        chimeSuccess();
+        showToast(`Dispensed 30 tablets of ${data.record.itemsDispensed[0].brandName}. Stock decremented.`, 'success');
+        await fetchState();
+      } else {
+        showToast(data.error || 'Dispense failed', 'error');
+      }
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
+
+  async function triggerCrossmatchReserve(bloodGroup) {
+    try {
+      const res = await fetch('/api/v1/blood-bank/crossmatch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          patientId: PATIENT_ID,
+          facilityId: 'fac-city-care-01',
+          bloodGroup,
+          unitsRequired: 2,
+          crossmatchCompatibility: 'COMPATIBLE',
+          requesterId: 'doc-sharma-01'
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        chimeSuccess();
+        showToast(`Reserved 2 units of ${bloodGroup} compatible blood for surgery.`, 'success');
+        await fetchState();
+      } else {
+        showToast(data.error || 'Reservation failed', 'error');
+      }
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
+
+  async function triggerSocIncidentSim() {
+    chimeAlert();
+    try {
+      const res = await fetch('/api/v1/soc/incidents', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          severity: 'HIGH',
+          incidentType: 'SUSPICIOUS_BULK_EXFILTRATION',
+          description: 'Anomalous attempt to download 500 patient discharge summaries across tenant boundary',
+          affectedEntities: ['/api/v1/clinical/chart', '/api/v1/documents'],
+          detectedBy: 'SOC_AUTOMATION_01'
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        chimeAlert();
+        showToast(`🚨 High-severity security threat logged! CERT-In 6-hour reporting countdown initiated.`, 'error');
+        await fetchState();
+      }
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
 
   async function holdDoctorSlot(doctorId, startTime, fee) {
     try {

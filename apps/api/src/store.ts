@@ -48,6 +48,8 @@ import {
   AISupportFAQ,
   AbhaProfile,
   FhirResourceBundle,
+  SecurityIncident,
+  InpatientInvoice,
 } from '@svasthnexis/shared-types';
 import { AuditLogEngine } from '@svasthnexis/audit';
 import {
@@ -98,6 +100,8 @@ export interface AppState {
   insuranceClaims: InsuranceClaim[];
   telemedicineSessions: TelemedicineSession[];
   aiExtractions: AIDoctorReportExtraction[];
+  securityIncidents: SecurityIncident[];
+  invoices: InpatientInvoice[];
 }
 
 export class DomainStore {
@@ -572,6 +576,21 @@ export class DomainStore {
       ],
 
       aiExtractions: [],
+      securityIncidents: [
+        {
+          id: 'sec-inc-001',
+          severity: 'LOW',
+          incidentType: 'RATE_LIMIT_EXCEEDED',
+          description: 'Repeated unauthorized credential probe detected on patient login endpoint from IP 198.51.100.44',
+          detectedAt: now,
+          detectedBy: 'SOC_AUTOMATION',
+          status: 'CONTAINED',
+          affectedEntities: ['/api/v1/auth/login'],
+          certInReported: false,
+          certInDeadline: new Date(Date.now() + 6 * 3600 * 1000).toISOString(),
+        },
+      ],
+      invoices: [],
     };
 
     // Log Genesis Event
@@ -1855,4 +1874,462 @@ export class DomainStore {
       },
     };
   }
+
+  // =========================================================================
+  // PHARMACY DISPENSING (P2-07, BP Sec 7.6)
+  // =========================================================================
+
+  public dispenseMedication(input: {
+    prescriptionId: string;
+    medicationId: string;
+    quantity: number;
+    pharmacistId: string;
+    batchNumber: string;
+  }): { success: boolean; record?: DispenseRecord; error?: string } {
+    const item = this.state.formulary.find(
+      (f) => f.id === input.medicationId || f.batchNumber === input.batchNumber
+    );
+    if (!item) {
+      return { success: false, error: 'Medication not found in hospital formulary' };
+    }
+    if (item.stockQuantity < input.quantity) {
+      return { success: false, error: 'Insufficient stock in hospital pharmacy formulary' };
+    }
+    const expiry = new Date(item.expiryDate).getTime();
+    if (expiry < Date.now()) {
+      return { success: false, error: 'Cannot dispense expired medication batch' };
+    }
+
+    item.stockQuantity -= input.quantity;
+    const record: DispenseRecord = {
+      id: `dsp-${Date.now()}`,
+      prescriptionId: input.prescriptionId,
+      patientId: 'pat-verma-01',
+      pharmacistId: input.pharmacistId,
+      facilityId: item.facilityId,
+      itemsDispensed: [
+        {
+          genericName: item.genericName,
+          brandName: item.brandName,
+          quantity: input.quantity,
+          batchNumber: input.batchNumber,
+          unitPriceMinorUnits: 2500,
+        },
+      ],
+      totalPriceMinorUnits: input.quantity * 2500,
+      dispensedAt: new Date().toISOString(),
+      counselingProvided: true,
+    };
+    this.state.dispenseRecords.push(record);
+
+    this.audit.log({
+      correlationId: `dsp-${record.id}`,
+      actorId: input.pharmacistId,
+      actorRole: 'PHARMACIST',
+      action: 'pharmacy:dispense',
+      resourceType: 'DispenseRecord',
+      resourceId: record.id,
+      outcome: 'SUCCESS',
+      metadata: { medication: item.brandName, quantity: input.quantity, remainingStock: item.stockQuantity },
+    });
+
+    return { success: true, record };
+  }
+
+  // =========================================================================
+  // INPATIENT BILLING & TARIFF SNAPSHOTS (P2-08, BP Sec 12)
+  // =========================================================================
+
+  public generateInpatientInvoice(input: {
+    patientId: string;
+    admissionId: string;
+    facilityId: string;
+    lineItems: Array<{
+      description: string;
+      quantity: number;
+      unitRate: number;
+      category: string;
+      tariffVersion?: string;
+    }>;
+  }): InpatientInvoice {
+    const totalAmount = input.lineItems.reduce((acc, cur) => acc + cur.quantity * cur.unitRate, 0);
+    const claim = this.state.insuranceClaims.find(
+      (c) => c.patientId === input.patientId && c.preAuthStatus === 'APPROVED'
+    );
+    const insuranceCovered = claim ? Math.min(totalAmount, claim.approvedAmountMinorUnits / 100) : 0;
+    const patientPayable = Math.max(0, totalAmount - insuranceCovered);
+
+    const invoice: InpatientInvoice = {
+      id: `inv-ipd-${Date.now()}`,
+      admissionId: input.admissionId,
+      patientId: input.patientId,
+      facilityId: input.facilityId,
+      createdAt: new Date().toISOString(),
+      lineItems: input.lineItems.map((l) => ({
+        description: l.description,
+        quantity: l.quantity,
+        unitRate: l.unitRate,
+        totalAmount: l.quantity * l.unitRate,
+        category: l.category,
+        tariffVersion: l.tariffVersion || 'v1.0-2026',
+      })),
+      totalAmount,
+      insuranceCovered,
+      patientPayable,
+      status: 'ISSUED',
+    };
+    this.state.invoices.push(invoice);
+
+    this.audit.log({
+      correlationId: `inv-${invoice.id}`,
+      actorId: 'billing-system',
+      actorRole: 'HOSPITAL_ADMIN',
+      action: 'finance:invoice-generate',
+      resourceType: 'InpatientInvoice',
+      resourceId: invoice.id,
+      outcome: 'SUCCESS',
+      metadata: { totalAmount, insuranceCovered, patientPayable },
+    });
+
+    return invoice;
+  }
+
+  // =========================================================================
+  // OPERATION THEATRE (OT) & WHO SURGICAL CHECKLIST (P3-01, BP Sec 7.7)
+  // =========================================================================
+
+  public scheduleOtBooking(input: {
+    patientId: string;
+    facilityId: string;
+    otRoom: string;
+    procedureName: string;
+    leadSurgeonId: string;
+    anesthesiologistId: string;
+    scheduledTime: string;
+  }): OTBooking {
+    const booking: OTBooking = {
+      id: `ot-${Date.now()}`,
+      patientId: input.patientId,
+      facilityId: input.facilityId,
+      otRoomId: input.otRoom,
+      procedureName: input.procedureName,
+      leadSurgeonId: input.leadSurgeonId,
+      anaesthetistId: input.anesthesiologistId,
+      scheduledStartTime: input.scheduledTime,
+      scheduledEndTime: new Date(new Date(input.scheduledTime).getTime() + 2 * 3600 * 1000).toISOString(),
+      status: 'SCHEDULED',
+      whoChecklist: {
+        signInDone: false,
+        timeOutDone: false,
+        signOutDone: false,
+        scrubNurseId: 'nurse-lead-01',
+      },
+    };
+    this.state.otBookings.push(booking);
+
+    this.audit.log({
+      correlationId: `ot-${booking.id}`,
+      actorId: input.leadSurgeonId,
+      actorRole: 'DOCTOR_RMP',
+      action: 'ot:schedule',
+      resourceType: 'OTBooking',
+      resourceId: booking.id,
+      outcome: 'SUCCESS',
+      metadata: { procedure: input.procedureName, room: input.otRoom },
+    });
+
+    return booking;
+  }
+
+  public updateWhoSurgicalChecklist(input: {
+    bookingId: string;
+    phase: 'SIGN_IN' | 'TIME_OUT' | 'SIGN_OUT';
+    verifiedItems: string[];
+    verifiedBy: string;
+  }): { success: boolean; booking?: OTBooking; error?: string } {
+    const booking = this.state.otBookings.find((b) => b.id === input.bookingId);
+    if (!booking) return { success: false, error: 'OT booking not found' };
+
+    if (input.phase === 'SIGN_IN') {
+      booking.whoChecklist.signInDone = true;
+      booking.status = 'PRE_OP_CHECK_DONE';
+    } else if (input.phase === 'TIME_OUT') {
+      if (!booking.whoChecklist.signInDone) {
+        return { success: false, error: 'WHO Sign-In must precede Time-Out verification' };
+      }
+      booking.whoChecklist.timeOutDone = true;
+      booking.status = 'IN_SURGERY';
+    } else if (input.phase === 'SIGN_OUT') {
+      if (!booking.whoChecklist.timeOutDone) {
+        return { success: false, error: 'WHO Time-Out must precede Sign-Out verification' };
+      }
+      booking.whoChecklist.signOutDone = true;
+      booking.status = 'COMPLETED';
+    }
+
+    this.audit.log({
+      correlationId: `who-${booking.id}`,
+      actorId: input.verifiedBy,
+      actorRole: 'DOCTOR_RMP',
+      action: `ot:who-${input.phase.toLowerCase()}`,
+      resourceType: 'OTBooking',
+      resourceId: booking.id,
+      outcome: 'SUCCESS',
+      metadata: { checklistPhase: input.phase, items: input.verifiedItems },
+    });
+
+    return { success: true, booking };
+  }
+
+  // =========================================================================
+  // AMBULANCE COORDINATION & GPS TELEMETRY (P3-03, BP Sec 7.8)
+  // =========================================================================
+
+  public dispatchAmbulance(input: {
+    callerPhone: string;
+    pickupLocation: string;
+    vehicleNumber: string;
+    crewLeadName: string;
+    destinationFacilityId: string;
+  }): AmbulanceDispatch {
+    const dispatch: AmbulanceDispatch = {
+      id: `amb-${Date.now()}`,
+      callerPhone: input.callerPhone,
+      pickupLocation: input.pickupLocation,
+      vehicleNumber: input.vehicleNumber,
+      crewLeadName: input.crewLeadName,
+      destinationFacilityId: input.destinationFacilityId,
+      status: 'DISPATCHED',
+      estimatedArrivalMins: 12,
+    };
+    this.state.ambulanceDispatches.push(dispatch);
+
+    this.audit.log({
+      correlationId: `amb-${dispatch.id}`,
+      actorId: 'dispatcher-112',
+      actorRole: 'HOSPITAL_ADMIN',
+      action: 'ambulance:dispatch',
+      resourceType: 'AmbulanceDispatch',
+      resourceId: dispatch.id,
+      outcome: 'SUCCESS',
+      metadata: { vehicle: input.vehicleNumber, pickup: input.pickupLocation },
+    });
+
+    return dispatch;
+  }
+
+  public updateAmbulanceTelemetry(input: {
+    dispatchId: string;
+    latitude: number;
+    longitude: number;
+    estimatedArrivalMins: number;
+  }): { success: boolean; dispatch?: AmbulanceDispatch; error?: string } {
+    const d = this.state.ambulanceDispatches.find((a) => a.id === input.dispatchId);
+    if (!d) return { success: false, error: 'Ambulance dispatch not found' };
+
+    d.estimatedArrivalMins = input.estimatedArrivalMins;
+    if (input.estimatedArrivalMins <= 1) d.status = 'ARRIVED_AT_SCENE';
+
+    return { success: true, dispatch: d };
+  }
+
+  // =========================================================================
+  // INSURANCE / TPA CLAIMS (P3-04, BP Sec 12)
+  // =========================================================================
+
+  public submitInsuranceClaim(input: {
+    patientId: string;
+    facilityId: string;
+    payerName: string;
+    policyNumber: string;
+    requestedAmountMinorUnits: number;
+    copayMinorUnits?: number;
+  }): InsuranceClaim {
+    const claim: InsuranceClaim = {
+      id: `clm-${Date.now()}`,
+      patientId: input.patientId,
+      facilityId: input.facilityId,
+      payerName: input.payerName,
+      policyNumber: input.policyNumber,
+      preAuthStatus: 'SUBMITTED',
+      requestedAmountMinorUnits: input.requestedAmountMinorUnits,
+      approvedAmountMinorUnits: 0,
+      copayMinorUnits: input.copayMinorUnits || 0,
+      settlementStatus: 'PENDING',
+    };
+    this.state.insuranceClaims.push(claim);
+
+    this.audit.log({
+      correlationId: `clm-${claim.id}`,
+      actorId: input.patientId,
+      actorRole: 'PATIENT',
+      action: 'insurance:claim-submit',
+      resourceType: 'InsuranceClaim',
+      resourceId: claim.id,
+      outcome: 'SUCCESS',
+      metadata: { payer: input.payerName, requested: input.requestedAmountMinorUnits },
+    });
+
+    return claim;
+  }
+
+  public adjudicateInsuranceClaim(input: {
+    claimId: string;
+    status: 'APPROVED' | 'REJECTED';
+    approvedAmountMinorUnits: number;
+    settlementStatus?: 'SETTLED' | 'PENDING';
+  }): { success: boolean; claim?: InsuranceClaim; error?: string } {
+    const claim = this.state.insuranceClaims.find((c) => c.id === input.claimId);
+    if (!claim) return { success: false, error: 'Claim not found' };
+
+    claim.preAuthStatus = input.status;
+    claim.approvedAmountMinorUnits = input.approvedAmountMinorUnits;
+    if (input.settlementStatus) claim.settlementStatus = input.settlementStatus;
+
+    this.audit.log({
+      correlationId: `clm-adj-${claim.id}`,
+      actorId: 'tpa-adjudicator-01',
+      actorRole: 'HOSPITAL_ADMIN',
+      action: 'insurance:adjudicate',
+      resourceType: 'InsuranceClaim',
+      resourceId: claim.id,
+      outcome: 'SUCCESS',
+      metadata: { status: input.status, approved: input.approvedAmountMinorUnits },
+    });
+
+    return { success: true, claim };
+  }
+
+  // =========================================================================
+  // BLOOD BANK & CROSSMATCH (P3-06, BP Sec 7.9)
+  // =========================================================================
+
+  public reserveBloodCrossmatch(input: {
+    patientId: string;
+    facilityId: string;
+    bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+    unitsRequired: number;
+    crossmatchCompatibility: 'COMPATIBLE' | 'INCOMPATIBLE';
+    requesterId: string;
+  }): { success: boolean; crossmatch?: BloodCrossmatch; error?: string } {
+    const stock = this.state.bloodStock.find((s) => s.bloodGroup === input.bloodGroup);
+    if (!stock || stock.unitsAvailable < input.unitsRequired) {
+      return { success: false, error: `Insufficient stock for blood group ${input.bloodGroup}` };
+    }
+    if (input.crossmatchCompatibility !== 'COMPATIBLE') {
+      return { success: false, error: 'Crossmatch test indicates incompatibility. Reservation blocked.' };
+    }
+
+    stock.unitsAvailable -= input.unitsRequired;
+    const crossmatch: BloodCrossmatch = {
+      id: `xm-${Date.now()}`,
+      patientId: input.patientId,
+      patientBloodGroup: input.bloodGroup,
+      requiredUnits: input.unitsRequired,
+      compatibilityResult: 'COMPATIBLE',
+      testedByTechnicianId: input.requesterId,
+    };
+    this.state.crossmatches.push(crossmatch);
+
+    this.audit.log({
+      correlationId: `xm-${crossmatch.id}`,
+      actorId: input.requesterId,
+      actorRole: 'DOCTOR_RMP',
+      action: 'bloodbank:crossmatch-reserve',
+      resourceType: 'BloodCrossmatch',
+      resourceId: crossmatch.id,
+      outcome: 'SUCCESS',
+      metadata: { bloodGroup: input.bloodGroup, units: input.unitsRequired },
+    });
+
+    return { success: true, crossmatch };
+  }
+
+  // =========================================================================
+  // CYBERSECURITY SOC & CERT-IN REPORTING (P4-08, BP Sec 13.5, 19.3)
+  // =========================================================================
+
+  public recordSecurityIncident(input: {
+    severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+    incidentType: string;
+    description: string;
+    affectedEntities: string[];
+    detectedBy: string;
+  }): SecurityIncident {
+    const now = new Date();
+    // 6-hour CERT-In statutory reporting deadline
+    const deadline = new Date(now.getTime() + 6 * 3600 * 1000).toISOString();
+
+    const incident: SecurityIncident = {
+      id: `sec-${Date.now()}`,
+      severity: input.severity,
+      incidentType: input.incidentType,
+      description: input.description,
+      detectedAt: now.toISOString(),
+      detectedBy: input.detectedBy,
+      status: 'OPEN',
+      affectedEntities: input.affectedEntities,
+      certInReported: input.severity === 'CRITICAL' || input.severity === 'HIGH',
+      certInDeadline: deadline,
+    };
+    this.state.securityIncidents.push(incident);
+
+    this.audit.log({
+      correlationId: `sec-${incident.id}`,
+      actorId: input.detectedBy,
+      actorRole: 'PLATFORM_ADMIN',
+      action: 'soc:incident-detected',
+      resourceType: 'SecurityIncident',
+      resourceId: incident.id,
+      outcome: 'SUCCESS',
+      metadata: { severity: input.severity, certInDeadline: deadline },
+    });
+
+    return incident;
+  }
+
+  // =========================================================================
+  // DOCTOR AFFILIATION APPROVAL (P1-04, BP Sec 5.2)
+  // =========================================================================
+
+  public approveDoctorAffiliation(input: {
+    doctorId: string;
+    facilityId: string;
+    approvedBy: string;
+    permittedSpecialties: string[];
+  }): { success: boolean; affiliation?: DoctorAffiliation; error?: string } {
+    const existing = this.state.affiliations.find(
+      (a) => a.doctorId === input.doctorId && a.facilityId === input.facilityId
+    );
+    if (existing) {
+      existing.approvalStatus = 'ACTIVE';
+      return { success: true, affiliation: existing };
+    }
+
+    const affiliation: DoctorAffiliation = {
+      id: `aff-${Date.now()}`,
+      doctorId: input.doctorId,
+      facilityId: input.facilityId,
+      departmentName: input.permittedSpecialties[0] || 'General Medicine',
+      consultationFeeMinorUnits: 80000,
+      modesSupported: ['IN_PERSON', 'TELECONSULTATION'],
+      approvalStatus: 'ACTIVE',
+      effectiveFrom: new Date().toISOString(),
+    };
+    this.state.affiliations.push(affiliation);
+
+    this.audit.log({
+      correlationId: `aff-${affiliation.id}`,
+      actorId: input.approvedBy,
+      actorRole: 'HOSPITAL_ADMIN',
+      action: 'provider:affiliation-approve',
+      resourceType: 'DoctorAffiliation',
+      resourceId: affiliation.id,
+      outcome: 'SUCCESS',
+      metadata: { doctorId: input.doctorId, facilityId: input.facilityId },
+    });
+
+    return { success: true, affiliation };
+  }
 }
+

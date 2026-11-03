@@ -792,4 +792,42 @@ export interface FhirResourceBundle {
   fhirJson: Record<string, unknown>;
 }
 
+// ============================================================================
+// 21. ADVANCED SECURITY & INPATIENT FINANCE (Sections 12, 13, 19)
+// ============================================================================
+
+export interface SecurityIncident {
+  id: string;
+  severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  incidentType: string;
+  description: string;
+  detectedAt: string;
+  detectedBy: string;
+  status: 'OPEN' | 'INVESTIGATING' | 'CONTAINED' | 'RESOLVED';
+  affectedEntities: string[];
+  certInReported: boolean;
+  certInDeadline: string; // 6-hour reporting window under Section 70B IT Act
+}
+
+export interface InpatientInvoice {
+  id: string;
+  admissionId: string;
+  patientId: string;
+  facilityId: string;
+  createdAt: string;
+  lineItems: Array<{
+    description: string;
+    quantity: number;
+    unitRate: number;
+    totalAmount: number;
+    category: string;
+    tariffVersion: string;
+  }>;
+  totalAmount: number;
+  insuranceCovered: number;
+  patientPayable: number;
+  status: 'DRAFT' | 'ISSUED' | 'SETTLED' | 'DISPUTED';
+}
+
+
 

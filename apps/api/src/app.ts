@@ -576,12 +576,201 @@ export function createApp(store: DomainStore) {
   });
 
   // =========================================================================
-  // PHARMACY & DISPENSING (Section 7.6)
+  // PHARMACY & DISPENSING (P2-07, BP Sec 7.6)
   // =========================================================================
 
   app.get('/api/v1/pharmacy/formulary', (_req: Request, res: Response) => {
     res.json({ success: true, formulary: store.state.formulary });
   });
+
+  app.post('/api/v1/pharmacy/dispense', (req: Request, res: Response) => {
+    const { prescriptionId, medicationId, quantity, pharmacistId, batchNumber } = req.body;
+    const result = store.dispenseMedication({
+      prescriptionId: prescriptionId || 'rx-demo',
+      medicationId: medicationId || 'pharma-01',
+      quantity: quantity || 30,
+      pharmacistId: pharmacistId || 'pharma-lead-01',
+      batchNumber: batchNumber || 'BT-AT-2024-09',
+    });
+    if (!result.success) return res.status(400).json(result);
+    return res.status(200).json(result);
+  });
+
+  // =========================================================================
+  // INPATIENT BILLING & TARIFF SNAPSHOTS (P2-08, BP Sec 12)
+  // =========================================================================
+
+  app.post('/api/v1/inpatient/billing/invoice', (req: Request, res: Response) => {
+    const { patientId, admissionId, facilityId, lineItems } = req.body;
+    const invoice = store.generateInpatientInvoice({
+      patientId: patientId || 'pat-verma-01',
+      admissionId: admissionId || 'adm-001',
+      facilityId: facilityId || 'fac-city-care-01',
+      lineItems: lineItems || [
+        { description: 'ICU Ventilator Bed Charges (2 Days)', quantity: 2, unitRate: 7500, category: 'BED' },
+        { description: 'Cardiology Specialist Clinical Rounds', quantity: 2, unitRate: 800, category: 'CONSULTATION' },
+        { description: 'Cardiac Biomarkers Panel Test', quantity: 1, unitRate: 650, category: 'LAB' },
+      ],
+    });
+    return res.status(200).json({ success: true, invoice });
+  });
+
+  // =========================================================================
+  // OT BOOKINGS & WHO CHECKLIST (P3-01, BP Sec 7.7)
+  // =========================================================================
+
+  app.get('/api/v1/ot/bookings', (_req: Request, res: Response) => {
+    res.json({ success: true, otBookings: store.state.otBookings });
+  });
+
+  app.post('/api/v1/ot/bookings', (req: Request, res: Response) => {
+    const { patientId, facilityId, otRoom, procedureName, leadSurgeonId, anesthesiologistId, scheduledTime } = req.body;
+    const booking = store.scheduleOtBooking({
+      patientId: patientId || 'pat-verma-01',
+      facilityId: facilityId || 'fac-city-care-01',
+      otRoom: otRoom || 'OR-1 (Cardiothoracic)',
+      procedureName: procedureName || 'Coronary Artery Bypass Graft (CABG)',
+      leadSurgeonId: leadSurgeonId || 'doc-surgeon-01',
+      anesthesiologistId: anesthesiologistId || 'doc-anes-01',
+      scheduledTime: scheduledTime || new Date(Date.now() + 24 * 3600 * 1000).toISOString(),
+    });
+    return res.status(201).json({ success: true, booking });
+  });
+
+  app.post('/api/v1/ot/checklist', (req: Request, res: Response) => {
+    const { bookingId, phase, verifiedItems, verifiedBy } = req.body;
+    const result = store.updateWhoSurgicalChecklist({
+      bookingId,
+      phase,
+      verifiedItems: verifiedItems || ['Patient Identity Confirmed', 'Surgical Site Marked', 'Pulse Oximeter Operating'],
+      verifiedBy: verifiedBy || 'doc-surgeon-01',
+    });
+    if (!result.success) return res.status(400).json(result);
+    return res.status(200).json(result);
+  });
+
+  // =========================================================================
+  // AMBULANCE DISPATCH & GPS TELEMETRY (P3-03, BP Sec 7.8)
+  // =========================================================================
+
+  app.get('/api/v1/ambulance/dispatches', (_req: Request, res: Response) => {
+    res.json({ success: true, dispatches: store.state.ambulanceDispatches });
+  });
+
+  app.post('/api/v1/ambulance/dispatch', (req: Request, res: Response) => {
+    const { callerPhone, pickupLocation, vehicleNumber, crewLeadName, destinationFacilityId } = req.body;
+    const dispatch = store.dispatchAmbulance({
+      callerPhone: callerPhone || '+919988776655',
+      pickupLocation: pickupLocation || 'MG Road Metro Station, Bengaluru',
+      vehicleNumber: vehicleNumber || 'KA-01-EM-1108',
+      crewLeadName: crewLeadName || 'Paramedic Ramesh G',
+      destinationFacilityId: destinationFacilityId || 'fac-city-care-01',
+    });
+    return res.status(201).json({ success: true, dispatch });
+  });
+
+  app.post('/api/v1/ambulance/telemetry', (req: Request, res: Response) => {
+    const { dispatchId, latitude, longitude, estimatedArrivalMins } = req.body;
+    const result = store.updateAmbulanceTelemetry({
+      dispatchId,
+      latitude: latitude || 12.9716,
+      longitude: longitude || 77.5946,
+      estimatedArrivalMins: estimatedArrivalMins || 6,
+    });
+    if (!result.success) return res.status(404).json(result);
+    return res.status(200).json(result);
+  });
+
+  // =========================================================================
+  // INSURANCE / TPA CLAIMS (P3-04, BP Sec 12)
+  // =========================================================================
+
+  app.get('/api/v1/insurance/claims', (_req: Request, res: Response) => {
+    res.json({ success: true, insuranceClaims: store.state.insuranceClaims });
+  });
+
+  app.post('/api/v1/insurance/claims', (req: Request, res: Response) => {
+    const { patientId, facilityId, payerName, policyNumber, requestedAmountMinorUnits, copayMinorUnits } = req.body;
+    const claim = store.submitInsuranceClaim({
+      patientId: patientId || 'pat-verma-01',
+      facilityId: facilityId || 'fac-city-care-01',
+      payerName: payerName || 'Star Health & Allied Insurance',
+      policyNumber: policyNumber || 'POL-STAR-881273-01',
+      requestedAmountMinorUnits: requestedAmountMinorUnits || 2500000,
+      copayMinorUnits: copayMinorUnits || 200000,
+    });
+    return res.status(201).json({ success: true, claim });
+  });
+
+  app.post('/api/v1/insurance/claims/:id/adjudicate', (req: Request, res: Response) => {
+    const { status, approvedAmountMinorUnits, settlementStatus } = req.body;
+    const result = store.adjudicateInsuranceClaim({
+      claimId: String(req.params.id),
+      status: status || 'APPROVED',
+      approvedAmountMinorUnits: approvedAmountMinorUnits || 2300000,
+      settlementStatus: settlementStatus || 'SETTLED',
+    });
+    if (!result.success) return res.status(404).json(result);
+    return res.status(200).json(result);
+  });
+
+  // =========================================================================
+  // BLOOD BANK & CROSSMATCH (P3-06, BP Sec 7.9)
+  // =========================================================================
+
+  app.get('/api/v1/blood-bank/stock', (_req: Request, res: Response) => {
+    res.json({ success: true, bloodStock: store.state.bloodStock });
+  });
+
+  app.post('/api/v1/blood-bank/crossmatch', (req: Request, res: Response) => {
+    const { patientId, facilityId, bloodGroup, unitsRequired, crossmatchCompatibility, requesterId } = req.body;
+    const result = store.reserveBloodCrossmatch({
+      patientId: patientId || 'pat-verma-01',
+      facilityId: facilityId || 'fac-city-care-01',
+      bloodGroup: bloodGroup || 'O+',
+      unitsRequired: unitsRequired || 2,
+      crossmatchCompatibility: crossmatchCompatibility || 'COMPATIBLE',
+      requesterId: requesterId || 'doc-sharma-01',
+    });
+    if (!result.success) return res.status(400).json(result);
+    return res.status(200).json(result);
+  });
+
+  // =========================================================================
+  // CYBERSECURITY SOC & CERT-IN REPORTING (P4-08, BP Sec 13.5, 19.3)
+  // =========================================================================
+
+  app.get('/api/v1/soc/incidents', (_req: Request, res: Response) => {
+    res.json({ success: true, incidents: store.state.securityIncidents });
+  });
+
+  app.post('/api/v1/soc/incidents', (req: Request, res: Response) => {
+    const { severity, incidentType, description, affectedEntities, detectedBy } = req.body;
+    const incident = store.recordSecurityIncident({
+      severity: severity || 'MEDIUM',
+      incidentType: incidentType || 'SUSPICIOUS_ACCESS_PATTERN',
+      description: description || 'Multiple sequential IDOR access attempts across patient chart endpoints',
+      affectedEntities: affectedEntities || ['/api/v1/clinical/chart'],
+      detectedBy: detectedBy || 'SOC_ANALYST_01',
+    });
+    return res.status(201).json({ success: true, incident });
+  });
+
+  // =========================================================================
+  // DOCTOR AFFILIATION APPROVAL (P1-04, BP Sec 5.2)
+  // =========================================================================
+
+  app.post('/api/v1/doctors/:id/affiliations/approve', (req: Request, res: Response) => {
+    const { facilityId, approvedBy, permittedSpecialties } = req.body;
+    const result = store.approveDoctorAffiliation({
+      doctorId: String(req.params.id),
+      facilityId: facilityId || 'fac-city-care-01',
+      approvedBy: approvedBy || 'med-superintendent-01',
+      permittedSpecialties: permittedSpecialties || ['Cardiology', 'Interventional Cardiology'],
+    });
+    return res.status(200).json(result);
+  });
+
 
   // =========================================================================
   // ADMIN 7-DAY REMOVAL INITIATION (T-01)
