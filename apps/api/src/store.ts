@@ -66,6 +66,7 @@ export interface AppState {
   admins: PlatformAdminLifecycle[];
   facilities: HospitalFacility[];
   doctors: DoctorProfile[];
+  patients: any[];
   affiliations: DoctorAffiliation[];
   slots: DoctorScheduleSlot[];
   appointments: Appointment[];
@@ -129,6 +130,7 @@ export class DomainStore {
       ],
       facilities: [{ ...DEMO_FACILITY }],
       doctors: [...DEMO_DOCTORS],
+      patients: [...DEMO_PATIENTS],
       affiliations: [...DEMO_AFFILIATIONS],
       slots: [...DEMO_SLOTS],
       appointments: [],

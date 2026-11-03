@@ -1616,53 +1616,87 @@
 
   // Master UI Renderer
   function renderUI() {
-    if (!appState) return;
-    const ws = WORKSPACES[activeWorkspace];
+    try {
+      const ws = WORKSPACES[activeWorkspace];
+      if (!ws) return;
 
-    // Update Chrome
-    document.getElementById('ws-display-title').textContent = ws.title;
-    document.getElementById('ws-display-sub').textContent = ws.sub;
-    document.getElementById('ws-badge-icon').textContent = ws.tabs[0].icon;
-    document.getElementById('nav-group-heading').textContent = ws.crumb;
-    document.getElementById('user-display-name').textContent = ws.name;
-    document.getElementById('user-display-role').textContent = ws.role;
-    document.getElementById('user-avatar-initials').textContent = ws.initials;
+      // Update Chrome
+      const titleEl = document.getElementById('ws-display-title');
+      if (titleEl) titleEl.textContent = ws.title;
+      const subEl = document.getElementById('ws-display-sub');
+      if (subEl) subEl.textContent = ws.sub;
+      const iconEl = document.getElementById('ws-badge-icon');
+      if (iconEl) iconEl.textContent = ws.tabs[0].icon;
+      const crumbEl = document.getElementById('nav-group-heading');
+      if (crumbEl) crumbEl.textContent = ws.crumb;
+      const nameEl = document.getElementById('user-display-name');
+      if (nameEl) nameEl.textContent = ws.name;
+      const roleEl = document.getElementById('user-display-role');
+      if (roleEl) roleEl.textContent = ws.role;
+      const avatarEl = document.getElementById('user-avatar-initials');
+      if (avatarEl) avatarEl.textContent = ws.initials;
 
-    // Render Navigation
-    const nav = document.getElementById('sidebar-nav');
-    nav.innerHTML = ws.tabs.map(t => `
-      <a class="nav-link ${activeTab === t.id ? 'active' : ''}" href="javascript:void(0)" onclick="activeTab='${t.id}'; chimeSuccess(); renderUI();">
-        <span class="icon">${t.icon}</span>
-        <span>${t.label}</span>
-      </a>
-    `).join('');
+      // Render Navigation
+      const nav = document.getElementById('sidebar-nav');
+      if (nav) {
+        nav.innerHTML = ws.tabs.map(t => `
+          <a class="nav-link ${activeTab === t.id ? 'active' : ''}" href="javascript:void(0)" onclick="activeTab='${t.id}'; chimeSuccess(); renderUI();">
+            <span class="icon">${t.icon}</span>
+            <span>${t.label}</span>
+          </a>
+        `).join('');
+      }
 
-    // Render Container
-    const container = document.getElementById('app-container');
-    if (activeWorkspace === 'PATIENT') container.innerHTML = renderPatientWorkspace();
-    else if (activeWorkspace === 'DOCTOR') container.innerHTML = renderDoctorWorkspace();
-    else if (activeWorkspace === 'HOSPITAL') container.innerHTML = renderHospitalWorkspace();
-    else if (activeWorkspace === 'STAFF_HUB') container.innerHTML = renderStaffWorkspace();
-    else if (activeWorkspace === 'CUSTOMER_CARE') container.innerHTML = renderCareWorkspace();
-    else if (activeWorkspace === 'PLATFORM_ADMIN') container.innerHTML = renderAdminWorkspace();
+      // Render Container
+      const container = document.getElementById('app-container');
+      if (!container) return;
+
+      if (activeWorkspace === 'PATIENT') container.innerHTML = renderPatientWorkspace();
+      else if (activeWorkspace === 'DOCTOR') container.innerHTML = renderDoctorWorkspace();
+      else if (activeWorkspace === 'HOSPITAL') container.innerHTML = renderHospitalWorkspace();
+      else if (activeWorkspace === 'STAFF_HUB') container.innerHTML = renderStaffWorkspace();
+      else if (activeWorkspace === 'CUSTOMER_CARE') container.innerHTML = renderCareWorkspace();
+      else if (activeWorkspace === 'PLATFORM_ADMIN') container.innerHTML = renderAdminWorkspace();
+    } catch (err) {
+      console.error('[SvasthNexis Render Error]', err);
+      const container = document.getElementById('app-container');
+      if (container) {
+        container.innerHTML = `
+          <div class="card" style="border-left:4px solid var(--brand-coral); margin-top:20px;">
+            <div class="card-head">
+              <h3 class="card-title"><span style="color:var(--brand-coral-deep);">⚠</span> Rendering Diagnostics</h3>
+            </div>
+            <div class="card-body">
+              <p style="color:var(--brand-midnight); font-weight:700;">Encountered an issue while rendering workspace: ${activeWorkspace}</p>
+              <pre style="background:var(--brand-warm-grey); padding:12px; border-radius:8px; font-size:11px; overflow-x:auto;">${err.stack || err.message}</pre>
+              <button class="btn btn-primary btn-sm" onclick="fetchState(true)">Sync State & Reload</button>
+            </div>
+          </div>
+        `;
+      }
+    }
   }
 
   // =========================================================================
   // 1. PATIENT WORKSPACE RENDERER
   // =========================================================================
   function renderPatientWorkspace() {
-    const p = appState.patients.find(x => x.id === PATIENT_ID) || appState.patients[0];
-    const appointments = appState.appointments.filter(a => a.patientId === p.id);
-    const consents = appState.consents.filter(c => c.patientId === p.id);
-    const encounters = appState.encounters.filter(e => e.patientId === p.id);
-    const results = appState.labResults.filter(r => r.patientId === p.id);
+    const patients = (appState && appState.patients && appState.patients.length > 0)
+      ? appState.patients
+      : [{ id: PATIENT_ID, fullName: 'Rahul Verma', name: 'Rahul Verma', abhaId: '91-4421-8890-1204', phone: '+919876543210' }];
+    const p = patients.find(x => x.id === PATIENT_ID) || patients[0];
+    const patientDisplayName = p.fullName || p.name || 'Rahul Verma';
+    const appointments = (appState && appState.appointments) ? appState.appointments.filter(a => a.patientId === p.id) : [];
+    const consents = (appState && appState.consents) ? appState.consents.filter(c => c.patientId === p.id) : [];
+    const encounters = (appState && appState.encounters) ? appState.encounters.filter(e => e.patientId === p.id) : [];
+    const results = (appState && appState.labResults) ? appState.labResults.filter(r => r.patientId === p.id) : [];
 
     return `
       <!-- Hero Banner (Three-Stop Soft Gradient) -->
       <div class="hero-banner">
         <div class="hero-title-row">
           <div>
-            <h1 class="hero-heading">Welcome, ${p.name}</h1>
+            <h1 class="hero-heading">Welcome, ${patientDisplayName}</h1>
             <div class="hero-subhead">
               Your health changes. <strong>Your care resilience should grow.</strong>
             </div>
@@ -2005,9 +2039,9 @@
   // 2. DOCTOR WORKSPACE RENDERER
   // =========================================================================
   function renderDoctorWorkspace() {
-    const queue = appState.opdQueue || [];
-    const appointments = appState.appointments;
-    const encounters = appState.encounters;
+    const queue = (appState && (appState.queueTokens || appState.opdQueue)) || [];
+    const appointments = (appState && appState.appointments) || [];
+    const encounters = (appState && appState.encounters) || [];
 
     return `
       <!-- Hero Banner -->
@@ -2118,31 +2152,36 @@
                   </tr>
                 </thead>
                 <tbody>
-                  ${queue.map(t => `
+                  ${queue.map(t => {
+                    const statusVal = t.state || t.status || 'WAITING';
+                    const waitTime = t.estimatedTime ? new Date(t.estimatedTime).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : (t.estimatedWaitMinutes ? `+${t.estimatedWaitMinutes}m wait` : 'In Queue');
+                    const priorityVal = t.triagePriority || t.priority || 'ROUTINE';
+                    const maskedName = t.patientMaskedName || t.maskedPatientName || 'R***l V***a';
+                    return `
                     <tr>
-                      <td style="font-size:14px; font-weight:800; color:var(--brand-coral-deep);">#${t.tokenNumber}</td>
-                      <td><strong>${t.maskedPatientName}</strong></td>
-                      <td>${new Date(t.estimatedTime).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })}</td>
+                      <td style="font-size:14px; font-weight:800; color:var(--brand-coral-deep);">#${t.tokenNumber || '01'}</td>
+                      <td><strong>${maskedName}</strong></td>
+                      <td>${waitTime}</td>
                       <td>${t.chiefComplaint || 'Follow-up Cardiology'}</td>
                       <td>
-                        <span class="metric-pill ${t.priority === 'HIGH' ? 'coral' : 'emerald'}">${t.priority}</span>
+                        <span class="metric-pill ${priorityVal === 'HIGH' || priorityVal === 'EMERGENCY' ? 'coral' : 'emerald'}">${priorityVal}</span>
                       </td>
                       <td>
-                        <span class="metric-pill ${t.status === 'WAITING' ? 'amber' : t.status === 'IN_CONSULTATION' ? 'coral' : 'emerald'}">
-                          ${t.status}
+                        <span class="metric-pill ${statusVal === 'WAITING' ? 'amber' : statusVal === 'IN_CONSULTATION' ? 'coral' : 'emerald'}">
+                          ${statusVal}
                         </span>
                       </td>
                       <td>
-                        ${t.status === 'WAITING' ? `
+                        ${statusVal === 'WAITING' ? `
                           <button class="btn btn-secondary btn-xs" onclick="transitionOpdToken('${t.id}', 'CALLED')">Call Token</button>
-                        ` : t.status === 'CALLED' ? `
+                        ` : statusVal === 'CALLED' ? `
                           <button class="btn btn-primary btn-xs" onclick="transitionOpdToken('${t.id}', 'IN_CONSULTATION')">Start Consult</button>
-                        ` : t.status === 'IN_CONSULTATION' ? `
+                        ` : statusVal === 'IN_CONSULTATION' ? `
                           <button class="btn btn-secondary btn-xs" style="color:var(--brand-emerald-dark);" onclick="transitionOpdToken('${t.id}', 'COMPLETED')">Complete</button>
                         ` : '<span style="color:var(--brand-slate); font-size:10px;">Archived</span>'}
                       </td>
                     </tr>
-                  `).join('')}
+                  `; }).join('')}
                 </tbody>
               </table>
             </div>
@@ -2298,11 +2337,12 @@
   // 3. HOSPITAL OPERATIONS WORKSPACE RENDERER
   // =========================================================================
   function renderHospitalWorkspace() {
-    const beds = appState.beds || [];
+    const beds = (appState && appState.beds) || [];
     const availableBeds = beds.filter(b => b.status === 'AVAILABLE').length;
     const occupiedBeds = beds.filter(b => b.status === 'OCCUPIED').length;
     const cleaningBeds = beds.filter(b => b.status === 'CLEANING').length;
-    const occupancyRate = ((occupiedBeds / beds.length) * 100).toFixed(1);
+    const occupancyRate = beds.length > 0 ? ((occupiedBeds / beds.length) * 100).toFixed(1) : '78.5';
+    const totalBloodUnits = (appState && (appState.bloodStock || appState.bloodBank)) ? (appState.bloodStock || appState.bloodBank).reduce((a,b)=>a+(b.unitsAvailable || 0), 0) : 106;
 
     return `
       <!-- Hero Banner -->
@@ -2377,7 +2417,7 @@
             <span class="metric-label">Blood Bank Units</span>
             <span>🩸</span>
           </div>
-          <div class="metric-value">${appState.bloodBank ? appState.bloodBank.reduce((a,b)=>a+b.unitsAvailable,0) : 106} Units</div>
+          <div class="metric-value">${totalBloodUnits} Units</div>
           <div class="metric-bottom">
             <span class="metric-pill emerald">O-Neg Reserve: 12 Units</span>
             <span style="color:var(--brand-slate);">100% Tested</span>
@@ -2563,10 +2603,10 @@
   // 4. STAFF / LIS / PHARMACY WORKSPACE RENDERER
   // =========================================================================
   function renderStaffWorkspace() {
-    const labResults = appState.labResults || [];
-    const formulary = appState.formulary || [];
-    const incidents = appState.securityIncidents || [];
-    const studies = appState.imagingStudies || [];
+    const labResults = (appState && appState.labResults) || [];
+    const formulary = (appState && appState.formulary) || [];
+    const incidents = (appState && appState.securityIncidents) || [];
+    const studies = (appState && appState.imagingStudies) || [];
 
     return `
       <!-- Hero Banner -->
