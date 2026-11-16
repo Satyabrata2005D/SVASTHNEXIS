@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Platform Administration – Super Admin Overview Dashboard</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error": "#ffffff",
+            "on-surface-variant": "#5a403c",
+            "on-primary-container": "#600000",
+            "inverse-on-surface": "#eef0ff",
+            "on-primary": "#ffffff",
+            "secondary-fixed-dim": "#ffb4a8",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#dde1f8",
+            "inverse-surface": "#2b3041",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed-variant": "#8d150d",
+            "outline": "#8e706b",
+            "tertiary": "#006c49",
+            "surface-container-high": "#e3e7fe",
+            "tertiary-fixed-dim": "#4edea3",
+            "tertiary-fixed": "#6ffbbe",
+            "surface-container-highest": "#dde1f8",
+            "surface-container": "#ebedff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-background": "#161b2b",
+            "surface": "#faf8ff",
+            "on-primary-fixed": "#410000",
+            "secondary": "#af2f22",
+            "on-tertiary-container": "#003421",
+            "surface-tint": "#b52619",
+            "primary": "#b52619",
+            "inverse-primary": "#ffb4a8",
+            "surface-bright": "#faf8ff",
+            "primary-container": "#ff5b47",
+            "on-error-container": "#93000a",
+            "error": "#ba1a1a",
+            "primary-fixed": "#ffdad4",
+            "surface-dim": "#d5d9ef",
+            "on-surface": "#161b2b",
+            "on-primary-fixed-variant": "#920603",
+            "surface-container-low": "#f2f3ff",
+            "on-tertiary-fixed": "#002113",
+            "on-secondary-fixed": "#410000",
+            "background": "#faf8ff",
+            "secondary-container": "#fe6755",
+            "on-secondary-container": "#690001",
+            "outline-variant": "#e3beb8",
+            "secondary-fixed": "#ffdad5",
+            "tertiary-container": "#00a874",
+            "primary-fixed-dim": "#ffb4a8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.25rem",
+            "margin": "1.5rem",
+            "margin-desktop": "2rem",
+            "space-xl": "1.75rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.25rem",
+            "space-md": "0.75rem",
+            "space-sm": "0.5rem",
+            "gutter-desktop": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-sm-medium": ["Inter"],
+            "body-md-medium": ["Inter"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "metric-display": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "headline-sm": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "headline-xl-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm-medium": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "body-md-medium": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+            "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+            "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["22px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "metric-display": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #E7E5E0;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #D1CFCA;
+    }
+  </style>
+</head>
+<body class="bg-[#F8F7F3] text-on-surface antialiased font-body-md selection:bg-primary-container selection:text-white">
+<!-- ========================================================================= -->
+<!-- 1. FIXED LEFT SIDEBAR (SideNavBar Shared Component Execution)             -->
+<!-- ========================================================================= -->
+<aside class="fixed left-0 top-0 h-screen w-[264px] flex flex-col bg-surface-container-lowest border-r border-[#E7E5E0] shadow-sm z-50">
+<div class="h-full flex flex-col justify-between p-space-md overflow-y-auto custom-scrollbar">
+<!-- Brand & Header -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm px-space-xs pt-space-xs">
+<div class="w-9 h-9 rounded-lg bg-primary-container text-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight leading-tight">MEDCARE Console</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">SUPER ADMIN CONSOLE</span>
+</div>
+</div>
+</div>
+<!-- Emergency Lock CTA (from Shared JSON) -->
+<button class="w-full flex items-center justify-between px-space-md py-2 bg-[#FDF0EE] hover:bg-[#FBE4E1] text-primary border border-outline-variant rounded-lg transition-all duration-150 group">
+<span class="flex items-center gap-2 font-label-md text-label-md font-semibold text-primary">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+            Emergency Lock
+          </span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-white text-secondary font-bold text-[10px] border border-outline-variant">L1 DISARM</span>
+</button>
+<!-- Navigation items list (Strictly matching Shared Components JSON) -->
+<nav class="flex flex-col gap-0.5 pt-1">
+<!-- 1. Overview (Active Tab) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg bg-[#FAF0EE] text-primary font-headline-sm text-headline-sm transition-all duration-150 border-l-2 border-primary-container" href="#">
+<span class="material-symbols-outlined text-[18px] text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="truncate">Overview</span>
+</a>
+<!-- 2. User & Account Management -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+<span class="truncate">User &amp; Account Management</span>
+</a>
+<!-- 3. Admin Team Governance -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<div class="flex items-center gap-space-sm truncate">
+<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+<span class="truncate">Admin Team Governance</span>
+</div>
+<span class="text-[10px] font-label-sm bg-[#FEF8E8] text-[#B88700] px-1.5 py-0.2 rounded-full border border-[#FBC024]/30">3/5</span>
+</a>
+<!-- 4. Hospital Management Oversight -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">local_hospital</span>
+<span class="truncate">Hospital Management Oversight</span>
+</a>
+<!-- 5. Doctor Verification Oversight -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<div class="flex items-center gap-space-sm truncate">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="truncate">Doctor Verification Oversight</span>
+</div>
+<span class="text-[10px] font-label-sm bg-primary-container text-white px-1.5 py-0.2 rounded-full">38</span>
+</a>
+<!-- 6. Employee Management -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="truncate">Employee Management</span>
+</a>
+<!-- 7. Patient Account Management -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">personal_injury</span>
+<span class="truncate">Patient Account Management</span>
+</a>
+<!-- 8. Verification Monitoring -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">fact_check</span>
+<span class="truncate">Verification Monitoring</span>
+</a>
+<!-- 9. Support Escalations -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<div class="flex items-center gap-space-sm truncate">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="truncate">Support Escalations</span>
+</div>
+<span class="text-[10px] font-label-sm bg-[#FDF0EE] text-primary px-1.5 py-0.2 rounded-full border border-primary/20">12</span>
+</a>
+<!-- 10. Payments & Financial Oversight -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="truncate">Payments &amp; Financial Oversight</span>
+</a>
+<!-- 11. Cybersecurity Centre -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">security</span>
+<span class="truncate">Cybersecurity Centre</span>
+</a>
+<!-- 12. Data Governance & Privacy -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span class="truncate">Data Governance &amp; Privacy</span>
+</a>
+<!-- 13. Audit Logs & Activity -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="truncate">Audit Logs &amp; Activity</span>
+</a>
+<!-- 14. Platform Configuration -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="truncate">Platform Configuration</span>
+</a>
+<!-- 15. API & Integrations -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">integration_instructions</span>
+<span class="truncate">API &amp; Integrations</span>
+</a>
+<!-- 16. System Health Monitoring -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">monitor_heart</span>
+<span class="truncate">System Health Monitoring</span>
+</a>
+<!-- 17. Analytics & Reports -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+<span class="truncate">Analytics &amp; Reports</span>
+</a>
+<!-- 18. Platform Settings -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-[#F1F0EC] hover:text-on-surface transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="truncate">Platform Settings</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Footer (System Status & Help + User Snippet) -->
+<div class="pt-space-md border-t border-[#E7E5E0] flex flex-col gap-2">
+<a class="flex items-center justify-between px-space-md py-1.5 rounded-lg text-on-surface-variant font-body-sm text-body-sm hover:bg-[#F1F0EC] transition-colors" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">health_and_safety</span>
+            System Status
+          </span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</a>
+<a class="flex items-center gap-2 px-space-md py-1.5 rounded-lg text-on-surface-variant font-body-sm text-body-sm hover:bg-[#F1F0EC] transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">help</span>
+          Documentation
+        </a>
+<!-- Active Administrator Badge -->
+<div class="mt-1 p-2 rounded-lg bg-[#FAF9F6] border border-[#E7E5E0] flex items-center justify-between">
+<div class="flex items-center gap-2 overflow-hidden">
+<div class="w-8 h-8 rounded-full bg-[#171C2C] text-white flex items-center justify-center font-headline-sm text-xs font-bold shrink-0">
+              AV
+            </div>
+<div class="truncate">
+<div class="font-label-md text-label-md text-on-surface truncate">Dr. Alistair Vance</div>
+<div class="font-label-sm text-label-sm text-[#6B7280] text-[10px] truncate">Root Super Admin</div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Platform Signout">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. STICKY TOP NAVBAR (TopNavBar Shared Component Execution)               -->
+<!-- ========================================================================= -->
+<header class="sticky top-0 right-0 z-40 w-full bg-surface-container-lowest border-b border-[#E7E5E0] shadow-sm ml-[264px] w-[calc(100%-264px)]">
+<div class="flex justify-between items-center h-16 px-gutter-desktop">
+<!-- Left: Breadcrumb, Title & Environment status -->
+<div class="flex items-center gap-4">
+<div>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-[#6B7280]">
+<span>Super Admin</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary font-semibold">Overview</span>
+</div>
+<div class="flex items-center gap-2.5 mt-0.5">
+<h1 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Platform Overview</h1>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-label-sm font-bold bg-[#EAF8F1] text-tertiary border border-tertiary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+              PRODUCTION ENVIRONMENT
+            </span>
+</div>
+</div>
+<div class="h-6 w-px bg-[#E7E5E0] mx-1"></div>
+<!-- Navigation Cluster from Shared Components -->
+<nav class="hidden xl:flex items-center gap-5">
+<a class="text-primary font-headline-sm text-sm border-b-2 border-primary pb-0.5" href="#">Operations</a>
+<a class="text-on-surface-variant font-body-md text-sm hover:text-on-surface pb-0.5" href="#">Regional Nodes</a>
+<a class="text-on-surface-variant font-body-md text-sm hover:text-on-surface pb-0.5" href="#">Access Matrix</a>
+</nav>
+</div>
+<!-- Right: Global Search, Quick filters, Actions & Admin Profile -->
+<div class="flex items-center gap-3">
+<!-- Search bar on left -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-[#6B7280]">search</span>
+<input class="w-full h-9 pl-9 pr-10 bg-[#F1F0EC] border border-[#E7E5E0] rounded-lg text-body-sm font-body-sm text-on-surface placeholder-[#9CA3AF] focus:outline-none focus:border-primary-container focus:bg-white transition-all" placeholder="Global search or ⌘K..." type="text"/>
+<span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-mono px-1 py-0.5 rounded bg-white text-[#6B7280] border border-[#E7E5E0]">⌘K</span>
+</div>
+<!-- Platform Status Metric Indicator -->
+<div class="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-sm font-label-sm text-[#171C2C]">Operational (99.8%)</span>
+</div>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-1 border-l border-[#E7E5E0] pl-3">
+<button class="relative p-2 rounded-lg text-[#6B7280] hover:text-on-surface hover:bg-[#F1F0EC] transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-container"></span>
+</button>
+<button class="p-2 rounded-lg text-[#6B7280] hover:text-on-surface hover:bg-[#F1F0EC] transition-colors" title="Cybersecurity Shield">
+<span class="material-symbols-outlined text-[20px]">shield_with_heart</span>
+</button>
+<button class="p-2 rounded-lg text-[#6B7280] hover:text-on-surface hover:bg-[#F1F0EC] transition-colors" title="Platform Help">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+</div>
+<!-- Trailing Buttons (Emergency Broadcast & Audit Export) -->
+<div class="flex items-center gap-2 border-l border-[#E7E5E0] pl-3">
+<button class="h-9 px-3 bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-on-surface rounded-lg font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+            Audit Export
+          </button>
+<button class="h-9 px-3.5 bg-primary-container hover:bg-[#C94132] text-white rounded-lg font-label-md text-label-md flex items-center gap-1.5 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px]">podcasts</span>
+            Emergency Broadcast
+          </button>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- MAIN CONTENT CANVAS                                                       -->
+<!-- ========================================================================= -->
+<main class="ml-[264px] min-h-[calc(100vh-64px)] p-margin-desktop space-y-gutter-desktop">
+<!-- 3. HERO OPERATIONAL BANNER -->
+<section class="rounded-xl border border-[#E7E5E0] p-6 relative overflow-hidden" style="background: linear-gradient(110deg, #F9EBE8 0%, #F4EEF0 50%, #EEF0F4 100%);">
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 relative z-10">
+<div class="max-w-3xl space-y-2">
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/80 border border-[#E7E5E0] backdrop-blur-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-label-sm font-label-sm text-[#171C2C] font-semibold">ALL 8 REGIONAL NODES SYNCED</span>
+<span class="text-label-sm font-label-sm text-[#6B7280]">• Last Synchronized: Today, 10:42 AM</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">Welcome Back, Platform Administrator</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+            Monitor your healthcare ecosystem, manage global platform governance and oversee critical operations across all connected hospitals, doctors, patients, and healthcare employees.
+          </p>
+<!-- Ecosystem Quick Chips -->
+<div class="flex flex-wrap items-center gap-2.5 pt-2">
+<div class="px-3 py-1 bg-white/90 border border-[#E7E5E0] rounded-lg text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">local_hospital</span>
+<strong class="font-semibold text-primary">186</strong> Connected Hospitals
+            </div>
+<div class="px-3 py-1 bg-white/90 border border-[#E7E5E0] rounded-lg text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">stethoscope</span>
+<strong class="font-semibold text-tertiary">1,245</strong> Active Doctors
+            </div>
+<div class="px-3 py-1 bg-white/90 border border-[#E7E5E0] rounded-lg text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface">groups</span>
+<strong class="font-semibold text-on-surface">24,850</strong> Registered Patients
+            </div>
+<div class="px-3 py-1 bg-white/90 border border-[#E7E5E0] rounded-lg text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-[#B88700]">shield_person</span>
+<strong class="font-semibold text-[#B88700]">3/5</strong> Active Super Admins
+            </div>
+</div>
+</div>
+<!-- Quick Launch Actions -->
+<div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 w-full lg:w-auto shrink-0">
+<button class="h-10 px-5 bg-primary-container hover:bg-[#C94132] text-white rounded-lg font-label-md text-label-md font-semibold flex items-center justify-center gap-2 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+            View Platform Activity
+          </button>
+<button class="h-10 px-5 bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-on-surface rounded-lg font-label-md text-label-md font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+            Security Overview
+          </button>
+</div>
+</div>
+</section>
+<!-- 4. 8 PLATFORM-WIDE KPI CARDS (Balanced 4x2 Grid) -->
+<section>
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Key Health &amp; Platform Metrics</h3>
+<span class="text-label-sm font-label-sm text-[#6B7280]">Live stream via Kafka Queue #409</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter-desktop">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Total Registered Patients</span>
+<div class="w-8 h-8 rounded-lg bg-[#FAF0EE] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">personal_injury</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">24,850</div>
+<span class="inline-flex items-center text-xs font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12.4%
+            </span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-[#6B7280] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            99.9% ABDM Health IDs synced
+          </div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Verified Doctors</span>
+<div class="w-8 h-8 rounded-lg bg-[#EAF8F1] text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">1,245</div>
+<span class="text-xs font-semibold text-[#B88700] px-1.5 py-0.5 rounded bg-[#FEF8E8] border border-[#FBC024]/30">38 Pending</span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-[#6B7280] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            National Medical Commission cleared
+          </div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Registered Hospitals</span>
+<div class="w-8 h-8 rounded-lg bg-[#FAF0EE] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">local_hospital</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">186</div>
+<span class="text-xs font-semibold text-on-surface-variant">172 Active</span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-[#B88700] flex items-center gap-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#FBC024]"></span>
+            14 Under Governance Review
+          </div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Active Secondary Clinics</span>
+<div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">medical_services</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">320</div>
+<span class="inline-flex items-center text-xs font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +18 this mo.
+            </span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-[#6B7280] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            42 Diagnostic tie-ups onboarded
+          </div>
+</div>
+<!-- KPI 5 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Platform Employees</span>
+<div class="w-8 h-8 rounded-lg bg-[#FAF9F6] text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">428</div>
+<span class="text-xs font-semibold text-tertiary">412 on active shift</span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-[#6B7280] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            16 Off-shift / Leave logged
+          </div>
+</div>
+<!-- KPI 6 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Appointments Today</span>
+<div class="w-8 h-8 rounded-lg bg-[#FAF0EE] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">2,840</div>
+<span class="text-xs font-semibold text-tertiary">2,120 done</span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-[#6B7280] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            720 in queue / active consultations
+          </div>
+</div>
+<!-- KPI 7 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Financial Flow (Today)</span>
+<div class="w-8 h-8 rounded-lg bg-[#EAF8F1] text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">₹18.6L</div>
+<span class="text-xs font-semibold text-tertiary px-1.5 py-0.5 rounded bg-[#EAF8F1]">99.4% Rec.</span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-[#6B7280] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            Settled via NPCI Healthcare Rail
+          </div>
+</div>
+<!-- KPI 8 -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-[0_1px_3px_rgba(23,28,44,0.04)] relative hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-label-md text-[#6B7280]">Platform Escalations</span>
+<div class="w-8 h-8 rounded-lg bg-[#FDF0EE] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">crisis_alert</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<div class="font-metric-display text-metric-display font-bold text-on-surface">12 Cases</div>
+<span class="text-xs font-semibold text-primary px-1.5 py-0.5 rounded bg-[#FDF0EE] border border-primary/20">4 Critical</span>
+</div>
+<div class="mt-2 text-label-sm font-label-sm text-primary flex items-center gap-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+            Super Admin intervention requested
+          </div>
+</div>
+</div>
+</section>
+<!-- 5. CRITICAL ADMINISTRATIVE ACTIONS & NOTIFICATIONS PANEL -->
+<section class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-4 border-b border-[#E7E5E0]">
+<div class="flex items-center gap-2.5">
+<span class="w-3 h-3 rounded-full bg-primary-container animate-pulse"></span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Critical Administrative Actions Requiring Decision</h3>
+<span class="px-2 py-0.5 rounded-full bg-[#FDF0EE] text-primary font-label-sm text-label-sm font-bold border border-primary/20">4 Urgent Items</span>
+</div>
+<button class="text-primary hover:text-[#C94132] font-label-md text-label-md font-semibold flex items-center gap-1 transition-colors">
+          Dismiss All Non-Critical
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+<!-- Action 1: SecOps Incident -->
+<div class="p-4 rounded-xl bg-[#FAF9F6] border-l-4 border-l-primary border border-[#E7E5E0] flex flex-col justify-between gap-3">
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-sm font-bold uppercase bg-[#FDF0EE] text-primary border border-primary/20">High Severity SecOps</span>
+<span class="text-label-sm font-label-sm text-[#6B7280]">Detected 14m ago</span>
+</div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Unusual Cross-Organization Export from Node-04</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Automated heuristics triggered on 5,000+ patient identity token export batch by Operator ID #OP-889. Token generation throttled.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#E7E5E0]">
+<span class="font-label-sm text-label-sm text-[#6B7280]">Target: Node-04 (West Region)</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-white hover:bg-[#F1F0EC] border border-[#E7E5E0] rounded text-label-sm font-label-sm font-semibold text-on-surface">Freeze Operator</button>
+<button class="px-3 py-1 bg-primary-container hover:bg-[#C94132] text-white rounded text-label-sm font-label-sm font-semibold">Review Incident</button>
+</div>
+</div>
+</div>
+<!-- Action 2: Admin Deactivation Cooldown -->
+<div class="p-4 rounded-xl bg-[#FAF9F6] border-l-4 border-l-[#FBC024] border border-[#E7E5E0] flex flex-col justify-between gap-3">
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-sm font-bold uppercase bg-[#FEF8E8] text-[#B88700] border border-[#FBC024]/30">Governance Cooldown</span>
+<span class="text-label-sm font-label-sm text-[#6B7280]">Day 4 of 7 Remaining</span>
+</div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Admin Deactivation Pending: Elena Rostova (ADM-004)</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Removal protocol initiated by Dr. Alistair Vance (ADM-001). Mandated 7-day cooldown active. 3 days remaining until permanent cryptographic revocation.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#E7E5E0]">
+<span class="font-label-sm text-label-sm text-[#B88700] font-semibold">Effective: Oct 28, 2026</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-white hover:bg-[#F1F0EC] border border-[#E7E5E0] rounded text-label-sm font-label-sm font-semibold text-primary">Intervene</button>
+<button class="px-3 py-1 bg-primary-container hover:bg-[#C94132] text-white rounded text-label-sm font-label-sm font-semibold">Review &amp; Audit</button>
+</div>
+</div>
+</div>
+<!-- Action 3: Hospital Credential Dispute -->
+<div class="p-4 rounded-xl bg-[#FAF9F6] border-l-4 border-l-primary border border-[#E7E5E0] flex flex-col justify-between gap-3">
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-sm font-bold uppercase bg-[#FDF0EE] text-primary border border-primary/20">Hospital Accreditation</span>
+<span class="text-label-sm font-label-sm text-[#6B7280]">Logged 1h ago</span>
+</div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">West Trauma Center Credential Dispute</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              State Health Board registration #SHB-992 expired. Facility claims valid renewal submission. ICU admissions currently paused by smart contract.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#E7E5E0]">
+<span class="font-label-sm text-label-sm text-[#6B7280]">Facility ID: HOSP-084</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-white hover:bg-[#F1F0EC] border border-[#E7E5E0] rounded text-label-sm font-label-sm font-semibold text-on-surface">Grant 48h Grace</button>
+<button class="px-3 py-1 bg-primary-container hover:bg-[#C94132] text-white rounded text-label-sm font-label-sm font-semibold">Review Dispute</button>
+</div>
+</div>
+</div>
+<!-- Action 4: Financial Discrepancy -->
+<div class="p-4 rounded-xl bg-[#FAF9F6] border-l-4 border-l-[#FBC024] border border-[#E7E5E0] flex flex-col justify-between gap-3">
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-sm font-bold uppercase bg-[#FEF8E8] text-[#B88700] border border-[#FBC024]/30">Financial Variance</span>
+<span class="text-label-sm font-label-sm text-[#6B7280]">End-of-Day Settlement</span>
+</div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Gateway Reconciliation Variance (₹42,500)</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Delta identified between Apex Healthcare payout webhook and primary payment aggregator ledger. Requires root admin audit clearance.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#E7E5E0]">
+<span class="font-label-sm text-label-sm text-[#6B7280]">Batch: SETTLE-2026-1024</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-white hover:bg-[#F1F0EC] border border-[#E7E5E0] rounded text-label-sm font-label-sm font-semibold text-on-surface">Hold Batch</button>
+<button class="px-3 py-1 bg-primary-container hover:bg-[#C94132] text-white rounded text-label-sm font-label-sm font-semibold">Authorize Audit</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. ADMIN TEAM GOVERNANCE (5-Member Maximum Capacity Concept & Cooldown Tracker) -->
+<section class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-[#E7E5E0]">
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Admin Team Governance</h3>
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-[#EAF8F1] text-tertiary border border-tertiary/20">Strict 5-Seat Limit</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Cryptographically enforced multi-signature governance. Current allocation: 3 Active, 1 Pending Invite, 1 Vacant Seat.
+          </p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="text-label-sm font-label-sm text-[#6B7280]">Capacity Pool</span>
+<div class="font-headline-sm text-sm font-bold text-on-surface">80% Allocated (4/5)</div>
+</div>
+<button class="h-9 px-3.5 bg-primary-container hover:bg-[#C94132] text-white rounded-lg font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">person_add</span>
+            Invite Super Admin
+          </button>
+</div>
+</div>
+<!-- Cooldown Highlight Banner for ADM-004 -->
+<div class="my-4 p-4 rounded-xl bg-[#FAF0EE] border border-outline-variant flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">timer</span>
+<span class="font-headline-sm text-sm font-bold text-primary">Mandatory 7-Day Administrator Removal Cooldown</span>
+<span class="px-2 py-0.2 rounded text-[10px] font-bold bg-white text-secondary border border-outline-variant">DAY 4 OF 7</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Target: <strong>Elena Rostova (ADM-004)</strong> • Initiated by: Dr. Alistair Vance • Reason: Transitioning to Regional Advisory • Effective Date: Oct 28, 2026.
+          </p>
+<!-- 7-Day Progress Bar -->
+<div class="w-full max-w-xl bg-white rounded-full h-2 overflow-hidden border border-[#E7E5E0] mt-2">
+<div class="bg-primary-container h-full rounded-full" style="width: 57.14%;"></div>
+</div>
+<div class="flex justify-between max-w-xl text-[10px] font-label-sm text-[#6B7280] pt-0.5">
+<span>Day 1 (Initiated)</span>
+<span class="font-bold text-primary">Day 4 (Today: 3 Days Remaining)</span>
+<span>Day 7 (Cryptographic Purge)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="px-3.5 py-1.5 bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-primary rounded-lg text-label-md font-label-md font-semibold transition-colors">
+            Cancel Pending Deactivation
+          </button>
+<button class="px-3.5 py-1.5 bg-[#FAF9F6] border border-[#E7E5E0] hover:bg-white text-on-surface rounded-lg text-label-md font-label-md font-semibold transition-colors">
+            Independent Governance Review
+          </button>
+</div>
+</div>
+<!-- Super Admin Roster Table -->
+<div class="border border-[#E7E5E0] rounded-xl overflow-hidden mt-4">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="h-11 bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-[#6B7280]">
+<th class="px-4">Administrator</th>
+<th class="px-4">Role &amp; Jurisdiction</th>
+<th class="px-4">Assigned ID</th>
+<th class="px-4">Security Posture</th>
+<th class="px-4">Governance Status</th>
+<th class="px-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC] text-body-sm font-body-sm">
+<!-- Admin 1 -->
+<tr class="h-14 hover:bg-[#FAF9F6] transition-colors">
+<td class="px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-[#171C2C] text-white flex items-center justify-center font-bold text-xs">AV</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Dr. Alistair Vance</div>
+<div class="text-[11px] text-[#6B7280]">alistair.vance@medcare-gov.io</div>
+</div>
+</div>
+</td>
+<td class="px-4">
+<span class="font-semibold text-on-surface">Lead Super Admin</span>
+<div class="text-[11px] text-[#6B7280]">Full Root &amp; Multi-Sig Anchor</div>
+</td>
+<td class="px-4 font-mono text-xs">ADM-001</td>
+<td class="px-4">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[14px]">lock</span> Hardware MFA Enforced
+                </span>
+</td>
+<td class="px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#EAF8F1] text-tertiary border border-tertiary/20">Active Root</span>
+</td>
+<td class="px-4 text-right">
+<button class="text-on-surface hover:text-primary transition-colors p-1" title="View Key Credentials">
+<span class="material-symbols-outlined text-[18px]">key</span>
+</button>
+</td>
+</tr>
+<!-- Admin 2 -->
+<tr class="h-14 hover:bg-[#FAF9F6] transition-colors">
+<td class="px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-[#3B4252] text-white flex items-center justify-center font-bold text-xs">SJ</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Sarah Jenkins</div>
+<div class="text-[11px] text-[#6B7280]">sarah.j@medcare-gov.io</div>
+</div>
+</div>
+</td>
+<td class="px-4">
+<span class="font-semibold text-on-surface">SecOps &amp; Compliance Lead</span>
+<div class="text-[11px] text-[#6B7280]">Cybersecurity &amp; Audit Logs</div>
+</td>
+<td class="px-4 font-mono text-xs">ADM-002</td>
+<td class="px-4">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[14px]">lock</span> Hardware MFA Enforced
+                </span>
+</td>
+<td class="px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#EAF8F1] text-tertiary border border-tertiary/20">Active</span>
+</td>
+<td class="px-4 text-right">
+<button class="text-on-surface hover:text-primary transition-colors p-1" title="Revoke Permission">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+</td>
+</tr>
+<!-- Admin 3 -->
+<tr class="h-14 hover:bg-[#FAF9F6] transition-colors">
+<td class="px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-[#4C566A] text-white flex items-center justify-center font-bold text-xs">RM</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Rajiv Menon</div>
+<div class="text-[11px] text-[#6B7280]">rajiv.menon@medcare-gov.io</div>
+</div>
+</div>
+</td>
+<td class="px-4">
+<span class="font-semibold text-on-surface">Healthcare Operations Admin</span>
+<div class="text-[11px] text-[#6B7280]">Hospital &amp; Doctor Oversight</div>
+</td>
+<td class="px-4 font-mono text-xs">ADM-003</td>
+<td class="px-4">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[14px]">lock</span> Hardware MFA Enforced
+                </span>
+</td>
+<td class="px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#EAF8F1] text-tertiary border border-tertiary/20">Active</span>
+</td>
+<td class="px-4 text-right">
+<button class="text-on-surface hover:text-primary transition-colors p-1" title="Revoke Permission">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+</td>
+</tr>
+<!-- Admin 4 (Pending Deactivation) -->
+<tr class="h-14 bg-[#FAF0EE]/30 hover:bg-[#FAF0EE]/60 transition-colors border-l-4 border-l-primary">
+<td class="px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-[#A83225] text-white flex items-center justify-center font-bold text-xs">ER</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Elena Rostova</div>
+<div class="text-[11px] text-[#6B7280]">elena.r@medcare-gov.io</div>
+</div>
+</div>
+</td>
+<td class="px-4">
+<span class="font-semibold text-on-surface">System Architect</span>
+<div class="text-[11px] text-[#6B7280]">API &amp; Platform Config</div>
+</td>
+<td class="px-4 font-mono text-xs text-primary font-bold">ADM-004</td>
+<td class="px-4">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#B88700]">
+<span class="material-symbols-outlined text-[14px]">warning</span> Write Permissions Suspended
+                </span>
+</td>
+<td class="px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FDF0EE] text-primary border border-primary/20">
+                  Cooling-off (Day 4/7)
+                </span>
+</td>
+<td class="px-4 text-right">
+<button class="text-primary hover:underline font-label-sm text-label-sm font-bold">Halt Process</button>
+</td>
+</tr>
+<!-- Admin 5 (Seat Pending Invite) -->
+<tr class="h-14 bg-[#FAF9F6] border-dashed border-b border-[#E7E5E0]">
+<td class="px-4">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full border border-dashed border-[#6B7280] text-[#6B7280] flex items-center justify-center font-bold text-xs">CM</div>
+<div>
+<div class="font-headline-sm text-sm font-bold text-on-surface">Chief Medical Governance Officer</div>
+<div class="text-[11px] text-[#6B7280]">invite_token_v48h#9821</div>
+</div>
+</div>
+</td>
+<td class="px-4">
+<span class="font-semibold text-on-surface">Clinical Ethics Oversight</span>
+<div class="text-[11px] text-[#6B7280]">Seat 5 Allocation</div>
+</td>
+<td class="px-4 font-mono text-xs text-[#6B7280]">PENDING</td>
+<td class="px-4">
+<span class="text-[11px] text-[#6B7280]">Awaiting Key Provisioning</span>
+</td>
+<td class="px-4">
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FEF8E8] text-[#B88700] border border-[#FBC024]/30">Invitation Sent</span>
+</td>
+<td class="px-4 text-right">
+<button class="text-[#6B7280] hover:text-on-surface font-label-sm text-label-sm font-medium">Resend Token</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-2 text-right">
+<span class="text-[11px] font-label-sm text-[#6B7280]">Note: Governance audit logs are immutable and can never be purged under HIPAA/ABDM guidelines.</span>
+</div>
+</section>
+<!-- 7. PLATFORM GROWTH & ANALYTICS -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter-desktop">
+<!-- Growth Trajectory Panel -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Platform Growth &amp; Onboarding Velocity</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cumulative monthly onboarding trajectory across healthcare tiers</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 text-[11px] font-label-sm text-[#6B7280]">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span> Patients
+            </span>
+<span class="flex items-center gap-1 text-[11px] font-label-sm text-[#6B7280]">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span> Doctors
+            </span>
+<span class="flex items-center gap-1 text-[11px] font-label-sm text-[#6B7280]">
+<span class="w-2.5 h-2.5 rounded-full bg-[#171C2C]"></span> Hospitals
+            </span>
+</div>
+</div>
+<!-- Metric visualizer bars -->
+<div class="space-y-4 pt-2">
+<div>
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface mb-1">
+<span>Patient Registrations Target (25,000 Milestone)</span>
+<strong>24,850 / 25,000 (99.4%)</strong>
+</div>
+<div class="w-full bg-[#F1F0EC] h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 99.4%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface mb-1">
+<span>Doctor Verification Quota</span>
+<strong>1,245 Verified (97.0%)</strong>
+</div>
+<div class="w-full bg-[#F1F0EC] h-2.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 97.0%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface mb-1">
+<span>Hospital Accreditation Target</span>
+<strong>186 Registered (92.5%)</strong>
+</div>
+<div class="w-full bg-[#F1F0EC] h-2.5 rounded-full overflow-hidden">
+<div class="bg-[#171C2C] h-full rounded-full" style="width: 92.5%;"></div>
+</div>
+</div>
+</div>
+<!-- Consultation Breakout -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-4 border-t border-[#E7E5E0]">
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="text-[11px] font-label-sm text-[#6B7280]">In-Person Visits</div>
+<div class="font-headline-sm text-base font-bold text-on-surface mt-0.5">1,840</div>
+<span class="text-[10px] text-tertiary font-semibold">64.8% of daily total</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="text-[11px] font-label-sm text-[#6B7280]">Telehealth Consults</div>
+<div class="font-headline-sm text-base font-bold text-on-surface mt-0.5">1,000</div>
+<span class="text-[10px] text-tertiary font-semibold">35.2% via WebRTC</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="text-[11px] font-label-sm text-[#6B7280]">Completed Sessions</div>
+<div class="font-headline-sm text-base font-bold text-on-surface mt-0.5">2,120</div>
+<span class="text-[10px] text-tertiary font-semibold">91.8% success rate</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="text-[11px] font-label-sm text-[#6B7280]">Cancelled / No-show</div>
+<div class="font-headline-sm text-base font-bold text-on-surface mt-0.5">82</div>
+<span class="text-[10px] text-primary font-semibold">2.8% friction rate</span>
+</div>
+</div>
+</div>
+<!-- Financial Split Overview -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Daily Financial Flow</h3>
+<span class="text-xs font-semibold px-2 py-0.5 rounded bg-[#EAF8F1] text-tertiary">Real-time</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Gross GMV vs. Platform Revenue Distinction</p>
+<div class="mt-4 p-4 rounded-xl bg-[#FAF9F6] border border-[#E7E5E0]">
+<span class="text-label-sm font-label-sm text-[#6B7280]">Total Gross Flow Today (GMV)</span>
+<div class="font-metric-display text-metric-display font-bold text-on-surface mt-0.5">₹18,60,000</div>
+<div class="text-label-sm font-label-sm text-tertiary font-semibold mt-1">Reconciliation status: 99.4% settled</div>
+</div>
+<div class="space-y-3 mt-4">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="flex items-center gap-1.5 text-on-surface">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                Platform Fee (10% Tier)
+              </span>
+<strong class="font-semibold text-primary">₹1,86,000</strong>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="flex items-center gap-1.5 text-on-surface">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                Hospital Direct Settlements
+              </span>
+<strong class="font-semibold text-on-surface">₹16,40,000</strong>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="flex items-center gap-1.5 text-on-surface">
+<span class="w-2 h-2 rounded-full bg-[#B88700]"></span>
+                Processed Refunds (0.18%)
+              </span>
+<strong class="font-semibold text-[#B88700]">₹34,000</strong>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-[#E7E5E0]">
+<button class="w-full h-9 bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-on-surface rounded-lg font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+            Download Financial Ledger
+          </button>
+</div>
+</div>
+</section>
+<!-- 8. HEALTHCARE ORGANIZATION & DOCTOR VERIFICATION OVERSIGHT (Two-Column Layout) -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter-desktop">
+<!-- Left: Recently Registered Hospitals -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex justify-between items-center pb-3 border-b border-[#E7E5E0]">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Hospital Management Oversight</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Facility registry &amp; bed infrastructure review</p>
+</div>
+<span class="text-xs font-semibold px-2 py-0.5 rounded bg-[#FEF8E8] text-[#B88700] border border-[#FBC024]/30">14 In Queue</span>
+</div>
+<div class="border border-[#E7E5E0] rounded-xl overflow-hidden mt-3">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="h-10 bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-[#6B7280]">
+<th class="px-3">Hospital &amp; ID</th>
+<th class="px-3">Type</th>
+<th class="px-3">Beds</th>
+<th class="px-3">Status</th>
+<th class="px-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC] text-body-sm font-body-sm">
+<tr class="h-12 hover:bg-[#FAF9F6]">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">CityCare Memorial</div>
+<div class="text-[10px] text-[#6B7280]">HOSP-0012</div>
+</td>
+<td class="px-3 text-xs">Multi-Specialty</td>
+<td class="px-3 text-xs font-mono">450</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EAF8F1] text-tertiary">Verified</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-primary hover:underline text-xs font-semibold">Inspect</button>
+</td>
+</tr>
+<tr class="h-12 hover:bg-[#FAF9F6]">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">Apex Healthcare</div>
+<div class="text-[10px] text-[#6B7280]">HOSP-0045</div>
+</td>
+<td class="px-3 text-xs">Tertiary Care</td>
+<td class="px-3 text-xs font-mono">620</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EAF8F1] text-tertiary">Verified</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-primary hover:underline text-xs font-semibold">Inspect</button>
+</td>
+</tr>
+<tr class="h-12 bg-[#FAF0EE]/30 hover:bg-[#FAF0EE]/50">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">West Trauma Center</div>
+<div class="text-[10px] text-primary font-bold">HOSP-0084</div>
+</td>
+<td class="px-3 text-xs">Emergency ICU</td>
+<td class="px-3 text-xs font-mono">210</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#FDF0EE] text-primary">Dispute</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-primary hover:underline text-xs font-bold">Audit</button>
+</td>
+</tr>
+<tr class="h-12 hover:bg-[#FAF9F6]">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">Lotus Specialty Clinic</div>
+<div class="text-[10px] text-[#6B7280]">HOSP-0112</div>
+</td>
+<td class="px-3 text-xs">Maternity &amp; NICU</td>
+<td class="px-3 text-xs font-mono">95</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#FEF8E8] text-[#B88700]">Review</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-on-surface hover:text-primary text-xs font-semibold">Verify</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right: Doctor Credential Verification Queue -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex justify-between items-center pb-3 border-b border-[#E7E5E0]">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Doctor Credential Verification Oversight</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Medical Council License &amp; Digital Prescribing Keys</p>
+</div>
+<span class="text-xs font-semibold px-2 py-0.5 rounded bg-primary-container text-white">38 Pending</span>
+</div>
+<div class="border border-[#E7E5E0] rounded-xl overflow-hidden mt-3">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="h-10 bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-[#6B7280]">
+<th class="px-3">Practitioner</th>
+<th class="px-3">Specialty</th>
+<th class="px-3">Council Reg #</th>
+<th class="px-3">Status</th>
+<th class="px-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC] text-body-sm font-body-sm">
+<tr class="h-12 hover:bg-[#FAF9F6]">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">Dr. Ananya Sen</div>
+<div class="text-[10px] text-[#6B7280]">Apex Affiliation</div>
+</td>
+<td class="px-3 text-xs">Cardiology</td>
+<td class="px-3 text-xs font-mono">NMC-88291</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EAF8F1] text-tertiary">Verified</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-[#6B7280] hover:text-on-surface text-xs font-semibold">View</button>
+</td>
+</tr>
+<tr class="h-12 hover:bg-[#FAF9F6]">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">Dr. Rahul Mehta</div>
+<div class="text-[10px] text-[#6B7280]">CityCare Affiliation</div>
+</td>
+<td class="px-3 text-xs">Neurology</td>
+<td class="px-3 text-xs font-mono">NMC-45190</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#FEF8E8] text-[#B88700]">Pending Doc</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-primary hover:underline text-xs font-semibold">Review</button>
+</td>
+</tr>
+<tr class="h-12 hover:bg-[#FAF9F6]">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">Dr. Sunita Rao</div>
+<div class="text-[10px] text-[#6B7280]">Telehealth Direct</div>
+</td>
+<td class="px-3 text-xs">Pediatrics</td>
+<td class="px-3 text-xs font-mono">NMC-10928</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EAF8F1] text-tertiary">Verified</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-[#6B7280] hover:text-on-surface text-xs font-semibold">View</button>
+</td>
+</tr>
+<tr class="h-12 hover:bg-[#FAF9F6]">
+<td class="px-3">
+<div class="font-semibold text-on-surface text-xs">Dr. Devendra Pratap</div>
+<div class="text-[10px] text-[#6B7280]">Independent Care</div>
+</td>
+<td class="px-3 text-xs">Orthopedics</td>
+<td class="px-3 text-xs font-mono">NMC-67312</td>
+<td class="px-3">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#FEF8E8] text-[#B88700]">Biometric Re-check</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-primary hover:underline text-xs font-semibold">Approve</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- 9. CYBERSECURITY CENTRE & DATA GOVERNANCE (Prominent Feature) -->
+<section class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 pb-4 border-b border-[#E7E5E0]">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[22px] text-primary">security</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Cybersecurity Centre &amp; Data Governance</h3>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#EAF8F1] text-tertiary border border-tertiary/20">SOC-2 Type II Compliant</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time perimeter monitoring, bulk export anomaly throttling, and ABDM audit compliance</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-9 px-3 bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-on-surface rounded-lg text-label-md font-label-md font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">rule</span>
+            Data Privacy Policy
+          </button>
+<button class="h-9 px-3 bg-primary-container hover:bg-[#C94132] text-white rounded-lg text-label-md font-label-md font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+            Trigger Red-Team Audit
+          </button>
+</div>
+</div>
+<!-- Security Stat Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
+<div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-[#E7E5E0]">
+<span class="text-label-sm font-label-sm text-[#6B7280]">Perimeter Integrity</span>
+<div class="font-headline-sm text-base font-bold text-tertiary mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">verified_user</span> Normal (Zero 0-Days)
+          </div>
+<span class="text-[11px] text-[#6B7280]">Firewall WAF Rule #201 active</span>
+</div>
+<div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-[#E7E5E0]">
+<span class="text-label-sm font-label-sm text-[#6B7280]">Brute Force Account Shield</span>
+<div class="font-headline-sm text-base font-bold text-on-surface mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">block</span> 14 Failed Auths Blocked
+          </div>
+<span class="text-[11px] text-[#6B7280]">IP rate-limiting applied</span>
+</div>
+<div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-[#E7E5E0]">
+<span class="text-label-sm font-label-sm text-[#6B7280]">Data Access Anomaly Monitor</span>
+<div class="font-headline-sm text-base font-bold text-[#B88700] mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">warning</span> 1 Bulk Export Throttled
+          </div>
+<span class="text-[11px] text-[#6B7280]">Node-04 quarantine active</span>
+</div>
+<div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-[#E7E5E0]">
+<span class="text-label-sm font-label-sm text-[#6B7280]">API Gateway Latency</span>
+<div class="font-headline-sm text-base font-bold text-on-surface mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-tertiary">speed</span> 45ms P99 Latency
+          </div>
+<span class="text-[11px] text-[#6B7280]">Mutual TLS v1.3 on all links</span>
+</div>
+</div>
+<!-- Security Incident Ledger & HIPAA Privacy Audit (Split Table) -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-2">
+<!-- Security Incident Ledger -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-on-surface uppercase tracking-wider">Perimeter Security Incidents (Last 24h)</span>
+<span class="text-[11px] text-[#6B7280]">Auto-containment: ENABLED</span>
+</div>
+<div class="border border-[#E7E5E0] rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse text-xs">
+<thead class="bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-[#6B7280]">
+<tr class="h-9">
+<th class="px-3">Incident ID</th>
+<th class="px-3">Severity</th>
+<th class="px-3">Affected Node</th>
+<th class="px-3">Status</th>
+<th class="px-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC]">
+<tr class="h-10 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono font-semibold">SEC-9041</td>
+<td class="px-3"><span class="px-1.5 py-0.2 rounded font-bold bg-[#FDF0EE] text-primary">High</span></td>
+<td class="px-3 text-[#6B7280]">Node-04 Export Svc</td>
+<td class="px-3 text-primary font-semibold">Throttled</td>
+<td class="px-3 text-right"><button class="text-primary hover:underline font-semibold">Inspect</button></td>
+</tr>
+<tr class="h-10 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono font-semibold">SEC-9040</td>
+<td class="px-3"><span class="px-1.5 py-0.2 rounded font-bold bg-[#FEF8E8] text-[#B88700]">Medium</span></td>
+<td class="px-3 text-[#6B7280]">Auth API Edge</td>
+<td class="px-3 text-tertiary font-semibold">Contained</td>
+<td class="px-3 text-right"><button class="text-[#6B7280] hover:text-on-surface">Details</button></td>
+</tr>
+<tr class="h-10 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono font-semibold">SEC-9038</td>
+<td class="px-3"><span class="px-1.5 py-0.2 rounded font-bold bg-[#F1F4F9] text-on-surface">Low</span></td>
+<td class="px-3 text-[#6B7280]">WebRTC Node 2</td>
+<td class="px-3 text-tertiary font-semibold">Resolved</td>
+<td class="px-3 text-right"><button class="text-[#6B7280] hover:text-on-surface">Details</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Strict Metadata-Only Patient Data Access Privacy Audit -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-on-surface uppercase tracking-wider">Patient Privacy Access Audit (Metadata Only)</span>
+<span class="text-[11px] text-tertiary font-semibold">Zero-Knowledge Root</span>
+</div>
+<div class="border border-[#E7E5E0] rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse text-xs">
+<thead class="bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-[#6B7280]">
+<tr class="h-9">
+<th class="px-3">Clinical Actor</th>
+<th class="px-3">Patient Ref ID</th>
+<th class="px-3">Declared Purpose</th>
+<th class="px-3">Cryptographic Key</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC]">
+<tr class="h-10 hover:bg-[#FAF9F6]">
+<td class="px-3 font-semibold text-on-surface">Dr. Ananya Sen</td>
+<td class="px-3 font-mono text-[#6B7280]">PTR-9021-X</td>
+<td class="px-3"><span class="px-1.5 py-0.2 rounded bg-[#EAF8F1] text-tertiary font-semibold">Emergency OPD</span></td>
+<td class="px-3 font-mono text-[10px] text-[#6B7280]">ECDSA-SHA256 (Valid)</td>
+</tr>
+<tr class="h-10 hover:bg-[#FAF9F6]">
+<td class="px-3 font-semibold text-on-surface">Dr. Rahul Mehta</td>
+<td class="px-3 font-mono text-[#6B7280]">PTR-4412-M</td>
+<td class="px-3"><span class="px-1.5 py-0.2 rounded bg-[#F1F4F9] text-on-surface font-semibold">Consultation</span></td>
+<td class="px-3 font-mono text-[10px] text-[#6B7280]">ECDSA-SHA256 (Valid)</td>
+</tr>
+<tr class="h-10 hover:bg-[#FAF9F6]">
+<td class="px-3 font-semibold text-on-surface">Nurse In-charge #22</td>
+<td class="px-3 font-mono text-[#6B7280]">PTR-8832-K</td>
+<td class="px-3"><span class="px-1.5 py-0.2 rounded bg-[#F1F4F9] text-on-surface font-semibold">Vitals Log</span></td>
+<td class="px-3 font-mono text-[10px] text-[#6B7280]">ECDSA-SHA256 (Valid)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-1 text-[10px] text-[#6B7280] italic">
+            * Governance Policy: Super Admins can only view clinical access metadata; raw electronic health records (EHR) remain strictly end-to-end encrypted.
+          </div>
+</div>
+</div>
+</section>
+<!-- 10. GLOBAL ESCALATION CENTRE & EMPLOYEE HUB MONITORING -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter-desktop">
+<!-- Escalation Centre (2 columns) -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex justify-between items-center pb-3 border-b border-[#E7E5E0]">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Global Escalation Centre</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cross-departmental anomalies and dispute mediation</p>
+</div>
+<span class="text-xs font-semibold px-2 py-0.5 rounded bg-[#FDF0EE] text-primary border border-primary/20">12 Active Cases</span>
+</div>
+<div class="border border-[#E7E5E0] rounded-xl overflow-hidden mt-3">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="h-10 bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-[#6B7280]">
+<th class="px-3">Case ID</th>
+<th class="px-3">Issue Category</th>
+<th class="px-3">Origin Dept.</th>
+<th class="px-3">Priority</th>
+<th class="px-3">Assigned Lead</th>
+<th class="px-3 text-right">Intervention</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC]">
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono font-bold text-primary">ESC-4029</td>
+<td class="px-3 font-semibold text-on-surface">Financial Discrepancy (Gateway Sync)</td>
+<td class="px-3 text-[#6B7280]">Finance Ops</td>
+<td class="px-3"><span class="px-1.5 py-0.5 rounded font-bold bg-[#FDF0EE] text-primary">Critical</span></td>
+<td class="px-3 text-on-surface">Sarah Jenkins</td>
+<td class="px-3 text-right"><button class="text-primary hover:underline font-bold">Mediate</button></td>
+</tr>
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono font-bold text-on-surface">ESC-4028</td>
+<td class="px-3 font-semibold text-on-surface">Specialty Credential Validation Failure</td>
+<td class="px-3 text-[#6B7280]">Doctor Verification</td>
+<td class="px-3"><span class="px-1.5 py-0.5 rounded font-bold bg-[#FEF8E8] text-[#B88700]">High</span></td>
+<td class="px-3 text-on-surface">Rajiv Menon</td>
+<td class="px-3 text-right"><button class="text-on-surface hover:text-primary font-semibold">Inspect</button></td>
+</tr>
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono font-bold text-on-surface">ESC-4025</td>
+<td class="px-3 font-semibold text-on-surface">ICU Bed Telemetry Packet Drop</td>
+<td class="px-3 text-[#6B7280]">Infrastructure Health</td>
+<td class="px-3"><span class="px-1.5 py-0.5 rounded font-bold bg-[#FEF8E8] text-[#B88700]">High</span></td>
+<td class="px-3 text-on-surface">Dr. Alistair Vance</td>
+<td class="px-3 text-right"><button class="text-on-surface hover:text-primary font-semibold">Inspect</button></td>
+</tr>
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono font-bold text-on-surface">ESC-4021</td>
+<td class="px-3 font-semibold text-on-surface">Telehealth Audio Degradation (Zone 4)</td>
+<td class="px-3 text-[#6B7280]">Customer Support</td>
+<td class="px-3"><span class="px-1.5 py-0.5 rounded font-medium bg-[#F1F4F9] text-on-surface">Medium</span></td>
+<td class="px-3 text-on-surface">Elena Rostova</td>
+<td class="px-3 text-right"><button class="text-[#6B7280] hover:text-on-surface">Review</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Employee Hub Department Load -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-center pb-3 border-b border-[#E7E5E0]">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Employee Operations Hub</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Active department queue throughput</p>
+</div>
+<span class="text-xs font-semibold px-2 py-0.5 rounded bg-[#FAF9F6] text-on-surface border border-[#E7E5E0]">428 Staff</span>
+</div>
+<div class="space-y-3 mt-4">
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="flex justify-between items-center text-xs font-semibold">
+<span class="text-on-surface">Customer Care Desk</span>
+<span class="text-primary font-bold">86 In Queue</span>
+</div>
+<div class="w-full bg-[#E7E5E0] h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-primary-container h-full rounded-full" style="width: 72%;"></div>
+</div>
+</div>
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="flex justify-between items-center text-xs font-semibold">
+<span class="text-on-surface">Doctor Credentialing Team</span>
+<span class="text-[#B88700] font-bold">38 In Verification</span>
+</div>
+<div class="w-full bg-[#E7E5E0] h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-[#FBC024] h-full rounded-full" style="width: 54%;"></div>
+</div>
+</div>
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="flex justify-between items-center text-xs font-semibold">
+<span class="text-on-surface">Hospital Operations Review</span>
+<span class="text-tertiary font-bold">14 Facilities</span>
+</div>
+<div class="w-full bg-[#E7E5E0] h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-tertiary h-full rounded-full" style="width: 25%;"></div>
+</div>
+</div>
+<div class="p-3 bg-[#FAF9F6] rounded-lg border border-[#E7E5E0]">
+<div class="flex justify-between items-center text-xs font-semibold">
+<span class="text-on-surface">Finance Settlement Ops</span>
+<span class="text-tertiary font-bold">4 Open Disputes</span>
+</div>
+<div class="w-full bg-[#E7E5E0] h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-tertiary h-full rounded-full" style="width: 10%;"></div>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 h-9 bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-on-surface rounded-lg font-label-md text-label-md font-semibold transition-colors">
+          Manage Staff Allocation
+        </button>
+</div>
+</section>
+<!-- 11. INFRASTRUCTURE & SYSTEM HEALTH -->
+<section class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-4 border-b border-[#E7E5E0]">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-tertiary">monitor_heart</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Core Infrastructure &amp; Health Matrix</h3>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#EAF8F1] text-tertiary border border-tertiary/20">Release v4.18.2-LTS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Live telemetry ping across cloud clusters, microservices, and regional edge nodes</p>
+</div>
+<div class="text-right">
+<span class="text-label-sm font-label-sm text-tertiary font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+            8/8 Clusters Healthy
+          </span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 mt-4">
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">Frontend CDN</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">99.99%</div>
+<span class="text-[9px] text-[#6B7280]">Cloudflare Edge</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">Backend API</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">99.95%</div>
+<span class="text-[9px] text-[#6B7280]">K8s Cluster #01</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">Auth Service</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">100%</div>
+<span class="text-[9px] text-[#6B7280]">OIDC / SAML</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">PostgreSQL DB</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">12ms Query</div>
+<span class="text-[9px] text-[#6B7280]">Multi-AZ Primary</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">PACS / S3</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">Nominal</div>
+<span class="text-[9px] text-[#6B7280]">Encrypted Radiographs</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">Payment Hooks</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">Operational</div>
+<span class="text-[9px] text-[#6B7280]">NPCI &amp; Razorpay</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">ABDM Gateway</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">Synced</div>
+<span class="text-[9px] text-[#6B7280]">National Health Auth</span>
+</div>
+<div class="p-3 bg-[#FAF9F6] border border-[#E7E5E0] rounded-lg">
+<div class="flex justify-between items-center">
+<span class="text-[11px] font-semibold text-on-surface">WebRTC Mesh</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-[10px] text-tertiary font-bold mt-1">28ms Audio</div>
+<span class="text-[9px] text-[#6B7280]">Media SFU Fleet</span>
+</div>
+</div>
+</section>
+<!-- 12. RECENT ADMINISTRATIVE AUDIT STREAM (Immutable Audit Trail) -->
+<section class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-space-lg shadow-sm mb-6">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-[#E7E5E0]">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-on-surface">history</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Cryptographic Audit Ledger</h3>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FAF9F6] text-[#6B7280] border border-[#E7E5E0]">Append-Only WORM Log</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Permanent record of all Super Admin interventions and role delegations</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-9 px-3 bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-on-surface rounded-lg text-label-md font-label-md font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_alt</span>
+            Filter by Actor
+          </button>
+<button class="h-9 px-3 bg-primary-container hover:bg-[#C94132] text-white rounded-lg text-label-md font-label-md font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+            Verify Block Hashes
+          </button>
+</div>
+</div>
+<div class="border border-[#E7E5E0] rounded-xl overflow-hidden mt-4">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="h-10 bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-[#6B7280]">
+<th class="px-3">Timestamp (UTC)</th>
+<th class="px-3">Admin / Principal</th>
+<th class="px-3">Event Signature</th>
+<th class="px-3">Target Entity</th>
+<th class="px-3">IP / Cert Fingerprint</th>
+<th class="px-3 text-right">Verification Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC]">
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono text-[#6B7280]">2026-10-24 10:41:02</td>
+<td class="px-3 font-semibold text-on-surface">Dr. Alistair Vance (ADM-001)</td>
+<td class="px-3 font-mono text-primary font-bold">INIT_COOLDOWN_DEACTIVATE</td>
+<td class="px-3 text-on-surface">Elena Rostova (ADM-004)</td>
+<td class="px-3 font-mono text-[11px] text-[#6B7280]">192.0.2.14 • SHA256:7f4c...</td>
+<td class="px-3 text-right">
+<span class="px-2 py-0.5 rounded font-semibold bg-[#EAF8F1] text-tertiary">Cryptographically Signed</span>
+</td>
+</tr>
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono text-[#6B7280]">2026-10-24 10:28:19</td>
+<td class="px-3 font-semibold text-on-surface">Sarah Jenkins (ADM-002)</td>
+<td class="px-3 font-mono text-on-surface font-semibold">THROTTLE_BULK_EXPORT</td>
+<td class="px-3 text-on-surface">Operator #OP-889 / Node-04</td>
+<td class="px-3 font-mono text-[11px] text-[#6B7280]">198.51.100.8 • SHA256:91da...</td>
+<td class="px-3 text-right">
+<span class="px-2 py-0.5 rounded font-semibold bg-[#EAF8F1] text-tertiary">Cryptographically Signed</span>
+</td>
+</tr>
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono text-[#6B7280]">2026-10-24 09:14:55</td>
+<td class="px-3 font-semibold text-on-surface">Rajiv Menon (ADM-003)</td>
+<td class="px-3 font-mono text-on-surface font-semibold">APPROVE_HOSP_REGISTRATION</td>
+<td class="px-3 text-on-surface">Apex Healthcare (HOSP-0045)</td>
+<td class="px-3 font-mono text-[11px] text-[#6B7280]">203.0.113.44 • SHA256:4bb1...</td>
+<td class="px-3 text-right">
+<span class="px-2 py-0.5 rounded font-semibold bg-[#EAF8F1] text-tertiary">Cryptographically Signed</span>
+</td>
+</tr>
+<tr class="h-11 hover:bg-[#FAF9F6]">
+<td class="px-3 font-mono text-[#6B7280]">2026-10-24 08:02:11</td>
+<td class="px-3 font-semibold text-on-surface">System Kernel (Root Engine)</td>
+<td class="px-3 font-mono text-on-surface font-semibold">ROTATE_EPHEMERAL_TOKENS</td>
+<td class="px-3 text-on-surface">All Regional Gateways</td>
+<td class="px-3 font-mono text-[11px] text-[#6B7280]">127.0.0.1 • TLSv1.3 Cert 99a</td>
+<td class="px-3 text-right">
+<span class="px-2 py-0.5 rounded font-semibold bg-[#EAF8F1] text-tertiary">Verified Master Key</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex justify-between items-center pt-3 text-label-sm font-label-sm text-[#6B7280]">
+<span>Showing 4 of 1,280 entries logged today</span>
+<div class="flex gap-2">
+<button class="px-2.5 py-1 bg-white border border-[#E7E5E0] rounded hover:bg-[#F1F0EC] text-on-surface font-semibold">Previous</button>
+<button class="px-2.5 py-1 bg-white border border-[#E7E5E0] rounded hover:bg-[#F1F0EC] text-on-surface font-semibold">Next</button>
+</div>
+</div>
+</section>
+</main>
+</body></html>

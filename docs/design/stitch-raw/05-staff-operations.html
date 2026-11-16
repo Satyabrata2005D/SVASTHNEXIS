@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Diagnostic &amp; Pharmacy Operations Overview - MEDCARE Portal</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#faf8ff",
+            "on-secondary-fixed": "#410000",
+            "inverse-primary": "#ffb4a8",
+            "on-primary-container": "#600000",
+            "secondary-fixed": "#ffdad5",
+            "on-primary-fixed": "#410000",
+            "tertiary-container": "#00a874",
+            "on-primary-fixed-variant": "#920603",
+            "on-secondary-container": "#690001",
+            "surface-container": "#ebedff",
+            "on-error-container": "#93000a",
+            "on-surface-variant": "#5a403c",
+            "surface-variant": "#dde1f8",
+            "inverse-surface": "#2b3041",
+            "surface-container-highest": "#dde1f8",
+            "on-secondary-fixed-variant": "#8d150d",
+            "primary-container": "#ff5b47",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#161b2b",
+            "primary-fixed-dim": "#ffb4a8",
+            "surface-dim": "#d5d9ef",
+            "primary": "#b52619",
+            "surface-tint": "#b52619",
+            "secondary": "#af2f22",
+            "on-error": "#ffffff",
+            "surface-container-high": "#e3e7fe",
+            "primary-fixed": "#ffdad4",
+            "on-tertiary-fixed-variant": "#005236",
+            "tertiary": "#006c49",
+            "secondary-fixed-dim": "#ffb4a8",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#fe6755",
+            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#4edea3",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#6ffbbe",
+            "surface-bright": "#faf8ff",
+            "on-secondary": "#ffffff",
+            "surface": "#faf8ff",
+            "on-tertiary-container": "#003421",
+            "on-tertiary-fixed": "#002113",
+            "outline-variant": "#e3beb8",
+            "surface-container-low": "#f2f3ff",
+            "outline": "#8e706b",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eef0ff",
+            "on-background": "#161b2b"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "margin": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-md": "0.75rem",
+            "gutter": "1.25rem",
+            "gutter-desktop": "1.5rem",
+            "space-lg": "1.25rem",
+            "margin-desktop": "2rem",
+            "space-xl": "1.75rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "metric-display": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm-medium": ["Inter"],
+            "body-md-medium": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "metric-display": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm-medium": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "body-md-medium": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f8f7f3;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #e3beb8;
+      border-radius: 4px;
+    }
+    .hero-banner-gradient {
+      background: linear-gradient(110deg, #F9EBE8 0%, #F4EEF0 50%, #EEF0F4 100%);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md flex min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- ========================================================================= -->
+<!-- SIDE NAVIGATION RAIL (Shared Component: SideNavBar)                      -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col bg-surface-container-lowest border-r border-outline-variant shadow-sm z-40 select-none">
+<!-- Header / Brand Seal -->
+<div class="p-4 border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<div class="text-headline-sm font-headline-sm text-primary tracking-tight">MEDCARE Portal</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Staff Operations Suite</div>
+</div>
+</div>
+</div>
+<!-- Workspace Switcher CTA -->
+<div class="px-3 pt-3">
+<button class="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface text-label-md font-label-md hover:bg-surface-container transition-colors duration-150">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">domain</span>
+<span>Workspace Switcher</span>
+</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">unfold_more</span>
+</button>
+</div>
+<!-- Navigation Tab List (18 Operational Modules) -->
+<div class="flex-1 overflow-y-auto custom-scrollbar px-3 py-3 space-y-1">
+<div class="px-2 pt-1 pb-1 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Clinical Diagnostics</div>
+<!-- Tab 1: Diagnostics Hub (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-primary font-body-md-medium text-body-md-medium border-l-4 border-primary transition-all duration-150 ease-in-out" href="#diagnostics">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">biotech</span>
+<span class="truncate">Diagnostics Hub</span>
+</a>
+<!-- Tab 2: Sample Accessioning -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#accessioning">
+<span class="material-symbols-outlined">science</span>
+<span class="truncate">Sample Accessioning</span>
+</a>
+<!-- Tab 3: Worklists & Queues -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#lab-worklist">
+<span class="material-symbols-outlined">format_list_bulleted</span>
+<span class="truncate">Worklists &amp; Queues</span>
+</a>
+<!-- Tab 4: Pathology & Hem -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#pathology">
+<span class="material-symbols-outlined">bloodtype</span>
+<span class="truncate">Pathology &amp; Hem</span>
+</a>
+<!-- Tab 5: Biochemistry -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#biochem">
+<span class="material-symbols-outlined">colorize</span>
+<span class="truncate">Biochemistry</span>
+</a>
+<!-- Tab 6: Radiology PACs -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#radiology">
+<span class="material-symbols-outlined">radiology</span>
+<span class="truncate">Radiology PACs</span>
+</a>
+<!-- Tab 7: Critical Alerts -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#alerts">
+<div class="flex items-center gap-3 truncate">
+<span class="material-symbols-outlined text-primary">warning</span>
+<span class="truncate">Critical Alerts</span>
+</div>
+<span class="bg-error-container text-on-error-container text-label-sm font-label-sm px-1.5 py-0.5 rounded-full">3</span>
+</a>
+<!-- Tab 8: Report Validation -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#validation">
+<span class="material-symbols-outlined">verified</span>
+<span class="truncate">Report Validation</span>
+</a>
+<div class="px-2 pt-3 pb-1 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Inpatient Pharmacy</div>
+<!-- Tab 9: Pharmacy Hub -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#pharmacy">
+<span class="material-symbols-outlined">local_pharmacy</span>
+<span class="truncate">Pharmacy Hub</span>
+</a>
+<!-- Tab 10: Prescription Verification -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#rx-queue">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="truncate">Prescription Verification</span>
+</a>
+<!-- Tab 11: Dispensing Counter -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#dispense">
+<span class="material-symbols-outlined">medication</span>
+<span class="truncate">Dispensing Counter</span>
+</a>
+<!-- Tab 12: IV & Compounding -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#compounding">
+<span class="material-symbols-outlined">vaccines</span>
+<span class="truncate">IV &amp; Compounding</span>
+</a>
+<!-- Tab 13: Narcotics & Restricted -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#narcotics">
+<span class="material-symbols-outlined">shield</span>
+<span class="truncate">Narcotics &amp; Restricted</span>
+</a>
+<!-- Tab 14: Stock & Inventory -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#inventory">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="truncate">Stock &amp; Inventory</span>
+</a>
+<!-- Tab 15: Batch & Expiry Track -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#batch-expiry">
+<span class="material-symbols-outlined">history_toggle_off</span>
+<span class="truncate">Batch &amp; Expiry Track</span>
+</a>
+<!-- Tab 16: Procurement & Orders -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#procurement">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="truncate">Procurement &amp; Orders</span>
+</a>
+<!-- Tab 17: Internal Ward Requisitions -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#requisitions">
+<span class="material-symbols-outlined">local_hospital</span>
+<span class="truncate">Internal Ward Requisitions</span>
+</a>
+<!-- Tab 18: Quality & Audit Logs -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#audit">
+<span class="material-symbols-outlined">rule</span>
+<span class="truncate">Quality &amp; Audit Logs</span>
+</a>
+</div>
+<!-- Footer Operational Navigation -->
+<div class="p-3 border-t border-outline-variant space-y-1 bg-surface-container-lowest">
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#settings">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings &amp; Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-low hover:text-on-surface transition-colors duration-150" href="#help">
+<span class="material-symbols-outlined">help</span>
+<span>Help &amp; Protocols</span>
+</a>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN CONTENT CANVAS WRAPPER (Offset ml-64 for fixed sidebar)             -->
+<!-- ========================================================================= -->
+<div class="ml-64 flex-1 flex flex-col min-w-0 bg-[#F8F7F3]">
+<!-- ======================================================================= -->
+<!-- TOP NAVIGATION APP BAR (Shared Component: TopNavBar)                  -->
+<!-- ======================================================================= -->
+<header class="sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant shadow-sm h-16 flex items-center justify-between px-6">
+<!-- Left side: Facility Context & Search -->
+<div class="flex items-center gap-6 flex-1 max-w-2xl">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="text-headline-md font-headline-md font-bold text-on-surface tracking-tight whitespace-nowrap">CityCare Multispecialty Hospital</span>
+</div>
+<!-- Global Search Bar (on_left) -->
+<div class="relative w-full max-w-md hidden md:block">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">search</span>
+</div>
+<input class="block w-full pl-9 pr-12 py-1.5 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded-lg text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Search order ID, barcode, Rx, or medicine (⌘K)" type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center">
+<kbd class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded border border-outline-variant">⌘K</kbd>
+</div>
+</div>
+</div>
+<!-- Center Links: Navigation Links from JSON -->
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-primary border-b-2 border-primary font-body-md-medium text-body-md-medium pb-1 transition-colors duration-150" href="#diagnostics">Diagnostics</a>
+<a class="text-on-surface-variant font-body-md text-body-md pb-1 hover:text-primary transition-colors duration-150" href="#pharmacy">Pharmacy</a>
+</div>
+<!-- Right Actions: System Status, Handover, Trailing Actions, Profile -->
+<div class="flex items-center gap-3">
+<!-- Live System Status Badge -->
+<div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Systems Operational</span>
+</div>
+<!-- Secondary Trailing Action: Shift Handover -->
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface hover:bg-surface-container-low text-label-md font-label-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-sm">sync</span>
+<span class="hidden sm:inline">Shift Handover</span>
+</button>
+<!-- Primary Trailing Action: Emergency Triage -->
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-secondary text-label-md font-label-md flex items-center gap-1.5 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-sm">emergency</span>
+<span>Emergency Triage</span>
+</button>
+<!-- Icon Actions from JSON -->
+<div class="flex items-center gap-1 border-l border-outline-variant pl-2 ml-1 text-on-surface-variant">
+<button class="p-1.5 rounded-lg hover:bg-surface-container-low hover:text-on-surface relative" title="Notifications">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-surface-container-lowest"></span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container-low hover:text-on-surface" title="Sync Status">
+<span class="material-symbols-outlined">sync</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container-low hover:text-on-surface" title="Help &amp; Protocols">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<!-- Staff Profile Cluster -->
+<div class="flex items-center gap-2.5 pl-2 border-l border-outline-variant">
+<div class="relative">
+<img class="w-9 h-9 rounded-full object-cover border border-outline-variant ring-2 ring-primary-fixed" data-alt="Photorealistic administrative professional portrait of Ananya Roy, a South Asian clinical laboratory and pharmacy operations staff member in CityCare Multispecialty Hospital uniform, wearing a badge lanyard, clean corporate lighting, soft hospital environment background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASyDNS0_c696EoGE1aHDDOyzbF8BnuHa4cZk4uo3KBGKcbydKTzuIeCfNG1YPiyEZJtW3Wye_9joaFrbBywVCfUuOQC1mUklFspHuZ3rKh49f3ahgEU5lysSlWLerZh91pGujGmiTh_LrtfF-bCY718pXtNMhk06oSXANloR8CHUWnLyHTjp-w58cxi1W1TJq4iBMKqggRbPFJPSMMe148lbEKfv02mISqfON1V7U"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="hidden 2xl:block leading-tight text-left">
+<div class="text-body-sm-medium font-body-sm-medium text-on-surface">Ananya Roy</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Badge #ST-8841</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ======================================================================= -->
+<!-- DASHBOARD VIEWPORT CANVAS                                              -->
+<!-- ======================================================================= -->
+<main class="p-6 space-y-6 max-w-[1600px] w-full mx-auto">
+<!-- Breadcrumbs & Section Descriptor -->
+<div class="flex flex-wrap items-center justify-between gap-3 text-label-md font-label-md text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span>Staff Portal</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span>Operations Overview</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-primary font-body-md-medium">Central Diagnostics &amp; Inpatient Pharmacy</span>
+</div>
+<div class="flex items-center gap-3 text-label-sm font-label-sm text-on-surface-variant">
+<span>Active Shift: 07:00–15:30 IST</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span>Biochemist-on-duty: Dr. M. Iyer</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="text-emerald-600 font-semibold">LIS / PIS Bridge Online</span>
+</div>
+</div>
+<!-- ===================================================================== -->
+<!-- SECTION 3: DUAL-WORKSPACE CONTEXT SELECTOR & WELCOME HERO             -->
+<!-- ===================================================================== -->
+<section class="hero-banner-gradient rounded-2xl border border-[#E7E5E0] p-6 shadow-sm relative overflow-hidden">
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<!-- Welcome Context & Metadata -->
+<div class="space-y-1.5 max-w-xl">
+<div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-surface-container-lowest/80 text-primary border border-outline-variant text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-sm">local_hospital</span>
+<span>CityCare Multispecialty Hospital • Central Wing</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Good Morning, Ananya!</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">
+              Central Diagnostics &amp; Pharmacy operations are synchronized. 
+              <span class="font-medium text-on-surface">5 pending validation items</span> require senior pathologist sign-off, and 
+              <span class="font-medium text-on-surface">8 STAT prescriptions</span> are flagged for inpatient fast-tracking.
+            </p>
+</div>
+<!-- Dual Workspace Controls & Instant CTAs -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+<!-- Workspace Pill Switcher -->
+<div class="inline-flex p-1 rounded-xl bg-surface-container-lowest/90 border border-outline-variant shadow-sm">
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary text-label-md font-label-md shadow-sm transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">biotech</span>
+<span>Diagnostics (32 Active Tasks)</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg text-on-surface hover:text-primary hover:bg-surface-container-low text-label-md font-label-md transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">medication</span>
+<span>Pharmacy (26 Pending Rx)</span>
+</button>
+</div>
+<!-- Instant Actions -->
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 rounded-xl bg-primary text-on-primary hover:bg-secondary text-label-md font-label-md flex items-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-base">add_circle</span>
+<span>+ Accession Sample</span>
+</button>
+<button class="px-4 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container-low text-label-md font-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-base">fact_check</span>
+<span>Review Work Queue</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- SECTION 4: SIX ENTERPRISE KPI METRIC CARDS                            -->
+<!-- ===================================================================== -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+<!-- KPI 1: Pending Diagnostic Orders -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wide">Diagnostic Orders</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-base">biotech</span>
+</div>
+</div>
+<div class="text-metric-display font-metric-display text-on-surface">48</div>
+<div class="flex items-center gap-1.5 mt-2 text-label-sm font-label-sm text-primary">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="font-semibold">+12%</span>
+<span class="text-on-surface-variant font-normal">from yesterday</span>
+</div>
+</div>
+<!-- KPI 2: Samples Being Processed -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wide">In Processing</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-on-surface">
+<span class="material-symbols-outlined text-base">hourglass_top</span>
+</div>
+</div>
+<div class="text-metric-display font-metric-display text-on-surface">32</div>
+<div class="flex items-center gap-1.5 mt-2 text-label-sm font-label-sm text-emerald-700">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-semibold">Normal SLA 94%</span>
+</div>
+</div>
+<!-- KPI 3: Reports Awaiting Validation -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow border-l-4 border-l-amber-500">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wide">Validation Queue</span>
+<div class="p-1.5 rounded-lg bg-amber-50 text-amber-700">
+<span class="material-symbols-outlined text-base">verified</span>
+</div>
+</div>
+<div class="text-metric-display font-metric-display text-on-surface">12</div>
+<div class="flex items-center gap-1.5 mt-2 text-label-sm font-label-sm text-amber-700">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+<span class="font-semibold">3 Critical Alerts</span>
+</div>
+</div>
+<!-- KPI 4: Pending Prescriptions -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wide">Pending Rx</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-base">prescriptions</span>
+</div>
+</div>
+<div class="text-metric-display font-metric-display text-on-surface">26</div>
+<div class="flex items-center gap-1.5 mt-2 text-label-sm font-label-sm text-primary">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="font-semibold">8 STAT Urgents</span>
+</div>
+</div>
+<!-- KPI 5: Low Stock Medicines -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wide">Low Stock SKUs</span>
+<div class="p-1.5 rounded-lg bg-amber-50 text-amber-700">
+<span class="material-symbols-outlined text-base">inventory_2</span>
+</div>
+</div>
+<div class="text-metric-display font-metric-display text-on-surface">14</div>
+<div class="flex items-center gap-1.5 mt-2 text-label-sm font-label-sm text-amber-700">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="font-semibold">Reorder Needed</span>
+</div>
+</div>
+<!-- KPI 6: Near-Expiry Medicines -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wide">Near Expiry (&lt;60d)</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined text-base">schedule</span>
+</div>
+</div>
+<div class="text-metric-display font-metric-display text-on-surface">9</div>
+<div class="flex items-center gap-1.5 mt-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">history_toggle_off</span>
+<span>Batches Tracked</span>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- SECTION 5: DIAGNOSTIC DEPARTMENT SECTION                              -->
+<!-- ===================================================================== -->
+<section class="space-y-4" id="diagnostics">
+<!-- Section Header & Title -->
+<div class="flex items-center justify-between border-b border-outline-variant pb-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">biotech</span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Central Diagnostic Laboratory &amp; Pathology</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Real-time specimen track, automated analyzer worklists, and pathologist release staging</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant text-body-sm-medium font-body-sm-medium hover:bg-surface-container-low text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+<span>Filter Specimen</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant text-body-sm-medium font-body-sm-medium hover:bg-surface-container-low text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">print</span>
+<span>Barcodes</span>
+</button>
+</div>
+</div>
+<!-- 5.1 Process Pipeline Visualization -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm">
+<div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Specimen Flow Pipeline (Shift Batch)</div>
+<div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant text-center">
+<div class="text-label-sm font-label-sm text-on-surface-variant">1. Order Received</div>
+<div class="text-headline-md font-headline-md text-on-surface mt-1">142</div>
+<div class="inline-block mt-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface">Queue Ready</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant text-center">
+<div class="text-label-sm font-label-sm text-on-surface-variant">2. Sample Collected</div>
+<div class="text-headline-md font-headline-md text-on-surface mt-1">118</div>
+<div class="inline-block mt-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-emerald-50 text-emerald-700 border border-emerald-200">83% Draw Rate</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant text-center border-primary">
+<div class="text-label-sm font-label-sm text-primary font-semibold">3. Processing</div>
+<div class="text-headline-md font-headline-md text-primary mt-1">32</div>
+<div class="inline-block mt-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">On Analyzer</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant text-center">
+<div class="text-label-sm font-label-sm text-on-surface-variant">4. Result Entry</div>
+<div class="text-headline-md font-headline-md text-on-surface mt-1">18</div>
+<div class="inline-block mt-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface">Manual/Interfaced</div>
+</div>
+<div class="p-3 rounded-lg bg-amber-50/50 border border-amber-200 text-center">
+<div class="text-label-sm font-label-sm text-amber-900 font-semibold">5. Validation Queue</div>
+<div class="text-headline-md font-headline-md text-amber-800 mt-1">12</div>
+<div class="inline-block mt-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-amber-100 text-amber-800">Pending Review</div>
+</div>
+<div class="p-3 rounded-lg bg-emerald-50/50 border border-emerald-200 text-center">
+<div class="text-label-sm font-label-sm text-emerald-900 font-semibold">6. Published Reports</div>
+<div class="text-headline-md font-headline-md text-emerald-800 mt-1">88</div>
+<div class="inline-block mt-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-emerald-100 text-emerald-800">EMR Dispatched</div>
+</div>
+</div>
+</div>
+<!-- 5.2 Laboratory Worklist Table & Accessioning Side-by-side Bento -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+<!-- Laboratory Worklist Table (3 Columns) -->
+<div class="lg:col-span-3 bg-surface-container-lowest border border-[#E7E5E0] rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 border-b border-[#E7E5E0] flex items-center justify-between bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">view_list</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Active Laboratory Worklist</h3>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-label-sm font-label-sm">6 Real-time Rows</span>
+</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Live feed auto-refresh: 15s</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-body-sm">
+<thead class="bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-on-surface-variant uppercase">
+<tr>
+<th class="py-2.5 px-3">Order ID</th>
+<th class="py-2.5 px-3">Patient ID &amp; Name</th>
+<th class="py-2.5 px-3">Test Name &amp; Dept</th>
+<th class="py-2.5 px-3">Sample Type &amp; Barcode</th>
+<th class="py-2.5 px-3">Draw Time</th>
+<th class="py-2.5 px-3">Status</th>
+<th class="py-2.5 px-3">Tech</th>
+<th class="py-2.5 px-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC] text-on-surface">
+<!-- Row 1: CBC -->
+<tr class="hover:bg-[#FAF9F6] border-l-4 border-l-primary">
+<td class="py-3 px-3 font-semibold text-primary">LAB-40912</td>
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Rajesh Sharma (48M)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-90214</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Complete Blood Count (CBC)</div>
+<div class="text-label-sm text-on-surface-variant">Hematology • Sysmex XN</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono text-xs bg-purple-50 text-purple-800 border border-purple-200 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs">qr_code_2</span> BC-881290 (EDTA)
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">08:15 IST</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> Processing
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">K. Verma</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Open Item</button>
+</td>
+</tr>
+<!-- Row 2: Lipid Profile -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">LAB-40915</td>
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Meenakshi Sundaram (62F)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-78411</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Lipid Profile Comprehensive</div>
+<div class="text-label-sm text-on-surface-variant">Clinical Biochem • Cobas 6000</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono text-xs bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs">qr_code_2</span> BC-881295 (Serum)
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">07:45 IST</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-amber-50 text-amber-800 border border-amber-200">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Awaiting Validation
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">S. Nair</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-amber-100 hover:bg-amber-200 text-amber-900 text-label-sm font-label-sm">Verify Result</button>
+</td>
+</tr>
+<!-- Row 3: Fasting Blood Glucose -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">LAB-40918</td>
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Devendra Pratap (55M)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-66230</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Fasting Blood Glucose (FBS)</div>
+<div class="text-label-sm text-on-surface-variant">Biochemistry • Architect c4000</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs">qr_code_2</span> BC-881301 (Fluoride)
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">07:20 IST</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-emerald-50 text-emerald-700 border border-emerald-200">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Validated
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">Dr. M. Iyer</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant text-on-surface text-label-sm font-label-sm">Print Slip</button>
+</td>
+</tr>
+<!-- Row 4: Thyroid Function Panel -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">LAB-40920</td>
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Fatima Zahra (34F)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-81099</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Thyroid Function Panel (TFT)</div>
+<div class="text-label-sm text-on-surface-variant">Endocrine • Immulite 2000</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono text-xs bg-gray-100 text-gray-700 border border-gray-200 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs">hourglass_empty</span> Pending Draw
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">--:-- IST</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface">
+                        Collection Pending
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">Unassigned</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary hover:bg-secondary text-label-sm font-label-sm">Assign Phleb</button>
+</td>
+</tr>
+<!-- Row 5: Liver Function Test -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">LAB-40922</td>
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Arun Joshi (41M)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-33291</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Liver Function Test (LFT)</div>
+<div class="text-label-sm text-on-surface-variant">Biochemistry • Cobas 6000</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono text-xs bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs">qr_code_2</span> BC-881315 (Heparin)
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">08:35 IST</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface">
+                        Order Received
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">R. Sen</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Enter Result</button>
+</td>
+</tr>
+<!-- Row 6: Urine Routine & Micro -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">LAB-40924</td>
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Sunita Rao (29F)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-99412</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Urine Routine &amp; Microscopic</div>
+<div class="text-label-sm text-on-surface-variant">Clinical Pathology • Iris iRICELL</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono text-xs bg-yellow-50 text-yellow-800 border border-yellow-200 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs">qr_code_2</span> BC-881320 (Sterile)
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">08:20 IST</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> Processing
+                      </span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">S. Nair</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Open Item</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Sample Accessioning & Collection Panel (1 Column) -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-[#E7E5E0]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">colorize</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Accessioning Hub</h3>
+</div>
+<span class="text-label-sm font-label-sm text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Active</span>
+</div>
+<!-- Stat Cluster -->
+<div class="space-y-3 mt-4">
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+<span class="text-body-sm font-body-sm text-on-surface">Samples Collected</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-on-surface">118</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+<span class="text-body-sm font-body-sm text-on-surface">Awaiting Draw (Phleb)</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-on-surface">24</span>
+</div>
+<div class="p-3 rounded-lg bg-error-container/40 border border-error-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<div>
+<span class="text-body-sm-medium font-body-sm-medium text-primary">Hemolyzed / Rejected</span>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Recollection required</div>
+</div>
+</div>
+<span class="text-headline-sm font-headline-sm text-primary">2</span>
+</div>
+</div>
+<!-- Barcode Rapid Scanner Trigger -->
+<div class="mt-4 p-3 rounded-xl border border-dashed border-outline-variant bg-surface-container-low/50 text-center">
+<span class="material-symbols-outlined text-3xl text-on-surface-variant">barcode_scanner</span>
+<p class="text-body-sm-medium font-body-sm-medium text-on-surface mt-1">Ready for Optical Scanner</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Connect Honeywell Orbit or enter manual barcode</p>
+<div class="mt-2 flex gap-1">
+<input class="w-full text-body-sm py-1 px-2 border border-outline-variant rounded bg-surface-container-lowest focus:ring-1 focus:ring-primary" placeholder="Barcode ID..." type="text"/>
+<button class="px-2.5 py-1 bg-primary text-on-primary text-label-sm font-label-sm rounded hover:bg-secondary">Scan</button>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-[#E7E5E0] mt-4">
+<button class="w-full py-2 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface hover:bg-surface-container text-body-sm-medium font-body-sm-medium flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">assignment_return</span>
+<span>Dispatch Recollection Notice</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 5.3 Result Validation & Supervisor Release (3 Pending Critical Cards) -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-sm space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-700">verified_user</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Result Validation &amp; Supervisor Release Panel</h3>
+</div>
+<div class="px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-label-sm font-label-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span>Only Authorized Medical Biochemist/Pathologist can release reports</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Card 1: HbA1c with Flag -->
+<div class="p-4 rounded-xl border border-outline-variant bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1 text-on-surface-variant">
+<span>Order: LAB-40899 • IPD-304</span>
+<span class="text-primary font-bold">CRITICAL HIGH</span>
+</div>
+<div class="text-body-md-medium font-body-md-medium text-on-surface">HbA1c (Glycated Hemoglobin)</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Patient: Vinod Mehra (61M) • Sample: EDTA Blood</div>
+<div class="my-3 p-2.5 rounded bg-surface-container-lowest border border-outline-variant flex items-center justify-between">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Value Recorded</div>
+<div class="text-headline-sm font-headline-sm text-primary">11.4 %</div>
+</div>
+<div class="text-right">
+<div class="text-label-sm font-label-sm text-on-surface-variant">Ref Range</div>
+<div class="text-body-sm font-body-sm text-on-surface">4.0 - 5.6 %</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2 border-t border-outline-variant">
+<button class="flex-1 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-secondary text-label-sm font-label-sm">Validate &amp; Release</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container text-label-sm font-label-sm">Return Rerun</button>
+</div>
+</div>
+<!-- Card 2: Serum Creatinine with Flag -->
+<div class="p-4 rounded-xl border border-outline-variant bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1 text-on-surface-variant">
+<span>Order: LAB-40904 • ICU-Bed 04</span>
+<span class="text-primary font-bold">ELEVATED VITAL</span>
+</div>
+<div class="text-body-md-medium font-body-md-medium text-on-surface">Serum Creatinine &amp; eGFR</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Patient: Shanti Devi (74F) • Sample: Plain Serum</div>
+<div class="my-3 p-2.5 rounded bg-surface-container-lowest border border-outline-variant flex items-center justify-between">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Value Recorded</div>
+<div class="text-headline-sm font-headline-sm text-primary">3.2 mg/dL</div>
+</div>
+<div class="text-right">
+<div class="text-label-sm font-label-sm text-on-surface-variant">Ref Range</div>
+<div class="text-body-sm font-body-sm text-on-surface">0.6 - 1.1 mg/dL</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2 border-t border-outline-variant">
+<button class="flex-1 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-secondary text-label-sm font-label-sm">Validate &amp; Release</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container text-label-sm font-label-sm">Return Rerun</button>
+</div>
+</div>
+<!-- Card 3: Electrolyte Panel -->
+<div class="p-4 rounded-xl border border-outline-variant bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1 text-on-surface-variant">
+<span>Order: LAB-40907 • Emergency</span>
+<span class="text-amber-800 font-bold">HYPOKALEMIA</span>
+</div>
+<div class="text-body-md-medium font-body-md-medium text-on-surface">Serum Electrolyte (Na+/K+/Cl-)</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Patient: Kabir Sen (38M) • Sample: Serum Heparin</div>
+<div class="my-3 p-2.5 rounded bg-surface-container-lowest border border-outline-variant flex items-center justify-between">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">K+ Value</div>
+<div class="text-headline-sm font-headline-sm text-amber-800">2.8 mmol/L</div>
+</div>
+<div class="text-right">
+<div class="text-label-sm font-label-sm text-on-surface-variant">Ref Range</div>
+<div class="text-body-sm font-body-sm text-on-surface">3.5 - 5.1 mmol/L</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2 border-t border-outline-variant">
+<button class="flex-1 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-secondary text-label-sm font-label-sm">Validate &amp; Release</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container text-label-sm font-label-sm">Return Rerun</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 5.4 Imaging & Radiology Modality Worklist Mini-Strip -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">radiology</span>
+</div>
+<div>
+<div class="text-body-md-medium font-body-md-medium text-on-surface">Radiology PACS Modality Queue (DICOM Gateway)</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Integrated with GE Discovery 750 HD • Siemens Magnetom 3T</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="px-3 py-1 rounded bg-surface-container-low border border-outline-variant text-body-sm">
+<span class="font-medium">CT Abdomen:</span> 2 Acquired (Awaiting Reading)
+            </div>
+<div class="px-3 py-1 rounded bg-surface-container-low border border-outline-variant text-body-sm">
+<span class="font-medium">Chest Digital X-Ray:</span> 5 Completed
+            </div>
+<div class="px-3 py-1 rounded bg-surface-container-low border border-outline-variant text-body-sm">
+<span class="font-medium">Brain MRI 3T:</span> 1 In Acquisition
+            </div>
+<button class="px-3 py-1 rounded bg-primary text-on-primary hover:bg-secondary text-label-sm font-label-sm">Open PACS Viewer</button>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- SECTION 6: PHARMACY DEPARTMENT SECTION                                -->
+<!-- ===================================================================== -->
+<section class="space-y-4 pt-4 border-t border-outline-variant" id="pharmacy">
+<!-- Pharmacy Header -->
+<div class="flex items-center justify-between border-b border-outline-variant pb-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">local_pharmacy</span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Central Inpatient &amp; Outpatient Pharmacy</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Prescription verification, automated formulary reconciliation, and batch inventory telemetry</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant text-body-sm-medium font-body-sm-medium hover:bg-surface-container-low text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">receipt</span>
+<span>New Prescription</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-secondary text-label-md font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">inventory</span>
+<span>Stock Dispensing</span>
+</button>
+</div>
+</div>
+<!-- 6.1 Prescription Processing Queue Table -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 border-b border-[#E7E5E0] flex items-center justify-between bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Live Prescription Verification &amp; Dispensing Queue</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface text-label-sm font-label-sm">4 Departments Actively Routing</span>
+</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Prescription Queue SLA Target: &lt;15 mins</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-body-sm">
+<thead class="bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-on-surface-variant uppercase">
+<tr>
+<th class="py-2.5 px-3">Rx ID</th>
+<th class="py-2.5 px-3">Patient ID &amp; Name</th>
+<th class="py-2.5 px-3">Prescribing Doctor &amp; Ward</th>
+<th class="py-2.5 px-3">Rx Time</th>
+<th class="py-2.5 px-3">Meds Count</th>
+<th class="py-2.5 px-3">Drug Interaction Check</th>
+<th class="py-2.5 px-3">Status</th>
+<th class="py-2.5 px-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC] text-on-surface">
+<!-- Rx Row 1: Cardiology STAT -->
+<tr class="hover:bg-[#FAF9F6] border-l-4 border-l-primary">
+<td class="py-3 px-3 font-semibold text-primary">RX-88412</td>
+<td class="py-3 px-3">
+<div class="font-medium">Anand Kulkarni (59M)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-55201 • Bed ICCU-03</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Dr. S. Mukherjee</div>
+<div class="text-label-sm text-on-surface-variant">Cardiology • Inpatient STAT</div>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">08:42 IST (8m ago)</td>
+<td class="py-3 px-3 font-semibold">4 Items</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="material-symbols-outlined text-xs">check_circle</span> Passed (0 Alerts)
+                    </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> Verification in Progress
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary hover:bg-secondary text-label-sm font-label-sm">Review &amp; Dispense</button>
+</td>
+</tr>
+<!-- Rx Row 2: General Medicine -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">RX-88414</td>
+<td class="py-3 px-3">
+<div class="font-medium">Radhika Sen (44F)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-67123 • Ward 4B</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Dr. Preeti Deshmukh</div>
+<div class="text-label-sm text-on-surface-variant">General Medicine</div>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">08:30 IST (20m ago)</td>
+<td class="py-3 px-3 font-semibold">3 Items</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="material-symbols-outlined text-xs">check_circle</span> Passed (0 Alerts)
+                    </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-amber-50 text-amber-800 border border-amber-200">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Awaiting Pharmacist
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Check Stock</button>
+</td>
+</tr>
+<!-- Rx Row 3: Gastroenterology -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">RX-88416</td>
+<td class="py-3 px-3">
+<div class="font-medium">Mohammed Al-Hassan (52M)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-70014 • Ward 2A</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Dr. Rajiv Gupta</div>
+<div class="text-label-sm text-on-surface-variant">Gastroenterology</div>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">08:10 IST (40m ago)</td>
+<td class="py-3 px-3 font-semibold">5 Items</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="material-symbols-outlined text-xs">check_circle</span> Passed (0 Alerts)
+                    </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-blue-50 text-blue-700 border border-blue-200">
+                      Ready for Dispensing
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Handover to Ward</button>
+</td>
+</tr>
+<!-- Rx Row 4: Emergency Ward -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3 font-semibold text-on-surface">RX-88419</td>
+<td class="py-3 px-3">
+<div class="font-medium">Tanvi Mehta (22F)</div>
+<div class="text-label-sm text-on-surface-variant">MRN: #CC-94112 • ER Trauma Bay 1</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium">Dr. Alan Fernandes</div>
+<div class="text-label-sm text-on-surface-variant">Emergency Medicine</div>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">07:55 IST (55m ago)</td>
+<td class="py-3 px-3 font-semibold">2 Items</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="material-symbols-outlined text-xs">check_circle</span> Passed (0 Alerts)
+                    </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      Dispensed
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant text-on-surface-variant text-label-sm font-label-sm">View Slip</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 6.2 Medicine Inventory & Batch Monitor Table -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 border-b border-[#E7E5E0] flex flex-wrap items-center justify-between gap-3 bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Medicine Inventory &amp; Batch Threshold Monitor</h3>
+</div>
+<div class="flex items-center gap-2">
+<input class="text-body-sm py-1 px-2.5 rounded border border-outline-variant bg-surface-container-lowest" placeholder="Filter formulary..." type="text"/>
+<button class="px-2.5 py-1 rounded bg-surface-container border border-outline-variant text-label-sm font-label-sm text-on-surface hover:bg-surface-container-high">Export CSV</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-body-sm">
+<thead class="bg-[#F8F7F3] border-b border-[#E7E5E0] text-label-sm font-label-sm text-on-surface-variant uppercase">
+<tr>
+<th class="py-2.5 px-3">Medicine Name &amp; Strength</th>
+<th class="py-2.5 px-3">SKU / ID</th>
+<th class="py-2.5 px-3">Category</th>
+<th class="py-2.5 px-3">Batch No.</th>
+<th class="py-2.5 px-3">Available Stock</th>
+<th class="py-2.5 px-3">Reorder Lvl</th>
+<th class="py-2.5 px-3">Expiry Date</th>
+<th class="py-2.5 px-3">Supplier</th>
+<th class="py-2.5 px-3">Stock Status</th>
+<th class="py-2.5 px-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC] text-on-surface">
+<!-- Med 1: Pantoprazole -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Tab. Pantoprazole 40mg</div>
+<div class="text-label-sm text-on-surface-variant">Proton Pump Inhibitor</div>
+</td>
+<td class="py-3 px-3 font-mono text-xs">MED-PAN-40</td>
+<td class="py-3 px-3 text-on-surface-variant">GI &amp; Ulcer</td>
+<td class="py-3 px-3 font-mono text-xs">B-9844A</td>
+<td class="py-3 px-3 font-semibold text-emerald-700">1,420 Strips</td>
+<td class="py-3 px-3 text-on-surface-variant">300 Strips</td>
+<td class="py-3 px-3 text-on-surface-variant">11/2026</td>
+<td class="py-3 px-3 text-on-surface-variant">MedPlus Dist.</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> In Stock
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Details</button>
+</td>
+</tr>
+<!-- Med 2: Ceftriaxone (Low Stock) -->
+<tr class="hover:bg-[#FAF9F6] border-l-4 border-l-amber-500">
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Inj. Ceftriaxone 1g</div>
+<div class="text-label-sm text-on-surface-variant">Cephalosporin Antibiotic</div>
+</td>
+<td class="py-3 px-3 font-mono text-xs">MED-CEF-1G</td>
+<td class="py-3 px-3 text-on-surface-variant">Anti-Infective</td>
+<td class="py-3 px-3 font-mono text-xs">B-7721C</td>
+<td class="py-3 px-3 font-semibold text-amber-700">85 Vials</td>
+<td class="py-3 px-3 text-on-surface-variant">150 Vials</td>
+<td class="py-3 px-3 text-on-surface-variant">08/2025</td>
+<td class="py-3 px-3 text-on-surface-variant">Apex Pharma</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-amber-200">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Low Stock
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2 py-1 rounded bg-amber-100 hover:bg-amber-200 text-amber-900 text-label-sm font-label-sm">Replenish</button>
+</td>
+</tr>
+<!-- Med 3: Metformin -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Tab. Metformin 500mg SR</div>
+<div class="text-label-sm text-on-surface-variant">Oral Hypoglycemic</div>
+</td>
+<td class="py-3 px-3 font-mono text-xs">MED-MET-500</td>
+<td class="py-3 px-3 text-on-surface-variant">Endocrinology</td>
+<td class="py-3 px-3 font-mono text-xs">B-4410E</td>
+<td class="py-3 px-3 font-semibold text-emerald-700">2,100 Strips</td>
+<td class="py-3 px-3 text-on-surface-variant">500 Strips</td>
+<td class="py-3 px-3 text-on-surface-variant">04/2026</td>
+<td class="py-3 px-3 text-on-surface-variant">Cipla Direct</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> In Stock
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Details</button>
+</td>
+</tr>
+<!-- Med 4: Sucralfate (Near Expiry) -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Syp. Sucralfate 200ml</div>
+<div class="text-label-sm text-on-surface-variant">Mucosal Protective</div>
+</td>
+<td class="py-3 px-3 font-mono text-xs">MED-SUC-200</td>
+<td class="py-3 px-3 text-on-surface-variant">GI &amp; Ulcer</td>
+<td class="py-3 px-3 font-mono text-xs">B-1092F</td>
+<td class="py-3 px-3 font-semibold text-on-surface">140 Bottles</td>
+<td class="py-3 px-3 text-on-surface-variant">50 Bottles</td>
+<td class="py-3 px-3 font-bold text-amber-800">15/04/2025 (42d)</td>
+<td class="py-3 px-3 text-on-surface-variant">SunPharma Log.</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-amber-200">
+<span class="material-symbols-outlined text-xs">history_toggle_off</span> Near Expiry
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Batch Details</button>
+</td>
+</tr>
+<!-- Med 5: Atorvastatin -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3">
+<div class="font-medium text-on-surface">Tab. Atorvastatin 20mg</div>
+<div class="text-label-sm text-on-surface-variant">Lipid Lowering Statin</div>
+</td>
+<td class="py-3 px-3 font-mono text-xs">MED-ATO-20</td>
+<td class="py-3 px-3 text-on-surface-variant">Cardiology</td>
+<td class="py-3 px-3 font-mono text-xs">B-9912X</td>
+<td class="py-3 px-3 font-semibold text-emerald-700">890 Strips</td>
+<td class="py-3 px-3 text-on-surface-variant">250 Strips</td>
+<td class="py-3 px-3 text-on-surface-variant">01/2027</td>
+<td class="py-3 px-3 text-on-surface-variant">MedPlus Dist.</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> In Stock
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Details</button>
+</td>
+</tr>
+<!-- Med 6: Inj. Adrenaline (Emergency Critical) -->
+<tr class="hover:bg-[#FAF9F6]">
+<td class="py-3 px-3">
+<div class="font-medium text-primary">Inj. Adrenaline 1:1000 (1mg/ml)</div>
+<div class="text-label-sm text-on-surface-variant">Crash Cart STAT Critical</div>
+</td>
+<td class="py-3 px-3 font-mono text-xs">MED-ADR-EMG</td>
+<td class="py-3 px-3 text-on-surface-variant">Emergency Life Support</td>
+<td class="py-3 px-3 font-mono text-xs">B-EMG-002</td>
+<td class="py-3 px-3 font-semibold text-emerald-700">320 Ampoules</td>
+<td class="py-3 px-3 text-on-surface-variant">100 Ampoules</td>
+<td class="py-3 px-3 text-on-surface-variant">09/2026</td>
+<td class="py-3 px-3 text-on-surface-variant">Government Depot</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-label-sm font-label-sm border border-emerald-200">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> In Stock
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="px-2 py-1 rounded bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">Audit Log</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 6.3 Expiry & Recall Alert Strip + Procurement Tracker -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Expiry & Recall Action Banner -->
+<div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-800">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<div class="text-body-md-medium font-body-md-medium text-amber-900">Urgent Recall &amp; Batch Quarantine Alert</div>
+<div class="text-label-sm font-label-sm text-amber-800">Batch #B-1092F (Sucralfate) has 140 units expiring within 42 days.</div>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-secondary text-label-sm font-label-sm whitespace-nowrap shadow-sm">
+              Quarantine / Restrict Dispensing
+            </button>
+</div>
+<!-- Procurement & Supplier Tracker -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-4 flex items-center justify-between gap-4 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<div class="text-body-md-medium font-body-md-medium text-on-surface">Purchase Order PO-9842 In Transit</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">MedPlus &amp; Apex Logistics • ETA 13:00 IST today</div>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm">
+              Acknowledge Gate Receipt
+            </button>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- SECTION 7: DEPARTMENT ANALYTICS, STAFF SUMMARY & AUDIT STREAM         -->
+<!-- ===================================================================== -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4 border-t border-outline-variant">
+<!-- Column 1: Diagnostic TAT & Dispense Rates -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-sm space-y-4">
+<div class="flex items-center justify-between pb-2 border-b border-[#E7E5E0]">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Operational Performance TAT</h3>
+<span class="text-label-sm font-label-sm text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">SLA Nominal</span>
+</div>
+<!-- Turnaround Bar 1 -->
+<div class="space-y-1">
+<div class="flex justify-between text-body-sm">
+<span class="font-medium text-on-surface">Routine Hematology (CBC)</span>
+<span class="text-on-surface-variant">28 mins (SLA: 45m)</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-emerald-500 h-2 rounded-full" style="width: 62%"></div>
+</div>
+</div>
+<!-- Turnaround Bar 2 -->
+<div class="space-y-1">
+<div class="flex justify-between text-body-sm">
+<span class="font-medium text-on-surface">Biochem Routine (LFT/KFT)</span>
+<span class="text-on-surface-variant">52 mins (SLA: 60m)</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-emerald-500 h-2 rounded-full" style="width: 86%"></div>
+</div>
+</div>
+<!-- Turnaround Bar 3 -->
+<div class="space-y-1">
+<div class="flex justify-between text-body-sm">
+<span class="font-medium text-on-surface">STAT Troponin I / Cardiac</span>
+<span class="text-primary font-semibold">18 mins (SLA: 20m)</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<!-- Turnaround Bar 4 -->
+<div class="space-y-1">
+<div class="flex justify-between text-body-sm">
+<span class="font-medium text-on-surface">Pharmacy Rx Dispense Speed</span>
+<span class="text-on-surface-variant">8.4 mins avg</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-emerald-500 h-2 rounded-full" style="width: 70%"></div>
+</div>
+</div>
+<div class="pt-2 text-label-sm font-label-sm text-on-surface-variant flex items-center justify-between">
+<span>Overall Diagnostic Compliance:</span>
+<span class="text-emerald-700 font-bold">96.8%</span>
+</div>
+</div>
+<!-- Column 2: Staff On-Duty Summary -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-sm space-y-4">
+<div class="flex items-center justify-between pb-2 border-b border-[#E7E5E0]">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Shift Staffing Manifest</h3>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Morning Shift • 17 Active</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="text-label-sm font-label-sm text-on-surface-variant">Lab Technologists</div>
+<div class="text-headline-sm font-headline-sm text-on-surface mt-1">8 On Duty</div>
+<div class="text-label-sm font-label-sm text-emerald-700 mt-1">100% Present</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="text-label-sm font-label-sm text-on-surface-variant">Duty Pharmacists</div>
+<div class="text-headline-sm font-headline-sm text-on-surface mt-1">4 On Duty</div>
+<div class="text-label-sm font-label-sm text-emerald-700 mt-1">2 Dispense, 2 Verif</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="text-label-sm font-label-sm text-on-surface-variant">Pathologists</div>
+<div class="text-headline-sm font-headline-sm text-on-surface mt-1">2 On Duty</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant mt-1">Dr. Iyer, Dr. Sengupta</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="text-label-sm font-label-sm text-on-surface-variant">Phlebotomists</div>
+<div class="text-headline-sm font-headline-sm text-on-surface mt-1">3 On Duty</div>
+<div class="text-label-sm font-label-sm text-emerald-700 mt-1">Wing A, B, OPD</div>
+</div>
+</div>
+<!-- Staff Handover CTA -->
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">badge</span>
+<span>Next Shift Handover in <strong>6h 15m</strong></span>
+</div>
+<a class="text-primary font-semibold text-label-sm hover:underline" href="#roster">View Roster</a>
+</div>
+</div>
+<!-- Column 3: Recent Activity Stream & Action Required -->
+<div class="bg-surface-container-lowest border border-[#E7E5E0] rounded-xl p-5 shadow-sm space-y-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-2 border-b border-[#E7E5E0]">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Audit Trail &amp; Priority Flags</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">history</span>
+</div>
+<!-- Priority Action Alert Box -->
+<div class="my-3 p-3 rounded-xl bg-error-container/40 border border-error-container text-on-error-container space-y-1">
+<div class="flex items-center gap-1.5 font-semibold text-body-sm-medium">
+<span class="material-symbols-outlined text-base text-primary">priority_high</span>
+<span>Immediate Action Mandatory</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">
+                1 cold-chain vaccine storage fridge (+4°C) logged +6.2°C deviation in Pharmacy Wing B. Re-audit logged.
+              </p>
+</div>
+<!-- Activity Items -->
+<div class="space-y-3 text-body-sm">
+<div class="flex items-start gap-2.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500 mt-1.5"></span>
+<div>
+<div class="font-medium text-on-surface">Sample BC-881290 checked into Sysmex XN</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">08:44 IST • Tech: K. Verma</div>
+</div>
+</div>
+<div class="flex items-start gap-2.5">
+<span class="w-2 h-2 rounded-full bg-primary mt-1.5"></span>
+<div>
+<div class="font-medium text-on-surface">Critical Result Sent to ICU Attending (LAB-40904)</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">08:39 IST • Telephonic Log #4921</div>
+</div>
+</div>
+<div class="flex items-start gap-2.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500 mt-1.5"></span>
+<div>
+<div class="font-medium text-on-surface">Dispensed 30 ampoules Inj. Ceftriaxone to Ward 4B</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">08:28 IST • Pharmacist: A. Roy</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-3 border-t border-[#E7E5E0]">
+<button class="w-full py-2 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface hover:bg-surface-container text-label-md font-label-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Export Shift Audit PDF</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Bottom Operational Footer -->
+<footer class="pt-6 pb-8 border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between text-label-sm font-label-sm text-on-surface-variant gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">shield</span>
+<span>CityCare Multispecialty Hospital • MEDCARE Operations Suite v4.12.8-LTS</span>
+</div>
+<div class="flex items-center gap-4">
+<a class="hover:text-primary transition-colors" href="#compliance">HIPAA &amp; NABH Compliance Standard</a>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<a class="hover:text-primary transition-colors" href="#protocols">Emergency Disaster SOPs</a>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<a class="hover:text-primary transition-colors" href="#support">IT Helpdesk Ext: 4401</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

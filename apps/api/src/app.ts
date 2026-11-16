@@ -7,6 +7,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import * as path from 'path';
+import * as fs from 'fs';
 import { DomainStore } from './store.js';
 import { generateCorrelationId } from '@svasthnexis/observability';
 import { evaluateRbac, initiateAdminRemoval } from '@svasthnexis/policy-engine';
@@ -42,9 +43,19 @@ export function createApp(store: DomainStore) {
     });
   });
 
-  // Static files for Unified Portal UI
-  const publicDir = path.join(__dirname, 'public');
-  app.use(express.static(publicDir));
+  // Static files for Unified Portal UI: prefer compiled React SPA in apps/web/dist if present
+  const webDistDir = path.resolve(__dirname, '../../web/dist');
+  const legacyPublicDir = path.join(__dirname, 'public');
+  const activeStaticDir = fs.existsSync(webDistDir) ? webDistDir : legacyPublicDir;
+  app.use(express.static(activeStaticDir, {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.html')) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+      }
+    }
+  }));
 
   // Current domain state endpoint
   app.get('/api/v1/state', (_req: Request, res: Response) => {
@@ -778,7 +789,8 @@ export function createApp(store: DomainStore) {
   // =========================================================================
 
   app.post('/api/v1/admin/removal/initiate', (req: Request, res: Response) => {
-    const { targetAdminId, reason } = req.body;
+    const targetAdminId = req.body.targetAdminId || req.body.adminId;
+    const reason = req.body.reason;
     const targetAdmin = store.state.admins.find((a) => a.adminId === targetAdminId);
     if (!targetAdmin) {
       return res.status(404).json({ success: false, error: 'Admin record not found' });
@@ -792,6 +804,106 @@ export function createApp(store: DomainStore) {
     return res.status(200).json(result);
   });
 
+  app.post('/api/v1/admin/removal/cancel', (req: Request, res: Response) => {
+    const targetAdminId = req.body.targetAdminId || req.body.adminId;
+    const targetAdmin = store.state.admins.find((a) => a.adminId === targetAdminId);
+    if (!targetAdmin) {
+      return res.status(404).json({ success: false, error: 'Admin record not found' });
+    }
+    const idx = store.state.admins.findIndex((a) => a.adminId === targetAdminId);
+    store.state.admins[idx] = {
+      ...targetAdmin,
+      status: 'ACTIVE',
+      removalRequestedAt: undefined,
+      removalReason: undefined,
+      coolingOffEndsAt: undefined,
+    };
+    store.audit.log({
+      correlationId: `adm-cancel-${Date.now()}`,
+      action: 'ADMIN_REMOVAL_CANCELLED',
+      actorId: 'admin-001',
+      actorRole: 'PLATFORM_ADMIN',
+      resourceType: 'ADMIN',
+      resourceId: targetAdminId,
+      outcome: 'SUCCESS',
+      metadata: { reason: 'Cooling-off removal cancelled by administrator consensus' },
+    });
+    return res.status(200).json({ success: true, updatedAdmin: store.state.admins[idx] });
+  });
+
+  app.post('/api/v1/admin/onboard', (req: Request, res: Response) => {
+    const activeCount = store.state.admins.filter((a) => a.status === 'ACTIVE' || a.status === 'REMOVAL_REQUESTED').length;
+    if (activeCount >= 5) {
+      return res.status(400).json({
+        success: false,
+        error: 'Admin cap reached. Maximum 5 platform administrators allowed by Constitution ADR-001.',
+      });
+    }
+    const { adminId, userId, role } = req.body;
+    const newAdmin = {
+      adminId: adminId || `adm-00${store.state.admins.length + 1}`,
+      userId: userId || `usr-adm-0${store.state.admins.length + 1}`,
+      status: 'ACTIVE' as const,
+      appointedAt: new Date().toISOString(),
+      roles: [role || 'SUPER_ADMIN'],
+    };
+    store.state.admins.push(newAdmin);
+    store.audit.log({
+      correlationId: `adm-onboard-${Date.now()}`,
+      action: 'ADMIN_APPOINTED',
+      actorId: 'admin-001',
+      actorRole: 'PLATFORM_ADMIN',
+      resourceType: 'ADMIN',
+      resourceId: newAdmin.adminId,
+      outcome: 'SUCCESS',
+      metadata: { slot: store.state.admins.length, role: newAdmin.roles[0] },
+    });
+    return res.status(200).json({ success: true, admin: newAdmin, activeCount: store.state.admins.length });
+  });
+
+  app.post('/api/v1/admin/platform-mode', (req: Request, res: Response) => {
+    const { mode } = req.body;
+    (store.state as any).platformMode = mode || 'NORMAL_OPERATIONS';
+    store.audit.log({
+      correlationId: `adm-mode-${Date.now()}`,
+      action: 'PLATFORM_MODE_UPDATED',
+      actorId: 'admin-001',
+      actorRole: 'PLATFORM_ADMIN',
+      resourceType: 'PLATFORM',
+      resourceId: 'PLATFORM',
+      outcome: 'SUCCESS',
+      metadata: { mode },
+    });
+    return res.status(200).json({ success: true, mode: (store.state as any).platformMode });
+  });
+
+  app.post('/api/v1/facilities/create', (req: Request, res: Response) => {
+    const { name, city, totalBeds, type, nabhLevel } = req.body;
+    const newFacility = {
+      id: `fac-${Date.now().toString().slice(-4)}`,
+      name: name || 'New Multispecialty Center',
+      city: city || 'New Delhi, DL',
+      totalBeds: Number(totalBeds) || 150,
+      type: type || 'Super Specialty',
+      status: 'ACTIVE',
+      accreditation: nabhLevel || 'NABH Level 3',
+      departments: ['CARDIOLOGY', 'NEUROLOGY', 'ORTHOPEDICS', 'EMERGENCY'],
+      createdAt: new Date().toISOString(),
+    };
+    store.state.facilities.push(newFacility as any);
+    store.audit.log({
+      correlationId: `fac-create-${Date.now()}`,
+      action: 'FACILITY_ONBOARDED',
+      actorId: 'admin-001',
+      actorRole: 'PLATFORM_ADMIN',
+      resourceType: 'FACILITY',
+      resourceId: newFacility.id,
+      outcome: 'SUCCESS',
+      metadata: { name: newFacility.name, city: newFacility.city },
+    });
+    return res.status(200).json({ success: true, facility: newFacility });
+  });
+
   // =========================================================================
   // AUDIT LOG STREAM & INTEGRITY
   // =========================================================================
@@ -800,6 +912,22 @@ export function createApp(store: DomainStore) {
     const events = store.audit.getEvents();
     const integrity = store.audit.verifyChainIntegrity();
     res.json({ integrity, count: events.length, events });
+  });
+
+  // SPA Catch-all Route for client-side React routing
+  app.get('*', (req: Request, res: Response, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/health')) {
+      return next();
+    }
+    const indexPath = path.join(activeStaticDir, 'index.html');
+    if (fs.existsSync(indexPath)) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+      res.sendFile(indexPath);
+    } else {
+      res.status(404).send('Not Found');
+    }
   });
 
   return app;

@@ -42,6 +42,7 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.tsbuildinfo
 
 # Temporary / Scratch
 tmp/

@@ -10,11 +10,13 @@
   ],
   "scripts": {
     "build": "npm run --workspaces --if-present build",
+    "build:web": "npm run build --workspace=@svasthnexis/web",
     "start": "tsx apps/api/src/server.ts",
     "dev": "tsx watch apps/api/src/server.ts",
+    "dev:web": "npm run dev --workspace=@svasthnexis/web",
     "lint": "npm run --workspaces --if-present lint",
     "typecheck": "npm run --workspaces --if-present typecheck",
-    "test": "npm run test:unit && npm run test:integration",
+    "test": "npm run test:unit && npm run test:integration && npm run test:concurrency && npm run test:security",
     "test:unit": "vitest run --dir tests/unit",
     "test:integration": "vitest run --dir tests/integration",
     "test:concurrency": "vitest run --dir tests/concurrency",
@@ -36,6 +38,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@google/stitch-sdk": "^0.3.5",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "cors": "^2.8.6",

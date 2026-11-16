@@ -75,6 +75,22 @@ export class AuditLogEngine {
   }
 
   /**
+   * Alias for log() to support event logging payloads
+   */
+  public logEvent(input: any): StoredAuditEvent {
+    return this.log({
+      correlationId: input.correlationId || `evt-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`,
+      actorId: input.actorId || 'admin-001',
+      actorRole: (input.actorRole as UserRole) || 'PLATFORM_ADMIN',
+      action: input.action || 'system:event',
+      resourceType: input.resourceType || 'SYSTEM',
+      resourceId: input.targetId || input.resourceId || 'PLATFORM',
+      metadata: input.metadata,
+      outcome: input.outcome || 'SUCCESS',
+    });
+  }
+
+  /**
    * Retrieves all logged events (read-only)
    */
   public getEvents(): readonly StoredAuditEvent[] {

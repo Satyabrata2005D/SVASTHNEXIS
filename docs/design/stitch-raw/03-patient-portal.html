@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aegis Care - Family Health Portal Overview</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-container": "#ff5b47",
+            "surface": "#faf8ff",
+            "on-secondary-container": "#690001",
+            "on-error-container": "#93000a",
+            "secondary-container": "#fe6755",
+            "inverse-on-surface": "#eef0ff",
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-primary-fixed-variant": "#920603",
+            "surface-tint": "#b52619",
+            "on-primary-container": "#600000",
+            "primary-fixed-dim": "#ffb4a8",
+            "tertiary-fixed-dim": "#4edea3",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#00a874",
+            "on-primary": "#ffffff",
+            "on-primary-fixed": "#410000",
+            "primary-fixed": "#ffdad4",
+            "surface-bright": "#faf8ff",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#8d150d",
+            "surface-container-highest": "#dde1f8",
+            "outline-variant": "#e3beb8",
+            "surface-dim": "#d5d9ef",
+            "inverse-surface": "#2b3041",
+            "outline": "#8e706b",
+            "on-surface": "#161b2b",
+            "surface-container": "#ebedff",
+            "secondary-fixed": "#ffdad5",
+            "on-tertiary": "#ffffff",
+            "inverse-primary": "#ffb4a8",
+            "on-background": "#161b2b",
+            "surface-container-high": "#e3e7fe",
+            "tertiary": "#006c49",
+            "on-surface-variant": "#5a403c",
+            "primary": "#b52619",
+            "tertiary-fixed": "#6ffbbe",
+            "surface-variant": "#dde1f8",
+            "surface-container-low": "#f2f3ff",
+            "on-secondary-fixed": "#410000",
+            "background": "#faf8ff",
+            "on-tertiary-fixed": "#002113",
+            "secondary": "#af2f22",
+            "on-tertiary-container": "#003421",
+            "on-tertiary-fixed-variant": "#005236",
+            "secondary-fixed-dim": "#ffb4a8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-desktop": "2rem",
+            "gutter": "1.25rem",
+            "margin-mobile": "1rem",
+            "margin": "1.5rem",
+            "space-lg": "1.25rem",
+            "space-md": "0.75rem",
+            "gutter-mobile": "0.75rem",
+            "space-sm": "0.5rem",
+            "space-xl": "1.75rem",
+            "space-xs": "0.25rem",
+            "gutter-desktop": "1.5rem"
+          },
+          "fontFamily": {
+            "body-md-medium": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-sm-medium": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "metric-display": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-md-medium": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm-medium": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "metric-display": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #F8F7F3;
+      color: #171C2C;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .hero-banner-gradient {
+      background: linear-gradient(110deg, #F9EBE8 0%, #F4EEF0 50%, #EEF0F4 100%);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #E7E5E0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- ========================================================================= -->
+<!-- 1. FIXED LEFT SIDEBAR (SideNavBar Component Execution)                   -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm dark:shadow-none z-50">
+<div class="h-full flex flex-col justify-between py-6 px-4 overflow-y-auto custom-scroll">
+<div>
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-2 mb-6">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-white text-xl" data-icon="local_hospital">local_hospital</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-inverse-on-surface tracking-tight">Aegis Care</span>
+<span class="text-label-sm font-label-sm text-outline">Family Health Portal</span>
+</div>
+</div>
+<!-- Emergency SOS Primary Quick Action -->
+<div class="mb-5 px-1">
+<a class="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-lg bg-primary text-on-primary hover:bg-secondary font-label-md text-label-md transition-colors shadow-sm" href="#emergency">
+<span class="material-symbols-outlined text-base" data-icon="e911_emergency" style="font-variation-settings: 'FILL' 1;">e911_emergency</span>
+<span>Emergency SOS</span>
+</a>
+</div>
+<!-- Section Navigation Tabs (12 exact tabs from JSON) -->
+<nav aria-label="Main Navigation" class="space-y-1">
+<!-- Active: Overview -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-low dark:bg-surface-container text-primary dark:text-primary-fixed font-body-md-medium text-body-md-medium border-l-4 border-primary" href="#overview">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<!-- Find Hospitals -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#find-hospitals">
+<span class="material-symbols-outlined" data-icon="local_hospital">local_hospital</span>
+<span>Find Hospitals</span>
+</a>
+<!-- Find Doctors -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#find-doctors">
+<span class="material-symbols-outlined" data-icon="stethoscope">stethoscope</span>
+<span>Find Doctors</span>
+</a>
+<!-- Appointments -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#appointments">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span>Appointments</span>
+</a>
+<!-- My Health Records -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#records">
+<span class="material-symbols-outlined" data-icon="folder_shared">folder_shared</span>
+<span>My Health Records</span>
+</a>
+<!-- Prescriptions -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#prescriptions">
+<span class="material-symbols-outlined" data-icon="prescriptions">prescriptions</span>
+<span>Prescriptions</span>
+</a>
+<!-- Lab Reports -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#lab-reports">
+<span class="material-symbols-outlined" data-icon="clinical_notes">clinical_notes</span>
+<span>Lab Reports</span>
+</a>
+<!-- Family & Dependents -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#family">
+<span class="material-symbols-outlined" data-icon="family_restroom">family_restroom</span>
+<span>Family &amp; Dependents</span>
+</a>
+<!-- Consent & Sharing -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#consent">
+<span class="material-symbols-outlined" data-icon="lock_person">lock_person</span>
+<span>Consent &amp; Sharing</span>
+</a>
+<!-- Teleconsultation -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#teleconsultation">
+<span class="material-symbols-outlined" data-icon="video_camera_front">video_camera_front</span>
+<span>Teleconsultation</span>
+</a>
+<!-- Payments & Insurance -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#payments">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+<span>Payments &amp; Insurance</span>
+</a>
+<!-- Reminders -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-md text-body-md hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors" href="#reminders">
+<span class="material-symbols-outlined" data-icon="notification_important">notification_important</span>
+<span>Reminders</span>
+</a>
+</nav>
+</div>
+<!-- Footer Navigation Items (JSON items) -->
+<div class="pt-4 border-t border-outline-variant dark:border-outline space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-sm text-body-sm hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface transition-colors" href="#help">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span>
+<span>Help &amp; Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-outline-variant font-body-sm text-body-sm hover:bg-surface-container-low dark:hover:bg-surface-container hover:text-on-surface transition-colors" href="#settings">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. TOP NAVBAR (TopNavBar Component Execution)                            -->
+<!-- ========================================================================= -->
+<header class="sticky top-0 right-0 z-40 w-full pl-64 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-16 px-8 max-w-full">
+<!-- Search on Left with Breadcrumbs context -->
+<div class="flex items-center gap-6 flex-1 max-w-2xl">
+<div class="hidden xl:flex items-center text-label-sm font-label-sm text-outline gap-1.5 whitespace-nowrap">
+<span>Patient Portal</span>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface font-label-md">Overview</span>
+</div>
+<div class="relative w-full max-w-md">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</span>
+<input class="w-full h-10 pl-10 pr-4 text-body-sm font-body-sm rounded-lg bg-[#F1F0EC] border border-[#E7E5E0] text-on-surface placeholder:text-outline focus:bg-white focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none" placeholder="Search hospitals, doctors, departments..." type="search"/>
+</div>
+</div>
+<!-- Trailing Controls: Profile Selector, Actions, Translation & Notifications -->
+<div class="flex items-center gap-4">
+<!-- Family Profile Selector Component -->
+<div class="relative">
+<button class="flex items-center gap-2.5 px-3 py-1.5 rounded-lg border border-[#E7E5E0] bg-white hover:bg-[#F1F0EC] transition-colors text-left shadow-xs" id="profileSwitcherBtn">
+<span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
+<div class="flex flex-col text-left">
+<span class="text-[10px] uppercase tracking-wider text-outline font-label-sm">Active Profile</span>
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface flex items-center gap-1">
+                Satyabrata Das (Self)
+                <span class="material-symbols-outlined text-sm text-outline" data-icon="expand_more">expand_more</span>
+</span>
+</div>
+</button>
+</div>
+<!-- Language Switcher: English -->
+<button class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-body-sm-medium font-body-sm-medium text-on-surface-variant hover:bg-surface-container-low transition-colors" title="Switch Language">
+<span class="material-symbols-outlined text-lg" data-icon="translate">translate</span>
+<span>English</span>
+</button>
+<!-- Notification Bell with Badge -->
+<button aria-label="Notifications" class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-primary-container rounded-full ring-2 ring-white"></span>
+</button>
+<!-- User Profile Pill -->
+<div class="flex items-center gap-3 pl-3 border-l border-[#E7E5E0]">
+<div class="w-9 h-9 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-headline-sm font-semibold">
+            SD
+          </div>
+<div class="hidden lg:flex flex-col">
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Satyabrata Das</span>
+<span class="text-[11px] text-outline">Primary Holder</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 3. MAIN DASHBOARD CONTENT AREA                                            -->
+<!-- ========================================================================= -->
+<main class="pl-64 flex-1 pb-16">
+<div class="max-w-[1440px] mx-auto px-8 pt-6 space-y-7">
+<!-- HERO BANNER SECTION -->
+<section class="hero-banner-gradient rounded-xl border border-[#E7E5E0] p-6 lg:p-7 shadow-xs">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="max-w-3xl space-y-2">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                Portal Verified ID: AG-9028-IN
+              </span>
+<span class="text-outline text-label-sm font-label-sm">Updated 12 mins ago</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface">
+              Good Morning, Satyabrata!
+            </h1>
+<p class="text-body-md font-body-md text-outline">
+              Take control of your healthcare journey. Manage your appointments, medical records and your family's healthcare in one secure place.
+            </p>
+<!-- Status badges: profile completion & next appointment ticker -->
+<div class="pt-2 flex flex-wrap items-center gap-3">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/80 border border-[#E7E5E0] text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-base" data-icon="task_alt">task_alt</span>
+<span>Profile: <strong class="font-body-sm-medium text-on-surface">92% Complete</strong></span>
+<span class="text-[11px] text-primary underline cursor-pointer hover:opacity-80">Add Insurance Card</span>
+</div>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/80 border border-[#E7E5E0] text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[#10B981] text-base" data-icon="event_available">event_available</span>
+<span>Next: <strong class="font-body-sm-medium">Tomorrow, 10:30 AM</strong> with Dr. Ananya Sen</span>
+</div>
+</div>
+</div>
+<!-- Hero Actions -->
+<div class="flex flex-row sm:flex-col lg:flex-row gap-3 items-center">
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container text-white font-body-md-medium text-body-md-medium hover:bg-secondary transition-all shadow-sm" href="#appointments">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_add_on">calendar_add_on</span>
+<span>+ Book Appointment</span>
+</a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-[#E7E5E0] text-on-surface font-body-md-medium text-body-md-medium hover:bg-[#F1F0EC] transition-all" href="#find-doctors">
+<span class="material-symbols-outlined text-lg" data-icon="person_search">person_search</span>
+<span>Find a Doctor</span>
+</a>
+</div>
+</div>
+</section>
+<!-- 4 KPI SUMMARY CARDS -->
+<section aria-label="Key Medical Metrics" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+<!-- KPI 1: Upcoming Appointments -->
+<div class="bg-white rounded-xl border border-[#E7E5E0] p-5 shadow-xs flex flex-col justify-between hover:border-[#D1CFCA] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Upcoming Appointments</span>
+<div class="w-8 h-8 rounded-lg bg-[#F1F0EC] flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_today">calendar_today</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-metric-display font-metric-display text-on-surface">2</span>
+<span class="text-body-sm font-body-sm text-outline">scheduled</span>
+</div>
+<div class="mt-2 text-body-sm font-body-sm text-on-surface">
+              Next: <span class="font-body-sm-medium">Oct 25 at 10:30 AM</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#F1F0EC] flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+              Confirmed
+            </span>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#appointments">View Schedule →</a>
+</div>
+</div>
+<!-- KPI 2: Medical Records -->
+<div class="bg-white rounded-xl border border-[#E7E5E0] p-5 shadow-xs flex flex-col justify-between hover:border-[#D1CFCA] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Medical Records</span>
+<div class="w-8 h-8 rounded-lg bg-[#F1F0EC] flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="description">description</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-metric-display font-metric-display text-on-surface">24</span>
+<span class="text-body-sm font-body-sm text-outline">documents</span>
+</div>
+<div class="mt-2 text-body-sm font-body-sm text-on-surface">
+              EHR Sync: <span class="font-body-sm-medium text-[#10B981]">Fully Synchronized</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#F1F0EC] flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#F1F4F9] border border-[#E2E7F0] text-[#4B5563] text-label-sm font-label-sm">
+              Verified by Hospital EHR
+            </span>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#records">All Records →</a>
+</div>
+</div>
+<!-- KPI 3: Family Profiles -->
+<div class="bg-white rounded-xl border border-[#E7E5E0] p-5 shadow-xs flex flex-col justify-between hover:border-[#D1CFCA] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Family Profiles</span>
+<div class="w-8 h-8 rounded-lg bg-[#F1F0EC] flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="groups">groups</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-metric-display font-metric-display text-on-surface">3</span>
+<span class="text-body-sm font-body-sm text-outline">active accounts</span>
+</div>
+<div class="mt-2 text-body-sm font-body-sm text-on-surface">
+              Spouse &amp; Dependent Father
+            </div>
+</div>
+<div class="pt-2 border-t border-[#F1F0EC] flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+              Authorized
+            </span>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#family">Manage →</a>
+</div>
+</div>
+<!-- KPI 4: Pending Health Actions -->
+<div class="bg-white rounded-xl border border-[#E7E5E0] p-5 shadow-xs flex flex-col justify-between hover:border-[#D1CFCA] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Pending Health Actions</span>
+<div class="w-8 h-8 rounded-lg bg-[#FEF8E8] flex items-center justify-center text-[#B88700]">
+<span class="material-symbols-outlined text-lg" data-icon="pending_actions">pending_actions</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-metric-display font-metric-display text-on-surface">3</span>
+<span class="text-body-sm font-body-sm text-[#B88700]">action items</span>
+</div>
+<div class="mt-2 text-body-sm font-body-sm text-on-surface">
+              1 Report • 1 Consent • 1 Vaccine
+            </div>
+</div>
+<div class="pt-2 border-t border-[#F1F0EC] flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#FEF8E8] border border-[#FBC024]/30 text-[#B88700] text-label-sm font-label-sm">
+              Review Required
+            </span>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#reminders">Complete →</a>
+</div>
+</div>
+</section>
+<!-- QUICK HEALTHCARE ACTIONS (6 Bento Cards) -->
+<section aria-labelledby="quick-actions-heading">
+<div class="flex items-center justify-between mb-3.5">
+<h2 class="text-headline-sm font-headline-sm text-on-surface" id="quick-actions-heading">
+            Quick Healthcare Actions
+          </h2>
+<span class="text-body-sm font-body-sm text-outline">Frequently accessed services</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
+<!-- 1. Find Hospital -->
+<a class="bg-white p-4 rounded-xl border border-[#E7E5E0] hover:border-primary hover:shadow-sm transition-all group flex flex-col items-center text-center" href="#find-hospitals">
+<div class="w-11 h-11 rounded-lg bg-[#F8F7F3] group-hover:bg-primary-fixed flex items-center justify-center text-on-surface group-hover:text-primary transition-colors mb-2.5">
+<span class="material-symbols-outlined text-2xl" data-icon="local_hospital">local_hospital</span>
+</div>
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Find a Hospital</span>
+<span class="text-[11px] text-outline mt-0.5">Emergency &amp; General</span>
+</a>
+<!-- 2. Find Doctor -->
+<a class="bg-white p-4 rounded-xl border border-[#E7E5E0] hover:border-primary hover:shadow-sm transition-all group flex flex-col items-center text-center" href="#find-doctors">
+<div class="w-11 h-11 rounded-lg bg-[#F8F7F3] group-hover:bg-primary-fixed flex items-center justify-center text-on-surface group-hover:text-primary transition-colors mb-2.5">
+<span class="material-symbols-outlined text-2xl" data-icon="stethoscope">stethoscope</span>
+</div>
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Find a Doctor</span>
+<span class="text-[11px] text-outline mt-0.5">Top Specialists</span>
+</a>
+<!-- 3. Book Appointment (Highlighted with Coral Border & Tint) -->
+<a class="bg-[#FFF8F7] p-4 rounded-xl border-2 border-primary-container shadow-xs hover:bg-[#FFEFEB] transition-all group flex flex-col items-center text-center" href="#appointments">
+<div class="w-11 h-11 rounded-lg bg-primary-container flex items-center justify-center text-white mb-2.5 shadow-xs">
+<span class="material-symbols-outlined text-2xl" data-icon="event_available">event_available</span>
+</div>
+<span class="text-body-sm-medium font-body-sm-medium text-primary">Book Appointment</span>
+<span class="text-[11px] text-primary/80 mt-0.5 font-medium">OPD &amp; Video</span>
+</a>
+<!-- 4. Upload Medical Reports -->
+<a class="bg-white p-4 rounded-xl border border-[#E7E5E0] hover:border-primary hover:shadow-sm transition-all group flex flex-col items-center text-center" href="#records">
+<div class="w-11 h-11 rounded-lg bg-[#F8F7F3] group-hover:bg-primary-fixed flex items-center justify-center text-on-surface group-hover:text-primary transition-colors mb-2.5">
+<span class="material-symbols-outlined text-2xl" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Upload Reports</span>
+<span class="text-[11px] text-outline mt-0.5">Scans &amp; Lab Slips</span>
+</a>
+<!-- 5. Start Online Consultation -->
+<a class="bg-white p-4 rounded-xl border border-[#E7E5E0] hover:border-primary hover:shadow-sm transition-all group flex flex-col items-center text-center" href="#teleconsultation">
+<div class="w-11 h-11 rounded-lg bg-[#F8F7F3] group-hover:bg-primary-fixed flex items-center justify-center text-on-surface group-hover:text-primary transition-colors mb-2.5">
+<span class="material-symbols-outlined text-2xl" data-icon="videocam">videocam</span>
+</div>
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Teleconsultation</span>
+<span class="text-[11px] text-outline mt-0.5">Live Secure Room</span>
+</a>
+<!-- 6. Manage Family Members -->
+<a class="bg-white p-4 rounded-xl border border-[#E7E5E0] hover:border-primary hover:shadow-sm transition-all group flex flex-col items-center text-center" href="#family">
+<div class="w-11 h-11 rounded-lg bg-[#F8F7F3] group-hover:bg-primary-fixed flex items-center justify-center text-on-surface group-hover:text-primary transition-colors mb-2.5">
+<span class="material-symbols-outlined text-2xl" data-icon="manage_accounts">manage_accounts</span>
+</div>
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Family Profiles</span>
+<span class="text-[11px] text-outline mt-0.5">3 Active Members</span>
+</a>
+</div>
+</section>
+<!-- AI-POWERED HEALTHCARE NAVIGATION CARD -->
+<section aria-labelledby="ai-navigator-title" class="bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs relative overflow-hidden">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl" data-icon="smart_toy">smart_toy</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2" id="ai-navigator-title">
+                Healthcare Assistant &amp; Department Navigator
+                <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-surface-container-high text-primary">
+                  Smart Triage Guide
+                </span>
+</h2>
+<p class="text-body-sm font-body-sm text-outline">
+                Not sure which medical department or healthcare service to explore? Tell us what kind of care you are looking for.
+              </p>
+</div>
+</div>
+</div>
+<!-- Input & Search Field -->
+<div class="flex flex-col sm:flex-row gap-3 mb-3">
+<div class="relative flex-1">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-xl" data-icon="bubble_chart">bubble_chart</span>
+</span>
+<input class="w-full h-11 pl-11 pr-4 rounded-lg bg-[#F1F0EC] border border-[#E7E5E0] text-body-md font-body-md text-on-surface placeholder:text-outline focus:bg-white focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none" placeholder="Describe symptoms or care needed (e.g., persistent joint pain or child fever)..." type="text"/>
+</div>
+<button class="h-11 px-6 rounded-lg bg-primary-container hover:bg-secondary text-white font-body-md-medium text-body-md-medium transition-colors flex items-center justify-center gap-2 shadow-xs whitespace-nowrap">
+<span class="material-symbols-outlined text-lg" data-icon="explore">explore</span>
+<span>Explore Healthcare Options</span>
+</button>
+</div>
+<!-- Suggestion Chips -->
+<div class="flex flex-wrap items-center gap-2 mb-3">
+<span class="text-label-sm font-label-sm text-outline">Common departments:</span>
+<button class="px-2.5 py-1 rounded-full bg-[#F1F4F9] hover:bg-[#E2E7F0] text-on-surface text-label-sm font-label-sm transition-colors border border-[#E2E7F0]">
+            General Medicine
+          </button>
+<button class="px-2.5 py-1 rounded-full bg-[#F1F4F9] hover:bg-[#E2E7F0] text-on-surface text-label-sm font-label-sm transition-colors border border-[#E2E7F0]">
+            Cardiology
+          </button>
+<button class="px-2.5 py-1 rounded-full bg-[#F1F4F9] hover:bg-[#E2E7F0] text-on-surface text-label-sm font-label-sm transition-colors border border-[#E2E7F0]">
+            Dermatology
+          </button>
+<button class="px-2.5 py-1 rounded-full bg-[#F1F4F9] hover:bg-[#E2E7F0] text-on-surface text-label-sm font-label-sm transition-colors border border-[#E2E7F0]">
+            Neurology
+          </button>
+<button class="px-2.5 py-1 rounded-full bg-[#F1F4F9] hover:bg-[#E2E7F0] text-on-surface text-label-sm font-label-sm transition-colors border border-[#E2E7F0]">
+            Orthopaedics
+          </button>
+<button class="px-2.5 py-1 rounded-full bg-[#F1F4F9] hover:bg-[#E2E7F0] text-on-surface text-label-sm font-label-sm transition-colors border border-[#E2E7F0]">
+            Paediatrics
+          </button>
+</div>
+<!-- Strict Legal Disclaimer -->
+<div class="flex items-start gap-2 pt-2 border-t border-[#F1F0EC] text-outline text-[11px] leading-relaxed">
+<span class="material-symbols-outlined text-sm mt-0.5 text-outline" data-icon="info">info</span>
+<span><strong>Medical Notice:</strong> AI-assisted navigation helps you explore healthcare services. It does not diagnose medical conditions, provide medical counselling or prescribe treatment. For urgent distress, please trigger SOS or call 108 immediately.</span>
+</div>
+</section>
+<!-- TWO COLUMN SECTION: UPCOMING APPOINTMENTS & TELECONSULTATION QUICK ROOM -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+<!-- Left Column: Upcoming Appointments (7 cols) -->
+<section class="lg:col-span-7 bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="appointments">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Upcoming Appointments</h2>
+<p class="text-body-sm font-body-sm text-outline">Manage schedule &amp; view visit directives</p>
+</div>
+<a class="text-body-sm-medium font-body-sm-medium text-primary hover:underline flex items-center gap-1" href="#all-appointments">
+              View All (2)
+              <span class="material-symbols-outlined text-base" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+<div class="space-y-3.5">
+<!-- Appointment 1: In-Person (Dr. Ananya Sen) -->
+<div class="p-4 rounded-xl border border-[#E7E5E0] hover:border-outline-variant transition-all bg-[#FAF9F6]">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-white border border-[#E7E5E0] flex items-center justify-center text-primary font-bold text-base shadow-xs shrink-0">
+                    AS
+                  </div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-body-md-medium font-body-md-medium text-on-surface">Dr. Ananya Sen, MD</h3>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                        Confirmed
+                      </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline">General Medicine • CityCare Multispecialty Hospital</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-body-sm font-body-sm text-on-surface">
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-base text-outline" data-icon="calendar_today">calendar_today</span>
+                        Tomorrow, Oct 24 • 10:30 AM
+                      </span>
+<span class="flex items-center gap-1 text-outline">
+<span class="material-symbols-outlined text-base text-outline" data-icon="pin_drop">pin_drop</span>
+                        OPD Block B, 2nd Floor, Room 204
+                      </span>
+</div>
+</div>
+</div>
+<div class="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#F1F4F9] text-[#4B5563] text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="domain">domain</span>
+                    In-Person OPD
+                  </span>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-[#E7E5E0] bg-white hover:bg-[#F1F0EC] text-body-sm font-body-sm text-on-surface transition-colors">
+                      Reschedule
+                    </button>
+<button class="p-1.5 rounded-lg text-outline hover:text-on-surface" title="Directions">
+<span class="material-symbols-outlined" data-icon="directions">directions</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Appointment 2: Teleconsult (Dr. Rahul Mehta) -->
+<div class="p-4 rounded-xl border border-[#E7E5E0] hover:border-outline-variant transition-all bg-white">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-white border border-[#E7E5E0] flex items-center justify-center text-on-surface font-bold text-base shadow-xs shrink-0">
+                    RM
+                  </div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-body-md-medium font-body-md-medium text-on-surface">Dr. Rahul Mehta, DVD</h3>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                        Confirmed
+                      </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline">Dermatology • GreenLife Health Clinic</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-body-sm font-body-sm text-on-surface">
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-base text-outline" data-icon="calendar_today">calendar_today</span>
+                        Friday, Oct 27 • 04:00 PM
+                      </span>
+<span class="flex items-center gap-1 text-outline">
+<span class="material-symbols-outlined text-base text-outline" data-icon="videocam">videocam</span>
+                        Encrypted Video Teleconsultation
+                      </span>
+</div>
+</div>
+</div>
+<div class="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#EAF8F1] text-[#10B981] text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="video_camera_front">video_camera_front</span>
+                    Video Consult
+                  </span>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-[#E7E5E0] bg-white hover:bg-[#F1F0EC] text-body-sm font-body-sm text-on-surface transition-colors">
+                      Reschedule
+                    </button>
+<a class="px-3 py-1.5 rounded-lg bg-primary-container text-white text-body-sm font-body-sm-medium hover:bg-secondary transition-colors" href="#teleconsultation">
+                      Join Room
+                    </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Teleconsultation & Audio/Video Check Room (5 cols) -->
+<section class="lg:col-span-5 bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs flex flex-col justify-between" id="teleconsultation">
+<div>
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="video_call">video_call</span>
+                Teleconsult Ready Room
+              </h2>
+<span class="text-label-sm font-label-sm text-[#10B981] bg-[#EAF8F1] px-2 py-0.5 rounded-full border border-[#10B981]/20">
+                Network: Strong 48ms
+              </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mb-4">
+              Join upcoming encrypted consultations directly with high-definition audio and prescription syncing.
+            </p>
+<!-- Video Preview / Equipment Test Module -->
+<div class="rounded-xl border border-[#E7E5E0] p-4 bg-[#FAF9F6] mb-4">
+<div class="flex items-center justify-between mb-3">
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Equipment Readiness Check</span>
+<span class="text-label-sm font-label-sm text-[#10B981]">3 / 3 Ready</span>
+</div>
+<div class="grid grid-cols-3 gap-2 text-center">
+<div class="p-2 bg-white rounded-lg border border-[#E7E5E0]">
+<span class="material-symbols-outlined text-[#10B981] text-base" data-icon="videocam">videocam</span>
+<div class="text-[11px] font-label-sm text-on-surface mt-1">HD Camera</div>
+<div class="text-[10px] text-[#10B981]">Active</div>
+</div>
+<div class="p-2 bg-white rounded-lg border border-[#E7E5E0]">
+<span class="material-symbols-outlined text-[#10B981] text-base" data-icon="mic">mic</span>
+<div class="text-[11px] font-label-sm text-on-surface mt-1">Microphone</div>
+<div class="text-[10px] text-[#10B981]">Passed</div>
+</div>
+<div class="p-2 bg-white rounded-lg border border-[#E7E5E0]">
+<span class="material-symbols-outlined text-[#10B981] text-base" data-icon="volume_up">volume_up</span>
+<div class="text-[11px] font-label-sm text-on-surface mt-1">Speakers</div>
+<div class="text-[10px] text-[#10B981]">Passed</div>
+</div>
+</div>
+</div>
+<!-- Consultation History Snippet -->
+<div class="text-body-sm font-body-sm text-outline space-y-2">
+<div class="flex justify-between items-center py-1 border-b border-[#F1F0EC]">
+<span class="text-on-surface">Dr. Rahul Mehta • Oct 27, 4:00 PM</span>
+<span class="font-body-sm-medium text-primary">In 3 Days</span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span class="text-outline">Past: Dr. S. K. Roy (Cardiology)</span>
+<span class="text-outline text-label-sm font-label-sm">Sep 18 • Summary Saved</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-[#F1F0EC] flex items-center justify-between">
+<button class="text-body-sm-medium font-body-sm-medium text-outline hover:text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="tune">tune</span>
+              Test Audio &amp; Video
+            </button>
+<a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-body-sm-medium font-body-sm-medium text-on-surface transition-colors" href="#teleconsultation-hub">
+              Open Consultation Room
+            </a>
+</div>
+</section>
+</div>
+<!-- PERSONAL HEALTH RECORDS TABLE SECTION -->
+<section class="bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="records">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Personal Health Records</h2>
+<p class="text-body-sm font-body-sm text-outline">Verified medical documents, radiology, and laboratory records</p>
+</div>
+<div class="flex items-center gap-2.5">
+<button class="px-3.5 py-2 rounded-lg bg-primary-container text-white text-body-sm-medium font-body-sm-medium hover:bg-secondary transition-colors inline-flex items-center gap-1.5 shadow-xs">
+<span class="material-symbols-outlined text-base" data-icon="upload_file">upload_file</span>
+<span>+ Upload New Document</span>
+</button>
+<button class="p-2 rounded-lg border border-[#E7E5E0] text-outline hover:text-on-surface hover:bg-[#F1F0EC] transition-colors" title="Filter Records">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto rounded-lg border border-[#E7E5E0]">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#F8F7F3] border-b border-[#E7E5E0] h-11 text-label-sm font-label-sm text-outline">
+<th class="py-2.5 px-4 font-semibold">Document Name &amp; Category</th>
+<th class="py-2.5 px-4 font-semibold">Provider / Source</th>
+<th class="py-2.5 px-4 font-semibold">Verification Date</th>
+<th class="py-2.5 px-4 font-semibold">Status</th>
+<th class="py-2.5 px-4 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#F1F0EC] text-body-sm font-body-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-[#FAF9F6] transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#EAF8F1] text-[#10B981] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="lab_profile">lab_profile</span>
+</div>
+<div>
+<div class="font-body-md-medium text-on-surface">Annual Comprehensive Metabolic Panel</div>
+<div class="text-[11px] text-outline">Pathology • Blood Chemistry • PDF (1.4 MB)</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 text-on-surface">CityCare Diagnostic Laboratory</td>
+<td class="py-3.5 px-4 text-outline">Oct 22, 2024</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                    Verified EHR
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-2">
+<button class="px-2.5 py-1 rounded text-body-sm-medium text-primary hover:bg-surface-container-low transition-colors">
+                      View Document
+                    </button>
+<button class="p-1 text-outline hover:text-on-surface" title="Download">
+<span class="material-symbols-outlined text-base" data-icon="download">download</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#FAF9F6] transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#FEF8E8] text-[#B88700] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="prescriptions">prescriptions</span>
+</div>
+<div>
+<div class="font-body-md-medium text-on-surface">Cardiology Follow-up Prescription</div>
+<div class="text-[11px] text-outline">Dr. S. K. Roy • Active Medication • PDF (620 KB)</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 text-on-surface">Apollo Heart Institute</td>
+<td class="py-3.5 px-4 text-outline">Oct 14, 2024</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                    Active Rx
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-2">
+<button class="px-2.5 py-1 rounded text-body-sm-medium text-primary hover:bg-surface-container-low transition-colors">
+                      View Document
+                    </button>
+<button class="p-1 text-outline hover:text-on-surface" title="Download">
+<span class="material-symbols-outlined text-base" data-icon="download">download</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#FAF9F6] transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#F1F4F9] text-[#4B5563] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="radiology">radiology</span>
+</div>
+<div>
+<div class="font-body-md-medium text-on-surface">Chest X-Ray Digital Imaging (PA View)</div>
+<div class="text-[11px] text-outline">Radiology • DICOM + Report • ZIP (14.2 MB)</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 text-on-surface">Metro Imaging Center</td>
+<td class="py-3.5 px-4 text-outline">Oct 05, 2024</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#F1F4F9] border border-[#E2E7F0] text-[#4B5563] text-label-sm font-label-sm">
+                    Archived
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-2">
+<button class="px-2.5 py-1 rounded text-body-sm-medium text-primary hover:bg-surface-container-low transition-colors">
+                      View Document
+                    </button>
+<button class="p-1 text-outline hover:text-on-surface" title="Download">
+<span class="material-symbols-outlined text-base" data-icon="download">download</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-3.5 flex items-center justify-between text-body-sm font-body-sm text-outline">
+<span>Showing 3 of 24 records • HIPAA &amp; NDHM Sandboxed</span>
+<a class="font-body-sm-medium text-primary hover:underline" href="#all-records">Explore Document Repository →</a>
+</div>
+</section>
+<!-- FAMILY HEALTH MANAGEMENT (SANDBOXED ACCESS) -->
+<section class="bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="family">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2">
+              Family Health Management
+              <span class="material-symbols-outlined text-outline text-lg" data-icon="shield">shield</span>
+</h2>
+<p class="text-body-sm font-body-sm text-outline">Multi-dependent healthcare federation with separate encrypted health vaults</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3 py-1.5 rounded-lg border border-[#E7E5E0] bg-white hover:bg-[#F1F0EC] text-body-sm-medium font-body-sm-medium text-on-surface transition-colors">
+              Manage Guardian Permissions
+            </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-white text-body-sm-medium font-body-sm-medium hover:bg-secondary transition-colors inline-flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-base" data-icon="person_add">person_add</span>
+<span>+ Add Member</span>
+</button>
+</div>
+</div>
+<!-- Family Profile Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Member 1: Satyabrata Das (Self) -->
+<div class="p-4 rounded-xl border-2 border-primary-container bg-[#FFF8F7] relative">
+<span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider text-primary bg-primary-fixed px-2 py-0.5 rounded">
+              Active Session
+            </span>
+<div class="flex items-center gap-3 mb-3">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-white flex items-center justify-center font-bold text-lg shadow-xs">
+                SD
+              </div>
+<div>
+<div class="font-body-md-medium text-on-surface">Satyabrata Das</div>
+<div class="text-label-sm font-label-sm text-outline">Self • Primary Account</div>
+</div>
+</div>
+<div class="space-y-1.5 text-body-sm font-body-sm pt-2 border-t border-[#F1E0DC]">
+<div class="flex justify-between">
+<span class="text-outline">Health ID:</span>
+<span class="font-body-sm-medium text-on-surface">91-4902-8821</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Active Prescriptions:</span>
+<span class="font-body-sm-medium text-on-surface">2 Active</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Next Review:</span>
+<span class="font-body-sm-medium text-primary">Tomorrow, 10:30 AM</span>
+</div>
+</div>
+</div>
+<!-- Member 2: Aparna Das (Spouse) -->
+<div class="p-4 rounded-xl border border-[#E7E5E0] bg-white hover:border-[#D1CFCA] transition-all">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-[#F4EEF0] text-secondary flex items-center justify-center font-bold text-lg">
+                  AD
+                </div>
+<div>
+<div class="font-body-md-medium text-on-surface">Aparna Das</div>
+<div class="text-label-sm font-label-sm text-outline">Spouse • Full Access Authorized</div>
+</div>
+</div>
+</div>
+<div class="space-y-1.5 text-body-sm font-body-sm pt-2 border-t border-[#F1F0EC]">
+<div class="flex justify-between">
+<span class="text-outline">Health ID:</span>
+<span class="font-body-sm-medium text-on-surface">91-8840-1092</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Active Prescriptions:</span>
+<span class="font-body-sm-medium text-on-surface">1 Active (Thyroid)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Next Checkup:</span>
+<span class="font-body-sm-medium text-on-surface">Nov 12, 2024</span>
+</div>
+</div>
+<div class="mt-3 pt-2 flex items-center justify-between">
+<button class="text-label-sm font-label-sm text-primary hover:underline">Switch to Aparna's Vault →</button>
+<span class="material-symbols-outlined text-outline text-base" data-icon="lock_open">lock_open</span>
+</div>
+</div>
+<!-- Member 3: Debabrata Das (Father - Senior Dependent) -->
+<div class="p-4 rounded-xl border border-[#E7E5E0] bg-white hover:border-[#D1CFCA] transition-all">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-[#EEF0F4] text-on-surface flex items-center justify-center font-bold text-lg">
+                  DD
+                </div>
+<div>
+<div class="font-body-md-medium text-on-surface">Debabrata Das</div>
+<div class="text-label-sm font-label-sm text-outline">Father • Senior Dependent</div>
+</div>
+</div>
+</div>
+<div class="space-y-1.5 text-body-sm font-body-sm pt-2 border-t border-[#F1F0EC]">
+<div class="flex justify-between">
+<span class="text-outline">Health ID:</span>
+<span class="font-body-sm-medium text-on-surface">91-2309-4419</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Active Prescriptions:</span>
+<span class="font-body-sm-medium text-[#B88700]">4 Active (Hypertension)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Upcoming Action:</span>
+<span class="font-body-sm-medium text-[#B88700]">Fasting Glucose Due</span>
+</div>
+</div>
+<div class="mt-3 pt-2 flex items-center justify-between">
+<button class="text-label-sm font-label-sm text-primary hover:underline">Switch to Father's Vault →</button>
+<span class="material-symbols-outlined text-outline text-base" data-icon="family_restroom">family_restroom</span>
+</div>
+</div>
+</div>
+<div class="mt-4 p-3 rounded-lg bg-[#FAF9F6] border border-[#E7E5E0] flex items-center justify-between text-[12px] text-outline">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-[#10B981]" data-icon="lock">lock</span>
+<span><strong>Individual Profile Isolation:</strong> Records are strictly partitioned and require biometric or multi-factor guardian consent before doctor dispatch.</span>
+</div>
+<a class="text-primary hover:underline font-body-sm-medium shrink-0" href="#audit-log">View Access Log</a>
+</div>
+</section>
+<!-- CONSENT & RECORD SHARING + RECENT RX & LABS (SIDE-BY-SIDE) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+<!-- Consent & Medical Sharing Management (6 cols) -->
+<section class="lg:col-span-6 bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="consent">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Active Record Grants &amp; Consents</h2>
+<p class="text-body-sm font-body-sm text-outline">Strict time-bound doctor &amp; lab data access</p>
+</div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+              1 Active Grant
+            </span>
+</div>
+<div class="p-4 rounded-xl border border-[#E7E5E0] bg-[#FAF9F6] space-y-3">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Grantee Physician</span>
+<h3 class="text-body-md-medium font-body-md-medium text-on-surface">Dr. Ananya Sen • CityCare Hospital</h3>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#EAF8F1] text-[#10B981]">Active (7 Days Left)</span>
+</div>
+<div class="text-body-sm font-body-sm space-y-1 text-outline">
+<div><strong class="text-on-surface">Authorized Purpose:</strong> Pre-Consultation Diagnostic Review</div>
+<div><strong class="text-on-surface">Data Scope:</strong> Blood chemistry records (2024) &amp; Active Cardiology Prescriptions</div>
+<div><strong class="text-on-surface">Expires:</strong> Oct 31, 2024 at 23:59 IST (Auto-revoke enabled)</div>
+</div>
+<div class="pt-3 border-t border-[#E7E5E0] flex items-center justify-between">
+<button class="px-3 py-1.5 rounded-lg border border-[#ba1a1a]/30 text-error hover:bg-[#FFFDFD] text-body-sm font-body-sm-medium transition-colors">
+                Revoke Access Immediately
+              </button>
+<button class="text-body-sm font-body-sm text-outline hover:text-on-surface underline">
+                View Audit Trail
+              </button>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between text-body-sm font-body-sm text-outline">
+<span>Granular ABDM / NDHM Token: #TK-849204</span>
+<button class="text-primary hover:underline font-body-sm-medium">+ Create New Doctor Grant</button>
+</div>
+</section>
+<!-- Prescriptions & Diagnostic Reports Stream (6 cols) -->
+<section class="lg:col-span-6 bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="prescriptions">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Digital Prescriptions &amp; Diagnostics</h2>
+<p class="text-body-sm font-body-sm text-outline">Synced pharmacy orders and new lab results</p>
+</div>
+<a class="text-body-sm-medium font-body-sm-medium text-primary hover:underline" href="#lab-reports">
+              View Diagnostic Hub →
+            </a>
+</div>
+<div class="space-y-3">
+<!-- Digital Prescription Item -->
+<div class="p-3.5 rounded-xl border border-[#E7E5E0] hover:border-outline-variant transition-all flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="medication">medication</span>
+</div>
+<div>
+<div class="text-body-sm-medium font-body-sm-medium text-on-surface">Telmisartan 40mg • Atorvastatin 10mg</div>
+<div class="text-[11px] text-outline">Prescribed by Dr. S. K. Roy • Refills: 2 remaining</div>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-white text-label-sm font-label-sm hover:bg-secondary transition-colors">
+                Order Refill
+              </button>
+</div>
+<!-- New Diagnostic Result Item -->
+<div class="p-3.5 rounded-xl border border-[#E7E5E0] hover:border-outline-variant transition-all flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#EAF8F1] text-[#10B981] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="biotechnology">chips</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-body-sm-medium font-body-sm-medium text-on-surface">Lipid Profile &amp; HbA1c Panel</span>
+<span class="px-2 py-0.2 rounded-full text-[10px] font-bold bg-[#FEF8E8] text-[#B88700]">New Result</span>
+</div>
+<div class="text-[11px] text-outline">CityCare Labs • Oct 22 • Fasting Glucose: 104 mg/dL</div>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg border border-[#E7E5E0] text-body-sm font-body-sm text-on-surface hover:bg-[#F1F0EC] transition-colors">
+                View Slip
+              </button>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F1F0EC] flex items-center justify-between text-body-sm font-body-sm text-outline">
+<span>Linked to Apollo Pharmacy &amp; MedPlus Express</span>
+<span class="text-label-sm font-label-sm text-[#10B981]">Delivery to Salt Lake, Sec V</span>
+</div>
+</section>
+</div>
+<!-- PAYMENTS, INSURANCE & FOLLOW-UP REMINDERS (TWO COLUMNS) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+<!-- Payments & Insurance Overview (7 cols) -->
+<section class="lg:col-span-7 bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="payments">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Payments &amp; Health Insurance</h2>
+<p class="text-body-sm font-body-sm text-outline">Active policy coverage and cashless claims telemetry</p>
+</div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EAF8F1] border border-[#10B981]/20 text-[#10B981] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+              Policy Verified
+            </span>
+</div>
+<!-- Insurance Card Component -->
+<div class="p-4 rounded-xl border border-[#E7E5E0] bg-gradient-to-r from-[#F8F7F3] to-[#F1F0EC] mb-4">
+<div class="flex items-start justify-between">
+<div>
+<div class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Primary Insurance Provider</div>
+<div class="text-body-lg font-body-md-medium text-on-surface font-semibold">Star Health Comprehensive Family Floater</div>
+<div class="text-body-sm font-body-sm text-outline mt-0.5">Policy ID: SH-89201-9281 • Sum Insured: ₹15,00,000</div>
+</div>
+<div class="text-right">
+<span class="text-[11px] font-label-sm text-outline">Cashless Status</span>
+<div class="text-body-sm-medium font-body-sm-medium text-[#10B981]">100% Pre-Authorized</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-3 mt-4 pt-3 border-t border-[#E7E5E0]/70 text-body-sm font-body-sm">
+<div>
+<div class="text-[11px] text-outline">Covered Members</div>
+<div class="font-body-sm-medium text-on-surface">3 (Self, Spouse, Father)</div>
+</div>
+<div>
+<div class="text-[11px] text-outline">Cumulative Bonus</div>
+<div class="font-body-sm-medium text-on-surface">₹2,50,000</div>
+</div>
+<div>
+<div class="text-[11px] text-outline">Next Renewal</div>
+<div class="font-body-sm-medium text-on-surface">March 14, 2025</div>
+</div>
+</div>
+</div>
+<!-- Recent Invoices List -->
+<div class="space-y-2">
+<div class="flex items-center justify-between text-body-sm font-body-sm py-1.5 px-2 hover:bg-[#FAF9F6] rounded">
+<span class="text-on-surface">Dr. Ananya Sen Consultation Fee (OPD Advance)</span>
+<div class="flex items-center gap-3">
+<span class="font-body-sm-medium text-on-surface">₹900.00 Paid</span>
+<button class="text-primary hover:underline text-[12px]">Invoice</button>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm py-1.5 px-2 hover:bg-[#FAF9F6] rounded">
+<span class="text-on-surface">CityCare Laboratory Blood Panel #INV-2901</span>
+<div class="flex items-center gap-3">
+<span class="font-body-sm-medium text-on-surface">₹1,850.00 Paid</span>
+<button class="text-primary hover:underline text-[12px]">Invoice</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Follow-up & Reminders (5 cols) -->
+<section class="lg:col-span-5 bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="reminders">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Follow-up &amp; Reminders</h2>
+<p class="text-body-sm font-body-sm text-outline">Action items requiring attention</p>
+</div>
+<span class="w-6 h-6 rounded-full bg-[#FEF8E8] text-[#B88700] flex items-center justify-center text-xs font-bold">
+              3
+            </span>
+</div>
+<div class="space-y-3">
+<!-- Reminder 1 -->
+<div class="p-3 rounded-lg border border-[#E7E5E0] bg-[#FFFDFD] flex items-start gap-3">
+<input class="mt-1 rounded text-primary focus:ring-primary border-[#D1CFCA]" type="checkbox"/>
+<div class="flex-1">
+<div class="text-body-sm-medium font-body-sm-medium text-on-surface">Schedule Fasting Blood Sugar Test</div>
+<div class="text-[11px] text-outline">For Debabrata Das (Father) • Due by Oct 28</div>
+<button class="text-primary text-[12px] font-body-sm-medium mt-1 hover:underline">Book Home Collection →</button>
+</div>
+</div>
+<!-- Reminder 2 -->
+<div class="p-3 rounded-lg border border-[#E7E5E0] bg-white flex items-start gap-3">
+<input class="mt-1 rounded text-primary focus:ring-primary border-[#D1CFCA]" type="checkbox"/>
+<div class="flex-1">
+<div class="text-body-sm-medium font-body-sm-medium text-on-surface">Medication Refill: Atorvastatin 10mg</div>
+<div class="text-[11px] text-outline">Only 4 days dosage remaining in cabinet</div>
+<button class="text-primary text-[12px] font-body-sm-medium mt-1 hover:underline">Reorder Pharmacy →</button>
+</div>
+</div>
+<!-- Reminder 3 -->
+<div class="p-3 rounded-lg border border-[#E7E5E0] bg-white flex items-start gap-3">
+<input class="mt-1 rounded text-primary focus:ring-primary border-[#D1CFCA]" type="checkbox"/>
+<div class="flex-1">
+<div class="text-body-sm-medium font-body-sm-medium text-on-surface">Upload Discharge Summary from Metro Clinic</div>
+<div class="text-[11px] text-outline">Document required to update health risk score</div>
+<button class="text-primary text-[12px] font-body-sm-medium mt-1 hover:underline">Upload Document →</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- CRITICAL EMERGENCY INFORMATION & SUPPORT -->
+<section class="bg-white rounded-xl border border-[#E7E5E0] p-6 shadow-xs" id="emergency">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FDF0EE] border border-[#C94132]/20 text-[#C94132] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#C94132]"></span>
+                Emergency Readiness
+              </span>
+<span class="text-label-sm font-label-sm text-outline">24/7 Rapid Ambulance Network</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Immediate Assistance &amp; Nearest Emergency Trauma Hub</h2>
+<p class="text-body-sm font-body-sm text-outline">
+              Nearest Level-1 Emergency: <strong>CityCare Trauma Pavilion</strong> (2.4 km away • Approx 7 mins response time)
+            </p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white font-body-md-medium text-body-md-medium hover:bg-secondary transition-all shadow-sm" href="tel:108">
+<span class="material-symbols-outlined text-lg" data-icon="call">call</span>
+<span>Emergency Ambulance (108 / 112)</span>
+</a>
+<button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-[#E7E5E0] hover:bg-[#F1F0EC] text-on-surface font-body-md-medium text-body-md-medium transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="contact_phone">contact_phone</span>
+<span>Saved Emergency Contacts (2)</span>
+</button>
+</div>
+</div>
+</section>
+<!-- FOOTER AUDIT & HELP TICKET CTA -->
+<footer class="pt-6 border-t border-[#E7E5E0] flex flex-col md:flex-row items-center justify-between gap-4 text-body-sm font-body-sm text-outline">
+<div class="flex items-center gap-6">
+<span>© 2024 Aegis Care Systems. All Rights Reserved.</span>
+<a class="hover:text-on-surface transition-colors" href="#privacy">Privacy &amp; Security</a>
+<a class="hover:text-on-surface transition-colors" href="#compliance">ABDM / EHR Standards</a>
+<a class="hover:text-on-surface transition-colors" href="#terms">Terms of Service</a>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-sm font-label-sm">Need Help?</span>
+<a class="px-3 py-1.5 rounded-lg border border-[#E7E5E0] bg-white hover:bg-[#F1F0EC] text-on-surface text-body-sm-medium font-body-sm-medium transition-colors" href="#help">
+            Raise Support Ticket
+          </a>
+</div>
+</footer>
+</div>
+</main>
+<!-- MICRO-INTERACTIONS SCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Profile Selector Dropdown logic
+      const profileBtn = document.getElementById('profileSwitcherBtn');
+      if (profileBtn) {
+        profileBtn.addEventListener('click', () => {
+          const names = ['Satyabrata Das (Self)', 'Aparna Das (Spouse)', 'Debabrata Das (Father)'];
+          const currentText = profileBtn.querySelector('.font-body-sm-medium');
+          if (currentText) {
+            const nextIndex = (names.indexOf(currentText.childNodes[0].textContent.trim()) + 1) % names.length;
+            currentText.childNodes[0].textContent = names[nextIndex] + ' ';
+          }
+        });
+      }
+    });
+  </script>
+</body></html>
